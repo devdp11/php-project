@@ -10,18 +10,20 @@ header {
   top: 0;
   width: 100%;
   background-color: #474747;
-  z-index: 999;
 }
 
-.container-sections section {
-  transform: translateY(100px);
-  opacity: 0;
-  transition: transform 0.5s ease, opacity 0.5s ease;
+.container-menu {
+    background-color: #474747;
+    padding: 10px;
 }
 
-.container-sections section.active {
-  transform: translateY(0);
-  opacity: 1;
+.menu {
+    display: flex;
+    align-items: center;
+}
+  
+.menu button {
+    margin-right: 10px;
 }
 
 .menu button {
@@ -36,9 +38,18 @@ header {
   color: #00fffb99;
 }
 
-.container-menu {
-  background-color: #474747;
-  padding: 10px;
+.special-buttons {
+    margin-left: auto; 
+    display: flex;
+    align-items: center;
+}
+  
+.special-buttons button {
+    margin-right: 10px;
+}
+
+.special-buttons button:hover {
+    color: #ff000099;   
 }
 
 .menu-toggle {
@@ -76,19 +87,48 @@ header {
 }
 
 .menu.active button:hover {
-  color: #00fffb99;
+    color: #00fffb99;
 }
 
+.menu.active .special-buttons button {
+    display: none;
+}
+
+.container-section-text {
+    width: 75%;
+    max-width: 800px;
+    margin: 0 auto;
+
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+  
+
 .container-sections {
-  text-align: justify;
-  margin: 5%;
+    text-align: justify;
 }
 
 .container-section-p {
-  text-align: center;
+    text-align: center;
 }
 
 .container-section-p p {
-  font-size: larger;
-  margin: 5%;
+    font-size: larger;
+    margin-top: 150px;
+}
+
+.container-section-text.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.container-logo {
+    position: relative;
+    text-align: center;
+}
+
+.logo {
+    width: 15%;
+    max-width: 420px;
+    margin-top: 50px;
 }
