@@ -1,0 +1,41 @@
+/* ---------  MAIN ----------- */
+
+main {
+  max-width: 800px;
+  padding: 0 32px;
+  margin: 0 auto;
+}
+
+main .section {
+  margin-bottom: 150px;
+}
+
+main .section p {
+  text-align: justify;
+}
+
+main .section > h2 {
+  font-size: larger;
+  text-align: center;
+}
+
+main .section__wrapper {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+main .section__wrapper.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.container-logo {
+  position: relative;
+  text-align: center;
+}
+
+.logo {
+  width: 210px;
+  max-width: 420px;
+  margin-top: 50px;
+}
