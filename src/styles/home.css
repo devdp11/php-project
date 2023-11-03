@@ -16,6 +16,23 @@ main .section:nth-child(2n) {
   padding-bottom: 80px;
 }
 
+.p-20-120 {
+  padding: 20px 120px;
+}
+
+.h-500 {
+  height: 525px;
+  max-height: 525px;
+}
+
+.m-t-100 {
+  margin-top: 100px;
+}
+
+.m-t-10 {
+  margin-top: 10px;
+}
+
 .text-align-justify {
   text-align: justify;
 }
@@ -28,8 +45,24 @@ main .section:nth-child(2n) {
   font-size: 40px;
 }
 
+.fs-12 {
+  font-size: 12px;
+}
+
 .mw-600 {
   max-width: 600px;
+}
+
+.mw-800 {
+  max-width: 800px;
+}
+
+.mw-100p {
+  max-width: 100%;
+}
+
+.h-auto {
+  height: auto;
 }
 
 .animation-text {
@@ -47,22 +80,40 @@ main .section:nth-child(2n) {
   padding: 0 32px;
 }
 
-.img-right-side{
-  position: absolute;
-  bottom: 250px;
-  left: 900px;
+.row {
+  display: flex;
+  flex-wrap: wrap;
 }
 
-.zoom-image {
-  display: block;
-  width: 500px;
+.column {
+  flex: 1;
+  padding: 0 20px; /* Aumente o espaço horizontal entre o texto e a imagem */
 }
 
-@media screen and (min--moz-device-pixel-ratio: 2),
-screen and (-o-min-device-pixel-ratio: 2/1),
-screen and (-webkit-min-device-pixel-ratio: 2),
-screen and (min-resolution: 132dpi) {
-  .zoom-image {
+.text {
+  order: 1; /* Define a ordem das colunas - texto à esquerda */
+}
+
+.image {
+  order: 2;
+}
+
+.container-img {
+  position: relative;
+  max-width: 640px;
+  bottom: 125px;
+}
+
+
+@media screen and (max-width: 748px) {
+  .image,
+  .extra-buttons a {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  .image {
     display: none;
   }
 }

@@ -11,78 +11,125 @@
 
   <body>
     <header class="position-fixed">
-      <div class="container-menu mw-1250px">
+      <div class="container-header mw-1250">
         <div class="menu-toggle" id="menuToggle" onclick="toggleMenu()">
           <span></span>
           <span></span>
           <span></span>
         </div>
-
+    
         <div class="menu display-flex" id="menu">
-          <a class="text-decoration-none m-r-10 position-relative" href="#home">Home</a>
-          <a class="text-decoration-none m-r-10 position-relative" href="#about-us">About us</a>
-          <a class="text-decoration-none m-r-10 position-relative" href="#contacts">Contacts</a>
-
-          <div class="menu-right m-l-auto">
-            <a class="text-decoration-none m-r-10 position-relative" href="/src/pages/login.html">Login</a>
-            <a class="text-decoration-none position-relative" href="#">Register</a>
+          <div class="logo">
+            <img src="/src/assets/logo.png" alt="ExpenseFlowLogo">
+          </div>
+    
+          <div class="menu-right display-flex">
+            <a class="text-decoration-none m-r-20 position-relative" href="#home">Home</a>
+            <a class="text-decoration-none m-r-20 position-relative" href="#about-us">About us</a>
+            <a class="text-decoration-none m-r-20 position-relative" style="margin-right: 50px;" href="#contacts">Contacts</a>
+            <div class="extra-buttons">
+              <a class="text-decoration-none m-r-20 position-relative" href="/src/pages/login.html">Login</a>
+              <a class="text-decoration-none position-relative" href="#">Register</a>
+            </div>
           </div>
         </div>
       </div>
     </header>
+    
     <!-- temos que melhorar a organização das divs e isso. fazer divs mais gerais -->
     <main>
       <section id="hero-stage">
       </section>
   
       <section id="home" class="section pt-140 pb-80">
-        <div class="container mw-1250px">
-          <div class="section__wrapper animation-text text-align-justify">
-            <div class="fs-40">
-              <h3>Expense management software</h3>
+        <div class="container mw-1250 h-500">
+          <div class="section__wrapper animation-text m-t-10">
+            <div class="row">
+              <div class="column text">
+                <div class="fs-40">
+                  <h3>Expense management software</h3>
+                </div>
+                <div class="mw-600 text-align-justify">
+                  <p>
+                    Simplify your expense tracking and financial management with our user-friendly software. 
+                    Monitor real-time employee expenses, streamline budget management, 
+                    and automate the approval and reimbursement process. 
+                    Say goodbye to administrative hassles and hello to efficient expense management.
+                  </p>
+                </div>
+              </div>
+              <div class="column image pb-120">
+                <div class="h-auto mw-100p">
+                  <img src="/src/assets/home.png" alt="expense-home" class="zoom-image">
+                </div>
+              </div>
             </div>
-            <div class="mw-600">
-              <p>Simplify your expense tracking and financial management with our user-friendly software. Monitor real-time employee expenses, streamline budget management, and automate the approval and reimbursement process. Say goodbye to administrative hassles and hello to efficient expense management.</p>
-            </div>
-            <div class="img-right-side">
-              <img src="/src/assets/home.png" alt="expense-home" class="zoom-image">
+          </div>
+        </div>
+
+
+      </section>
+
+      <section id="wallet" class="section pt-140 pb-80">
+        <div class="container mw-1250 h-500">
+          <div class="section__wrapper animation-text m-t-10">
+            <div class="row">
+              <div class="column text" style="order: 2;">
+                <div class="fs-40">
+                  <h3>Do you want your wallet to be sad?</h3>
+                </div>
+                <div class="mw-600 text-align-justify">
+                  <p>
+                    Join us now and let's turn those tears into smiles with our money-saving tips. 
+                    Our powerful expense management app is here to help you take control of your finances, 
+                    so you can live life to the fullest without worrying about your wallet. 
+                    Say goodbye to financial stress and hello to financial freedom! 
+                    Start your journey to a brighter financial future with us today.
+                  </p>
+                </div>
+              </div>
+              <div class="column image" style="order: 1;">
+                <div class="h-auto mw-100p">
+                  <img src="/src/assets/wallet.png" alt="expense-home" class="container-img">
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
-
-      <section id="home" class="section pt-20 pb-80">
-        <div class="container mw-1250px">
-          <div class="fs-40 text-align-center">
-            <h2>Our Information</h2>
-          </div> 
-          <div class="section__wrapper animation-text text-align-justify">
-            <div class="fs-40">
-              <h3>Expense management software</h3>
+      
+      <section id="about-us" class="section pt-140 pb-80">
+        <div class="container mw-1250 h-500">
+          <div class="section__wrapper animation-text m-t-10">
+            <div class="row">
+              <div class="column text">
+                <div class="fs-40">
+                  <h3>About Us</h3>
+                </div>
+                <div class="mw-600 text-align-justify">
+                  <p>
+                    Simplify your expense tracking and financial management with our user-friendly software. 
+                    Monitor real-time employee expenses, streamline budget management, 
+                    and automate the approval and reimbursement process. 
+                    Say goodbye to administrative hassles and hello to efficient expense management.
+                  </p>
+                </div>
+              </div>
+              <div class="column image">
+                <div class="h-auto mw-100p">
+                  <img src="/src/assets/about-us.png" alt="expense-home" class="zoom-image">
+                </div>
+              </div>
             </div>
-            <div class="mw-600">
-              <p>Choose expense management software that shows you employee expenses in real time. Monitor team budgets, track requests and approvals, reimburse expenses, and eliminate admin.</p>
-            </div>
-            <div class="img-right-side">
-<!--               <img src="/src/assets/about-us.png" alt="expense-about-us">
- -->            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="home" class="section pt-20 pb-80">
-        <div class="container mw-1250px">
-            <div class="fs-40 text-align-center">
-              <h2>Contacts</h2>
-            </div> 
-          
-            <div class="section__wrapper animation-text text-align-justify">
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
           </div>
         </div>
       </section>
     </main>
 
+    <footer style="background-color: white;">
+      <div class="p-20-120 text-align-justify fs-12 mw-800">
+        Expense Flow is a registered trademark and the circles design is a trademark of Mastercard International Incorporated. The Spendesk prepaid and debit cards are issued by Transact Payments Limited and Transact Payment Malta Limited pursuant to license by Mastercard International Incorporated. Spendesk payment accounts are opened by Transact Payments Limited, Transact Payments Malta Limited and Okali. Transact Payments Limited and Transact Payment Malta Limited are licensed by the GFSC and the MFSA respectively as Electronic Money Institutions. Okali is a French Electronic Money Institution licensed by the Autorité de Contrôle Prudentiel et de Résolution (ACPR) (17448).
+      </div>
+    </footer>
 </body>
 </html>
