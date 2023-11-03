@@ -16,13 +16,13 @@ main .section:nth-child(2n) {
   padding-bottom: 80px;
 }
 
-.p-20-120 {
-  padding: 20px 120px;
+.p-20 {
+  padding: 20px 0;
 }
 
-.h-500 {
-  height: 525px;
-  max-height: 525px;
+.h-550 {
+  height: 550px;
+  max-height: 550px;
 }
 
 .m-t-100 {
@@ -115,5 +115,11 @@ main .section:nth-child(2n) {
 @media screen and (max-width: 1280px) {
   .image {
     display: none;
+  }
+}
+
+@media screen and (max-width: 300px) {
+  .me-w {
+    max-width: 1200px;
   }
 }

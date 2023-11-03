@@ -11,38 +11,34 @@
 
   <body>
     <header class="position-fixed">
-      <div class="container-header mw-1250">
+      <div class="container mw-1250">
         <div class="menu-toggle" id="menuToggle" onclick="toggleMenu()">
           <span></span>
           <span></span>
           <span></span>
         </div>
     
-        <div class="menu display-flex" id="menu">
+        <div class="container display-flex" id="menu">
           <div class="logo">
             <img src="/src/assets/logo.png" alt="ExpenseFlowLogo">
           </div>
-    
-          <div class="menu-right display-flex">
-            <a class="text-decoration-none m-r-20 position-relative" href="#home">Home</a>
-            <a class="text-decoration-none m-r-20 position-relative" href="#about-us">About us</a>
-            <a class="text-decoration-none m-r-20 position-relative" style="margin-right: 50px;" href="#contacts">Contacts</a>
-            <div class="extra-buttons">
-              <a class="text-decoration-none m-r-20 position-relative" href="/src/pages/login.html">Login</a>
-              <a class="text-decoration-none position-relative" href="#">Register</a>
-            </div>
+          <a class="text-decoration-none position-relative" href="#home">Home</a>
+          <a class="text-decoration-none position-relative" href="#about-us">About us</a>
+          <a class="text-decoration-none position-relative" href="#contacts">Contacts</a>
+          <div class="container-extra">
+            <a class="text-decoration-none m-r-20 position-relative" href="/src/pages/login.html">Login</a>
+            <a class="text-decoration-none position-relative" href="#">Register</a>
           </div>
         </div>
       </div>
     </header>
     
-    <!-- temos que melhorar a organização das divs e isso. fazer divs mais gerais -->
     <main>
       <section id="hero-stage">
       </section>
   
       <section id="home" class="section pt-140 pb-80">
-        <div class="container mw-1250 h-500">
+        <div class="container mw-1250 h-550">
           <div class="section__wrapper animation-text m-t-10">
             <div class="row">
               <div class="column text">
@@ -66,12 +62,10 @@
             </div>
           </div>
         </div>
-
-
       </section>
 
       <section id="wallet" class="section pt-140 pb-80">
-        <div class="container mw-1250 h-500">
+        <div class="container mw-1250 h-550">
           <div class="section__wrapper animation-text m-t-10">
             <div class="row">
               <div class="column text" style="order: 2;">
@@ -99,7 +93,7 @@
       </section>
       
       <section id="about-us" class="section pt-140 pb-80">
-        <div class="container mw-1250 h-500">
+        <div class="container mw-1250 h-550">
           <div class="section__wrapper animation-text m-t-10">
             <div class="row">
               <div class="column text">
@@ -126,10 +120,15 @@
       </section>
     </main>
 
-    <footer style="background-color: white;">
-      <div class="p-20-120 text-align-justify fs-12 mw-800">
-        Expense Flow is a registered trademark and the circles design is a trademark of Mastercard International Incorporated. The Spendesk prepaid and debit cards are issued by Transact Payments Limited and Transact Payment Malta Limited pursuant to license by Mastercard International Incorporated. Spendesk payment accounts are opened by Transact Payments Limited, Transact Payments Malta Limited and Okali. Transact Payments Limited and Transact Payment Malta Limited are licensed by the GFSC and the MFSA respectively as Electronic Money Institutions. Okali is a French Electronic Money Institution licensed by the Autorité de Contrôle Prudentiel et de Résolution (ACPR) (17448).
+    <footer class="container mw-1250">
+      <div class="p-20 text-align-justify fs-12">
+        <p>&copy; 2023 Expense Flow</p>
+        <p>"Expense Flow is the leading expense management solution that simplifies financial control for businesses of all sizes. 
+          With an intuitive interface and advanced features, Expense Flow allows you to effortlessly track and manage your expenses, 
+          saving you time and money. 
+          Transform your corporate finances with Expense Flow and streamline your company's expense workflow.</p>
       </div>
     </footer>
+    
 </body>
 </html>

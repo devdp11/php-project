@@ -20,10 +20,3 @@ window.addEventListener("resize", function () {
     menuToggle.classList.remove("active");
   }
 });
-
-/* document.querySelectorAll(".menu button").forEach((button) => {
-  button.addEventListener("click", (e) => {
-      e.preventDefault();
-      smoothScroll(button.getAttribute("onclick").split("'")[1]);
-  });
-}); */
