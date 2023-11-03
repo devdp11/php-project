@@ -27,25 +27,21 @@ function animateOnScroll() {
   });
 }
 
-
-function scrollHandler() {
-  animateOnScroll();
-}
-
 function smoothScroll(target) {
   const element = document.querySelector(target);
   if (element) {
-  const offset = 50;
-  window.scrollTo({
+    const offset = 50;
+    window.scrollTo({
       behavior: "smooth",
       top: element.offsetTop - offset,
-  });
+    });
 
-  setTimeout(function () {
+    setTimeout(function () {
       element.classList.add("active");
-  }, 500);
+    }, 500);
   }
 }
 
-window.addEventListener("scroll", scrollHandler);
+
+window.addEventListener("scroll", animateOnScroll);
 window.addEventListener("load", scrollHandler);

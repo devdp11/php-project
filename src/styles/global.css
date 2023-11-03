@@ -1,53 +1,65 @@
 body {
   margin: 0;
-  font-family: serif;
+  font-family: sans-serif;
   background-color: #f0f0f0;
-  padding-top: 60px;
 }
 
 header {
-  position: fixed;
   top: 0;
   width: 100%;
-  background-color: #474747;
+  background-color: #ffffff;
+  z-index: 999;
 }
 
 .container-menu {
-  padding: 10px;
+  margin: 0 auto;
+  padding: 20px 32px;
 }
 
 .menu {
-  display: flex;
   align-items: center;
+  gap: 8px;
 }
 
 .menu a {
-  background: none;
-  border: none;
-  color: #fff;
-  margin: 0 10px;
-  cursor: pointer;
-
-  margin-right: 10px;
-  text-decoration: none;
+  color: black;
+  font-size: 20px;
 }
 
-.menu a:hover {
-  color: #00fffb99;
+.mw-1250px {
+  max-width: 1250px;  
 }
 
-.menu-right {
+.m-r-10 {
+  margin: 0 10px 0 0 ;
+}
+
+.m-l-auto {
   margin-left: auto;
+}
+
+.display-flex {
   display: flex;
-  align-items: center;
 }
 
-.menu-right a {
-  margin-right: 10px;
+.display-block {
+  display: block;
 }
 
-.menu-right a:hover {
-  color: #ff000099;
+.position-relative {
+  position: relative
+}
+
+.position-absolute {
+  position: absolute
+}
+
+.position-fixed {
+  position: fixed
+}
+
+.text-decoration-none {
+  text-decoration: none;
 }
 
 .menu-toggle {
@@ -67,7 +79,7 @@ header {
 }
 
 .menu-toggle span {
-  background-color: #ffffff;
+  background-color: #000000;
   height: 3px;
   width: 25px;
   display: block;
@@ -79,12 +91,12 @@ header {
   flex-direction: column;
 }
 
-.menu.active button {
+.menu.active a {
   margin: 10px 0;
   left: 0;
 }
 
-.menu.active button:hover {
+.menu.active a:hover {
   color: #00fffb99;
 }
 
