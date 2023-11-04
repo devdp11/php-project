@@ -4,6 +4,11 @@ main .section:nth-child(2n) {
   background-color: rgb(255, 255, 255);
 }
 
+footer .container {
+  margin: 0 auto;
+  padding: 5px 32px;
+}
+
 .pt-140 {
   padding-top: 140px
 }
@@ -114,61 +119,5 @@ section .container {
 @media screen and (max-width: 1280px) {
   .image {
     display: none;
-  }
-}
-
-.footer-area{
-  background-color: #f6f9fc;
-  padding-top: 100px;
-  position: relative;
-  z-index: 1;
-}
-@media (min-width: 992px){
-  .col-lg-3 {
-    flex: 0 0 auto;
-    width: 25%;
-  }
-} 
-
-@media (min-width: 576px){
-  .col-sm-6 {
-    flex: 0 0 auto;
-    width: 50%;
-  }
-}
-
-.row {
-  --bs-gutter-x: 1.5rem;
-  --bs-gutter-y: 0;
-  display: flex;
-  flex-wrap: wrap;
-  margin-top: calc(-1 * var(--bs-gutter-y));
-  margin-right: calc(-.5 * var(--bs-gutter-x));
-  margin-left: calc(-.5 * var(--bs-gutter-x));
-}
-
-.justify-content-center {
-  justify-content: center!important;
-}
-
-.single-footer-widget .logo {
-  margin-bottom: 20px;
-}
-
-.copyright-area {
-  background-color: #000;
-  text-align: center;
-  padding: 30px 0;
-  color: white;
-}
-
-.copyright-area p {
-  color: #fff;
-  font-size: 15px;
-}
-
-@media (min-width: 992px){
-  .container, .container-lg, .container-md, .container-sm {
-    max-width: 960px;
   }
 }
