@@ -1,4 +1,4 @@
-function isElementInViewport(element) {
+/* function isElementInViewport(element) {
   const rect = element.getBoundingClientRect();
   return (
   rect.top >= 0 &&
@@ -45,3 +45,4 @@ function smoothScroll(target) {
 
 window.addEventListener("scroll", animateOnScroll);
 window.addEventListener("load", scrollHandler);
+ */

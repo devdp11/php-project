@@ -4,6 +4,11 @@ main .section:nth-child(2n) {
   background-color: rgb(255, 255, 255);
 }
 
+footer .container {
+  margin: 0 auto;
+  padding: 5px 32px;
+}
+
 .pt-140 {
   padding-top: 140px
 }
@@ -65,7 +70,7 @@ main .section:nth-child(2n) {
   height: auto;
 }
 
-.animation-text {
+/* .animation-text {
   opacity: 0;
   transition: opacity 0.5s ease;
 }
@@ -73,9 +78,9 @@ main .section:nth-child(2n) {
 .animation-text.active {
   opacity: 1;
   transform: translateY(0);
-}
+} */
 
-.container {
+section .container {
   margin: 0 auto;
   padding: 0 32px;
 }
@@ -105,9 +110,8 @@ main .section:nth-child(2n) {
 }
 
 
-@media screen and (max-width: 748px) {
-  .image,
-  .extra-buttons a {
+@media screen and (max-width: 788px) {
+  .container-extra a {
     display: none;
   }
 }
@@ -115,11 +119,5 @@ main .section:nth-child(2n) {
 @media screen and (max-width: 1280px) {
   .image {
     display: none;
-  }
-}
-
-@media screen and (max-width: 300px) {
-  .me-w {
-    max-width: 1200px;
   }
 }
