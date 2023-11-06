@@ -1,0 +1,174 @@
+/* HEADER */
+
+header {
+    top: 0;
+    width: 100%;
+    background-color: #ffffff;
+    z-index: 999;
+}
+
+header .container:nth-child(1) {
+    margin: 0 auto;
+    padding: 0 32px;
+}
+
+header .container .container > a {
+    color: black;
+}
+
+header .container .container > a:hover {
+    color: blueviolet;
+    text-decoration: underline 2px;
+    text-underline-offset: 5px;
+}
+
+header .container-extra > a:nth-child(1) {
+    border: 2px solid blueviolet;
+    color: blueviolet;
+  
+    padding: 5px 10px;
+    border-radius: 25px;
+    padding: 6px 26px;
+}
+
+header .container-extra > a:nth-child(1):hover {
+    background-color: blueviolet;
+    color: white;
+}
+
+header .container-extra > a:nth-child(2) {
+    border: 2px solid blueviolet;
+    background-color: blueviolet;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 25px;
+    padding: 6px 26px;
+}
+
+header .container-extra > a:nth-child(2):hover {
+    background-color: white;
+    color: blueviolet;
+}
+
+a > img {
+    max-height: 100px;
+}
+
+div > a {
+    font-size: 20px;
+}
+
+/* MAIN */
+
+
+/* FOOTER */
+
+footer{
+    background-color: #111;
+}
+
+footer .container:nth-child(1){
+    padding-top: 30px;
+}
+
+footer .container .container > a{
+    padding: 10px;
+    background-color: white;
+    margin: 10px;
+    border-radius: 50%;
+}
+
+footer .container .container a > i{
+    font-size: 2em;
+    color: #111;
+    opacity: 0.9;
+}
+
+footer .container .container:nth-child(2){
+    margin: 30px 0;
+    max-width: 100%;
+}
+
+footer .container .container > ul{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    list-style-type: none;
+    padding: 0;
+}
+
+footer .container .container ul li > a{
+    color: white;
+    margin: 20px;
+    text-decoration: none;
+    font-size: 1.3em;
+    opacity: 0.7;
+    transition: 0.5s;
+}
+
+footer .container .container ul li > a:hover{
+    opacity: 1;
+}
+
+
+footer .container:nth-child(2){
+    padding: 20px;
+    background-color: #111;
+}
+
+footer .container > p{
+    color: white;
+}
+
+/* MEDIA */
+
+
+
+/* CLASSES */
+
+.position-fixed {
+    position: fixed;
+}
+
+.position-relative {
+    position: relative;
+}
+
+.position-absolute {
+    position: absolute;
+}
+
+.justify-content-space-between {
+    justify-content: space-between;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.display-flex {
+    display: flex;
+}
+
+.width-100 {
+    width: 100%;
+}
+
+.max-width-1250 {
+    max-width: 1250px;
+}
+
+.text-align-center {
+    text-align: center;
+}
+
+.justify-content-center {
+    justify-content: center;
+}
+
+.text-decoration-none {
+    text-decoration: none;
+}
+
+
+

@@ -1,0 +1,194 @@
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Expense Flow</title>
+
+  <script src="/src/scripts/global.js"></script>
+  <script src="/src/scripts/home.js"></script>
+  <link rel="stylesheet" href="/src/styles/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+  <header class="position-fixed">
+    
+    <div class="container max-width-1250">
+      <div class="menu-toggle" id="menuToggle" onclick="toggleMenu()">
+        <span></span>
+        <span></span> 
+        <span></span>
+      </div>
+  
+      <div class="container display-flex justify-content-space-between align-items-center" id="menu">
+        
+        <a href="#home"><img src="/src/assets/logo.png" alt="ExpenseFlowLogo"></a>
+        
+        <a class="text-decoration-none position-relative" href="#home">Home</a>
+        <a class="text-decoration-none position-relative" href="#about-us">About us</a>
+        <a class="text-decoration-none position-relative" href="#workdy">Work Dynamics</a>
+        <a class="text-decoration-none position-relative" href="#contacts">Contacts</a>
+        
+        <div class="container-extra">
+          <a class="text-decoration-none m-r-20 position-relative" href="/src/pages/login.html">Login</a>
+          <a class="text-decoration-none position-relative" href="#">Register</a>
+        </div>
+      </div>
+    </div>
+  </header>
+  
+  <main>
+    <section id="hero-stage">
+    </section>
+
+    <section id="home" class="section pt-140 pb-80">
+      <div class="container mw-1250 h-550">
+        <div class="section__wrapper animation-text m-t-10">
+          <div class="row">
+            <div class="column text">
+              <div class="fs-40">
+                <h3>Expense management software</h3>
+              </div>
+              <div class="mw-600 text-align-justify">
+                <p>
+                  Simplify your expense tracking and financial management with our user-friendly software. 
+                  Monitor real-time employee expenses, streamline budget management, 
+                  and automate the approval and reimbursement process. 
+                  Say goodbye to administrative hassles and hello to efficient expense management.
+                </p>
+              </div>
+            </div>
+            <div class="column image pb-120">
+              <div class="h-auto mw-100p">
+                <img src="/src/assets/home.png" alt="expense-home">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="wallet" class="section pt-140 pb-80">
+      <div class="container mw-1250 h-550">
+        <div class="section__wrapper animation-text m-t-10">
+          <div class="row">
+            <div class="column text" style="order: 2;">
+              <div class="fs-40">
+                <h3>Do you want your wallet to be sad?</h3>
+              </div>
+              <div class="mw-600 text-align-justify">
+                <p>
+                  Join us now and let's turn those tears into smiles with our money-saving tips. 
+                  Our powerful expense management app is here to help you take control of your finances, 
+                  so you can live life to the fullest without worrying about your wallet. 
+                  Say goodbye to financial stress and hello to financial freedom! 
+                  <h4 style="color: blueviolet;">Start your journey to a brighter financial future with us today.</h4>
+                </p>
+              </div>
+            </div>
+            <div class="column image" style="order: 1;">
+              <div class="h-auto mw-100p">
+                <img src="/src/assets/wallet.png" alt="expense-wallet" class="container-img">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="workdy" class="section pt-140 pb-80">
+      <div class="container mw-1250 h-550">
+        <div class="section__wrapper animation-text m-t-10">
+          <div class="row">
+            <div class="column text">
+              <div class="fs-40">
+                <h3>Work Dynamics</h3>
+              </div>
+              <div class="mw-600 text-align-justify">
+                <p> 
+                  <h4 style="color: blueviolet;">Start your journey to a brighter financial future with us today.</h4>
+                </p>
+              </div>
+            </div>
+            <div class="column image">
+              <div class="h-auto mw-100p">
+                <img src="/src/assets/logo.png" alt="expense-wallet" class="container-img">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about-us" class="section pt-140 pb-80">
+      <div class="container mw-1250 h-550">
+        <div class="section__wrapper animation-text m-t-10">
+          <div class="row">
+            <div class="column text" style="order: 2;">
+              <div class="fs-40">
+                <h3>About Us</h3>
+              </div>
+              <div class="mw-600 text-align-justify">
+                <p>
+                  Our mission is to empower you to take control of your finances and achieve your financial goals.
+                </p>
+              </div>
+            </div>
+            <div class="column image" style="order: 1;">
+              <div class="h-auto mw-100p">
+                <img src="/src/assets/about-us.png" alt="expense-about-us">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contacts" class="section pt-140 pb-80">
+      <div class="container mw-1250 h-550">
+        <div class="section__wrapper animation-text m-t-10">
+          <div class="row">
+            <div class="column text" style="order: 1;">
+              <div class="fs-40">
+                <h3>Contacts</h3>
+              </div>
+              <div class="mw-600 text-align-justify">
+                <p>
+                  You  can contact us anytime, by using any off the contacts down below. The time response is extremely fast, so you can ask anything if your insecure about our software.
+                </p>
+              </div>
+            </div>
+            <div class="column image" style="order: 2;">
+              <div class="h-auto mw-100p">
+                <img src="/src/assets/contacts.png" alt="expense-contacts" class="container-img" style="margin-top: 100px;">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="container display-flex justify-content-center text-decororation-none">
+        <a><i class="fa-brands fa-facebook"></i></a>
+        <a href="https://github.com/diogoPinheiro11/php-project"><i class="fa-brands fa-github"></i></a>
+        <a><i class="fa-brands fa-instagram"></i></a>
+        <a ><i class="fa-brands fa-twitter"></i></a>
+      </div>
+      <div class="container">
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about-us">About us</a></li>
+          <li><a href="#workdy">Work Dynamics</a></li>
+          <li><a href="#contacts">Contacts</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="container text-align-center">
+      <p>&copy; 2023 Expense Flow</p>
+      <p>All rights reserved. The 'Expense Flow' name and logo are trademarks of Expense Flow, Inc.</p>
+    </div>
+  </footer>
+</body>
+</html>
