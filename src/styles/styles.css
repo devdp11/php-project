@@ -187,9 +187,13 @@ footer .container > p{
 
 /* MEDIA */
 
-@media (max-width: 700px) {
+@media (max-width: 850px) {
     header .container:nth-child(2) {
-      display: none;
+        display: none;
+    }
+
+    header .container-extra a {
+        display: none;
     }
   
     .menu-toggle {
@@ -211,11 +215,11 @@ footer .container > p{
     margin: 5px;
   }
 
-  @media screen and (max-width: 900px) {
+  /* @media screen and (max-width: 900px) {
     .container-extra a {
       display: none;
     }
-  }
+  } */
 
 /* CLASSES */
 
@@ -283,4 +287,3 @@ footer .container > p{
 .margin-top-10 {
     margin-top: 10px;
 }
-
