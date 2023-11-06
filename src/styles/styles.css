@@ -1,3 +1,9 @@
+/* BODY */
+
+body {
+    margin: 0;
+}
+
 /* HEADER */
 
 header {
@@ -84,6 +90,16 @@ footer .container .container a > i{
     opacity: 0.9;
 }
 
+footer .container .container a:hover{
+    background-color: #111;
+    transition: 0.5s;
+}
+
+footer .container .container a:hover > i{
+    color: white;
+    transition: 0.5s;
+}
+
 footer .container .container:nth-child(2){
     margin: 30px 0;
     max-width: 100%;
@@ -146,10 +162,6 @@ footer .container > p{
 
 .display-flex {
     display: flex;
-}
-
-.width-100 {
-    width: 100%;
 }
 
 .max-width-1250 {
