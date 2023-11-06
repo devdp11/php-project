@@ -164,11 +164,6 @@ main .section:nth-child(2n) {
   background-color: rgb(255, 255, 255);
 }
 
-footer .container {
-  margin: 0 auto;
-  padding: 5px 32px;
-}
-
 .pt-140 {
   padding-top: 140px
 }
@@ -252,11 +247,11 @@ section .container {
 
 .column {
   flex: 1;
-  padding: 0 20px; /* Aumente o espaço horizontal entre o texto e a imagem */
+  padding: 0 20px;
 }
 
 .text {
-  order: 1; /* Define a ordem das colunas - texto à esquerda */
+  order: 1;
 }
 
 .image {
@@ -285,6 +280,11 @@ section .container {
 /* FOOTER*/
 footer{
   background-color: #111;
+}
+
+footer .container {
+  margin: 0 auto;
+  padding: 5px 32px;
 }
 
 .footerContainer{
