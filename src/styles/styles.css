@@ -83,9 +83,13 @@ header .container-extra.active {
     display: none;
 }
 
-.height-auto > img {
-    display: none;
+header .container .container.active > a {
+    margin-bottom: 10px;
 }
+
+/* .height-auto > img {
+    display: none;
+} */
 
 /* MAIN */
 
@@ -215,20 +219,10 @@ footer .container > p{
     margin: 5px;
   }
 
-  /* @media screen and (max-width: 900px) {
-    .container-extra a {
-      display: none;
-    }
-  } */
-
 /* CLASSES */
 
 .position-fixed {
     position: fixed;
-}
-
-.position-relative {
-    position: relative;
 }
 
 .justify-content-space-between {
