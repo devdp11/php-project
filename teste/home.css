@@ -27,7 +27,6 @@ header .container a {
   font-size: 20px;
 }
 
-
 /* generalized css class */
 
 .logo img {
@@ -282,10 +281,10 @@ footer{
   background-color: #111;
 }
 
-footer .container {
+/* footer .container {
   margin: 0 auto;
   padding: 5px 32px;
-}
+} */
 
 .footerContainer{
   width: 100%;
@@ -359,10 +358,10 @@ footer .container {
 }
 
 @media (max-width: 700px){
-  .footerNav ul{
+  footer .container ul{
     flex-direction: column;
   }
-  .footerNav ul li{
+  footer .container ul li{
     width: 100%;
     text-align: center;
     margin: 10px 0;
