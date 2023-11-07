@@ -118,7 +118,7 @@ main .column {
 
 .height-auto > .container {
     position: relative;
-    max-width: 640px;
+    max-width: 100%;
     bottom: 125px;
 }
 
@@ -201,23 +201,47 @@ footer .container > p{
     }
   
     .menu-toggle {
-      display: block;
-      border: 2px solid blueviolet;
-      padding-right: 5px;
-      cursor: pointer;
-      max-width: 30px;
-      margin-top: 10px;
-      margin-bottom: 10px;
+        display: block;
+        border: 2px solid blueviolet;
+        padding-right: 5px;
+        cursor: pointer;
+        max-width: 30px;
+        margin-top: 10px;
+        margin-bottom: 10px;
     }
-  }
+}
   
-  .menu-toggle span {
+.menu-toggle span {
     background-color: #000000;
     height: 3px;
     width: 25px;
     display: block;
     margin: 5px;
-  }
+}
+
+@media (max-width: 300px) {
+    section {
+      height: 700px;
+    }
+  
+    main .column.text {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+  
+    main .column.image {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    main .column.image img {
+      max-width: 100%;
+      height: auto;
+    }
+}
 
 /* CLASSES */
 
