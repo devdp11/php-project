@@ -106,9 +106,9 @@ main .column {
     bottom: 125px;
 }
 
-.height-auto > img {
+/* .height-auto > img {
     display: none;
-}
+} */
 
 /* FOOTER */
 
@@ -128,19 +128,19 @@ footer p {
     border-radius: 50%;
 }
 
+.socialIcons a:hover {
+    background-color: black!important;
+    transition-duration: 1s;
+}
+
 .socialIcons a i {
     font-size: 2em;
     color: #111;
     opacity: 0.9;
 }
 
-.socialIcons a:hover {
-    background-color: black;
-    transition-duration: 1s;
-}
-
 .socialIcons a:hover i {
-    color: white;
+    color: white!important;
     transition-duration: 1s;
 }
 
@@ -175,7 +175,7 @@ footer p {
     .menu-toggle button:hover {
         color: blueviolet;
         background-color: white;
-        transition-duration: 2.5s;
+        transition: 1s;
     }
     
     .container-extra {
@@ -249,7 +249,9 @@ li > a {
 }
 
 li > a:hover {
+    color: blueviolet;
     opacity: 1;
+    transition-duration: 1s;
 }
 
 /* CLASSES */
