@@ -83,12 +83,6 @@ header .Navbar-area:nth-child(2).active img {
   display: none;
 }
 
-/* QUANDO O MENU ABRE, OS BOTÕES DE LOGIN E REGISTER DESAPARECEM */
-
-header .Navbar-area .container.active > a {
-  margin-bottom: 10px;
-}
-
 /* MAIN */
 
 main .section:nth-child(2n) {
@@ -105,11 +99,6 @@ main .row {
   flex-wrap: wrap;
 }
 
-main .column {
-  flex: 1;
-  padding: 0 20px;
-}
-
 /* WORK DYNAMICS */
 
 .item_tit {
@@ -123,6 +112,15 @@ main .column {
     color: var(--text-primary);
     opacity: .8;
 }
+
+.box-wk {
+  padding: 50px 25px; 
+  height: 400px;
+}
+
+.section__wrapper > h3 {
+  padding-bottom: 50px; 
+} 
 
 /* FOOTER */
 
@@ -208,30 +206,6 @@ footer p {
     align-items: center;
   }
 }
-
-/* @media (max-width: 300px) {
-    section {
-      height: 700px;
-    }
-  
-    main .column.text {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
-  
-    main .column.image {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-  
-    main .column.image img {
-      max-width: 100%;
-      height: auto;
-    }
-} */
 
 @media (max-width: 700px) {
   .Navfooter ul {
@@ -324,8 +298,8 @@ li > a:not(:hover) {
 }
 
 .padding-140-80 {
-  padding-top: 140px;
-  padding-bottom: 80px;
+  padding-top: 100px;
+  padding-bottom: 120px;
 }
 
 .padding-30-80 {
@@ -336,5 +310,3 @@ li > a:not(:hover) {
 .margin-top-10 {
   margin-top: 10px;
 }
-
-
