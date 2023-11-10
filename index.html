@@ -11,11 +11,9 @@
 </head>
 
 <body>
-
-  
   <header class="position-fixed">
-    
-    <div class="container max-width-1250">
+    <div class="Navheader max-width-1250">
+      
       <div class="menu-toggle" id="menuToggle" onclick="toggleMenu()">
         <button type="button" class="btn">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
@@ -24,7 +22,7 @@
         </button>
       </div>
   
-      <div class="container display-flex justify-content-space-between align-items-center" id="menu">
+      <div class="Navbar-area display-flex justify-content-space-between align-items-center" id="menu">
         
         <a href="#home"><img src="/src/assets/logo.png" alt="ExpenseFlowLogo"></a>
         
@@ -33,11 +31,11 @@
         <a class="text-decoration-none position-relative" href="#about-us">About us</a>
         <a class="text-decoration-none position-relative" href="#contacts">Contacts</a>
         
-        <div class="container-extra">
+        <div class="btn">
           <a class="text-decoration-none m-r-20 position-relative" href="#">Login</a>
           <a class="text-decoration-none position-relative" href="#">Register</a>
         </div>
-      </div>
+      </div> 
     </div>
   </header>
   
@@ -60,8 +58,8 @@
               </div>
             </div>
             <div class="col image">
-              <div class="height-auto max-width-100">
-                <img src="/src/assets/home.png" alt="expense-home">
+              <div class="h-auto w-100">
+                <img src="/src/assets/home.png" alt="expense-home" class="object-fit-cover w-100">
               </div>
             </div>
           </div>
@@ -88,8 +86,8 @@
               </div>
             </div>
             <div class="col image">
-              <div class="height-auto max-width-100">
-                <img src="/src/assets/wallet.png" alt="expense-wallet" class="container">
+              <div class="h-auto w-100">
+                <img src="/src/assets/wallet.png" alt="expense-wallet" class="object-fit-cover w-100">
               </div>
             </div>
           </div>
@@ -112,7 +110,8 @@
               </div>
             </div>
             <div class="col image">
-              <div class="height-auto max-width-100">
+              <div class="h-auto w-100">
+              
               </div>
             </div>
           </div>
@@ -135,8 +134,8 @@
               </div>
             </div>
             <div class="col image">
-              <div class="height-auto max-width-100">
-                <img src="/src/assets/about-us.png" alt="expense-about-us">
+              <div class="h-auto w-100">
+                <img src="/src/assets/about-us.png" alt="expense-about-us" class="object-fit-cover w-100">
               </div>
             </div>
           </div>
@@ -159,8 +158,8 @@
               </div>
             </div>
             <div class="col image">
-              <div class="height-auto max-width-100">
-                <img src="/src/assets/contacts.png" alt="expense-contacts" class="container" style="margin-top: 100px;">
+              <div class="h-auto w-100">
+                <img src="/src/assets/contacts.png" alt="expense-contacts" class="object-fit-cover w-100">
               </div>
             </div>
           </div>
@@ -171,7 +170,7 @@
   </main>
 
   <footer>
-    <div class="footerNav">
+    <div class="Navfooter">
       <div class="socialIcons display-flex justify-content-center">
         <a href=""><i class="fa-brands fa-facebook"></i></a>
         <a href="https://github.com/diogoPinheiro11/php-project"><i class="fa-brands fa-github"></i></a>
@@ -185,7 +184,7 @@
         <li><a class="text-decoration-none" href="#contacts">Contacts</a></li>
       </ul>
     </div>
-    <div class="footerBottom text-align-center">
+    <div class="Footerbar text-align-center">
       <p>&copy; 2023 Expense Flow</p>
       <p>All rights reserved. The 'Expense Flow' name and logo are trademarks of Expense Flow, Inc.</p>
     </div>

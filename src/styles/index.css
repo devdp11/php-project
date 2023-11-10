@@ -18,37 +18,43 @@ header {
     display: none;
 }
 
-header .container:nth-child(1) {
+header .Navheader {
     margin: 0 auto;
     padding: 0 32px;
 }
 
-header .container > a {
+header .Navbar-area > a {
     color: black;
 }
 
-header .container > a:hover {
+header .Navbar-area > a:hover {
     color: blueviolet;
-    text-decoration: underline 2px;
-    text-underline-offset: 5px;
+    transition-duration: 1s;
 }
 
-header .container-extra > a:nth-child(1) {
+header .Navbar-area > a:not(:hover) {
+    transition-duration: 2s;
+}
+
+header .btn > a:nth-child(1) {
     border: 2px solid blueviolet;
     color: blueviolet;
-  
     padding: 5px 10px;
     border-radius: 25px;
     padding: 6px 26px;
 }
 
-header .container-extra > a:nth-child(1):hover {
+header .btn > a:nth-child(1):hover {
     background-color: blueviolet;
     color: white;
-    transition: 0.5s;
+    transition-duration: 1s;
 }
 
-header .container-extra > a:nth-child(2) {
+header .btn > a:nth-child(1):not(:hover) {
+    transition-duration: 2s;
+}
+
+header .btn > a:nth-child(2) {
     border: 2px solid blueviolet;
     background-color: blueviolet;
     color: white;
@@ -57,25 +63,29 @@ header .container-extra > a:nth-child(2) {
     padding: 6px 26px;
 }
 
-header .container-extra > a:nth-child(2):hover {
+header .btn > a:nth-child(2):hover {
     background-color: white;
     color: blueviolet;
-    transition: 0.5s;
+    transition: 1s;
 }
 
-header .container:nth-child(2).active {
+header .btn > a:nth-child(2):not(:hover) {
+    transition-duration: 2s;
+}
+
+header .Navbar-area:nth-child(2).active {
     display: flex;
     flex-direction: column;
 }
 
 /* QUANDO O MENU ABRE, O LOGO DESAPARECE */
-header .container:nth-child(2).active img {
+header .Navbar-area:nth-child(2).active img {
     display: none;
 }
 
 /* QUANDO O MENU ABRE, OS BOTÕES DE LOGIN E REGISTER DESAPARECEM */
 
-header .container .container.active > a {
+header .Navbar-area .container.active > a {
     margin-bottom: 10px;
 }
 
@@ -100,11 +110,6 @@ main .column {
     padding: 0 20px;
 }
 
-.height-auto > .container {
-    position: relative;
-    max-width: 100%;
-    bottom: 125px;
-}
 
 /* .height-auto > img {
     display: none;
@@ -114,7 +119,7 @@ main .column {
 
 footer {
     background-color: black;
-    padding: 10px 0;
+    padding: 20px 0;
 }
 
 footer p {
@@ -133,6 +138,10 @@ footer p {
     transition-duration: 1s;
 }
 
+.socialIcons a:not(:hover) {
+    transition-duration: 2s;
+}
+
 .socialIcons a i {
     font-size: 2em;
     color: #111;
@@ -144,19 +153,19 @@ footer p {
     transition-duration: 1s;
 }
 
-.footerNav ul {
+.Navfooter ul {
     list-style-type: none;
     padding: 20px 0;
 }
 
-.footerBottom {
+.Footerbar {
     padding: 0 10px;
 }
 
 /* MEDIA */
 
-@media (max-width: 950px) {
-    header .container:nth-child(2) {
+@media (max-width: 1100px) {
+    header .Navbar-area {
         display: none;
     }
   
@@ -178,14 +187,14 @@ footer p {
         transition: 1s;
     }
     
-    .container-extra {
+    .btn {
         display: flex;
         flex-direction: row;
     }
     
-    .container-extra a {
+    .btn a {
         display: flex;
-        margin: 10px 15px;
+        margin: 10px 10px;
         flex-direction: column;
         align-items: center;
     }  
@@ -216,11 +225,11 @@ footer p {
 } */
 
 @media (max-width: 700px){
-    .footerNav ul{
+    .Navfooter ul{
         display: flex;
         flex-direction: column;
     }
-    .footerNav ul li{
+    .Navfooter ul li{
         width: 100%;
         text-align: center;
         margin: 10px 0;
@@ -238,6 +247,7 @@ div > a {
 }
 
 div > h3 {
+    margin-top: 100px;
     font-size: 40px;
 }
 
@@ -252,6 +262,10 @@ li > a:hover {
     color: blueviolet;
     opacity: 1;
     transition-duration: 1s;
+}
+
+li > a:not(:hover) {
+    transition-duration: 2s;
 }
 
 /* CLASSES */
@@ -284,16 +298,8 @@ li > a:hover {
     max-width: 600px;
 }
 
-.max-width-100 {
-    max-width: 100%;
-}
-
 .height-550 {
     height: 550px;
-}
-
-.height-auto {
-    height: auto;
 }
 
 .text-align-center {
