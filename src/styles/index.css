@@ -21,6 +21,7 @@ header {
 header .Navheader {
   margin: 0 auto;
   padding: 0 32px;
+  
 }
 
 header .Navbar-area > a {
@@ -102,20 +103,31 @@ main .row {
 /* WORK DYNAMICS */
 
 .item_tit {
-  font-size: 36px;
+  font-size: 30px;
   line-height: 120%;
   font-weight: 500;
-  color: white;
 }
 
 .item_txt p {
-    color: var(--text-primary);
+  margin-top: 30px;
     opacity: .8;
 }
 
 .box-wk {
-  padding: 50px 25px; 
-  height: 400px;
+  padding: 20px;
+  height: 210px;
+  background-color: blueviolet;
+  color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, opacity 0.2s ease-in-out;
+}
+
+.box-wk:hover {
+  background-color: darkviolet;
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  opacity: 0.9;
 }
 
 .section__wrapper > h3 {
