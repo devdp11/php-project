@@ -91,7 +91,7 @@ main .section:nth-child(2n) {
 }
 
 main .section .container {
-  margin: 0 auto;
+  margin: 0 auto 100px;
   padding: 0 32px;
 }
 
@@ -109,13 +109,11 @@ main .row {
 }
 
 .item_txt p {
-  margin-top: 30px;
     opacity: .8;
 }
 
 .box-wk {
   padding: 20px;
-  height: 210px;
   background-color: blueviolet;
   color: white;
   border-radius: 8px;
@@ -129,10 +127,6 @@ main .row {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   opacity: 0.9;
 }
-
-.section__wrapper > h3 {
-  padding-bottom: 50px; 
-} 
 
 /* FOOTER */
 
@@ -242,7 +236,7 @@ div > a {
 }
 
 div > h3 {
-  margin-top: 100px;
+  margin: 50px 0;
   font-size: 40px;
 }
 
@@ -301,23 +295,10 @@ li > a:not(:hover) {
   text-align: center;
 }
 
-.justify-content-center {
-  justify-content: center;
-}
-
-.text-decoration-none {
-  text-decoration: none;
-}
-
 .padding-140-80 {
   padding-top: 100px;
   padding-bottom: 120px;
 }
-
-.padding-30-80 {
-    padding-top: 30px;
-    padding-bottom: 80px;
-  }
 
 .margin-top-10 {
   margin-top: 10px;
