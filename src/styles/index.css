@@ -179,7 +179,7 @@ footer p {
 
 /* MEDIA */
 
-@media (max-width: 1100px) {
+@media (max-width: 1000px) {
   header .Navbar-area {
     display: none;
   }

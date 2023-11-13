@@ -5,7 +5,7 @@ function toggleMenu() {
   menu.classList.toggle("active");
   menuToggle.classList.toggle("active");
 
-  if (window.innerWidth > 1100) {
+  if (window.innerWidth > 1000) {
       menu.classList.remove("active");
       menuToggle.classList.remove("active");
   }
