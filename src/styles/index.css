@@ -187,6 +187,7 @@ footer p {
   .menu-toggle {
     display: block;
     margin: 10px 0;
+    
   }
 
   .menu-toggle button {
@@ -199,6 +200,9 @@ footer p {
   .logo_media{
     display: flex;
     float: right;
+    position: absolute;
+    top: -20px;
+    right: 20px;
   }
 
   .menu-toggle button:hover {
@@ -265,6 +269,10 @@ li > a:not(:hover) {
 }
 
 /* CLASSES */
+
+.contactUs{
+  color:blueviolet;
+}
 
 .position-fixed {
   position: fixed;
