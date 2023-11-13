@@ -84,6 +84,10 @@ header .Navbar-area:nth-child(2).active img {
   display: none;
 }
 
+.logo_media{
+  display: none;
+}
+
 /* MAIN */
 
 main .section:nth-child(2n) {
@@ -192,6 +196,11 @@ footer p {
     background-color: blueviolet;
     border-radius: 5px;
     border: none;
+  }
+
+  .logo_media{
+    display: flex;
+    float: right;
   }
 
   .menu-toggle button:hover {
