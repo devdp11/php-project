@@ -40,9 +40,8 @@ header .Navbar-area > a:not(:hover) {
 header .btn > a:nth-child(1) {
   border: 2px solid blueviolet;
   color: blueviolet;
-  padding: 5px 10px;
   border-radius: 25px;
-  padding: 6px 26px;
+  padding: 5px 20px;
 }
 
 header .btn > a:nth-child(1):hover {
@@ -59,9 +58,8 @@ header .btn > a:nth-child(2) {
   border: 2px solid blueviolet;
   background-color: blueviolet;
   color: white;
-  padding: 5px 10px;
   border-radius: 25px;
-  padding: 6px 26px;
+  padding: 5px 20px;
 }
 
 header .btn > a:nth-child(2):hover {
@@ -74,13 +72,13 @@ header .btn > a:nth-child(2):not(:hover) {
   transition-duration: 2s;
 }
 
-header .Navbar-area:nth-child(2).active {
+header .Navbar-area.active {
   display: flex;
   flex-direction: column;
 }
 
 /* QUANDO O MENU ABRE, O LOGO DESAPARECE */
-header .Navbar-area:nth-child(2).active img {
+header .Navbar-area.active img {
   display: none;
 }
 
