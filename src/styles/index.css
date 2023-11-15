@@ -102,6 +102,10 @@ main .row {
   flex-wrap: wrap;
 }
 
+main #contacts .image > div {
+  padding-top: 32px;
+}
+
 /* WORK DYNAMICS */
 
 .item_tit {
@@ -270,9 +274,25 @@ li > a:not(:hover) {
 
 /* CLASSES */
 
-.contactUs{
-  color:blueviolet;
+.contactsBTN{
+  border: 2px solid blueviolet;
+  background-color: blueviolet;
+  color: white;
+  border-radius: 10px;
+  padding: 5px 10px;
+  margin: 20px 0;
 }
+
+.contactsBTN:hover{
+  background-color: white;
+  color: blueviolet;
+  transition: 1s;
+}
+
+.contactsBTN:not(:hover){
+  transition: 2s;
+}
+
 
 .position-fixed {
   position: fixed;
@@ -296,14 +316,6 @@ li > a:not(:hover) {
 
 .max-width-1250 {
   max-width: 1250px;
-}
-
-.max-width-600 {
-  max-width: 600px;
-}
-
-.height-550 {
-  height: 550px;
 }
 
 .text-align-center {
