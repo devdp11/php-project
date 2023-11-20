@@ -11,6 +11,14 @@ function toggleMenu() {
   }
 }   
 
+function removeActiveClass() {
+  var menu = document.getElementById("menu");
+  var menuToggle = document.getElementById("menuToggle");
+
+  menu.classList.remove("active");
+  menuToggle.classList.remove("active");
+}
+
 window.addEventListener("resize", function () {
   if (window.innerWidth > 700) {
     var menu = document.getElementById("menu");

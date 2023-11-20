@@ -34,10 +34,11 @@
 
         <a href="#home" class="logo"><img src="/src/assets/logo_media.png" alt="ExpenseFlow"></a>
 
-        <a class="text-decoration-none position-relative" href="#home">Home</a>
-        <a class="text-decoration-none position-relative" href="#workdy">Work Dynamics</a>
-        <a class="text-decoration-none position-relative" href="#about-us">About us</a>
-        <a class="text-decoration-none position-relative" href="#contacts">Contacts</a>
+        <a class="text-decoration-none position-relative" href="#home" onclick="removeActiveClass()">Home</a>
+        <a class="text-decoration-none position-relative" href="#workdy" onclick="removeActiveClass()">Work Dynamics</a>
+        <a class="text-decoration-none position-relative" href="#about-us" onclick="removeActiveClass()">About us</a>
+        <a class="text-decoration-none position-relative" href="#contacts" onclick="removeActiveClass()">Contacts</a>
+        
 
         <div class="btn">
           <a class="text-decoration-none m-r-20 position-relative" href="#">Login</a>
@@ -48,13 +49,13 @@
   </header>
 
   <main>
-    <section id="home" class="section padding-140-80">
+    <section id="home" class="section pt-5 pb-5">
       <div class="container max-width-1250">
         <div class="row">
           <div class="col-lg-6 d-flex align-items-center">
-            <div class="section__wrapper animation-text margin-top-10 text-align-justify">
+            <div class="section__wrapper text-align-justify">
               <div class="text-align-center">
-                <h3>Expense Management Software</h3>
+                <h3 class="mt-5 mb-3">Expense Management Software</h3>
               </div>
               <p>
                 Simplify your expense tracking and financial management with our user-friendly software.
@@ -65,7 +66,7 @@
             </div>
           </div>
           <div class="col-lg-6 image">
-            <div class="section__wrapper animation-text margin-top-10">
+            <div class="section__wrapper mt-5">
               <div class="h-auto w-100">
                 <img src="/src/assets/home.png" alt="expense-home" class="object-fit-cover w-100">
               </div>
@@ -76,21 +77,21 @@
     </section>
 
 
-    <section id="wallet" class="section padding-140-80">
+    <section id="wallet" class="section pt-5 pb-4">
       <div class="container max-width-1250">
-        <div class="section__wrapper animation-text margin-top-10 text-align-justify">
-          <div class="row flex-md-row-reverse" style="margin: 0;">
-            <div class="col-lg-6">
+        <div class="section__wrapper text-align-justify">
+          <div class="row flex-md-row-reverse">
+            <div class="col-lg-6 mt-5">
               <div class="text-align-center">
-                <h3>Do you want your wallet to be sad?</h3>
+                <h3 class="mt-5 mb-3">Do you want your wallet to be sad?</h3>
               </div>
               <div class="text-align-justify">
-                <p>
+                <p class="mt-5">
                   Join us now and let's turn those tears into smiles with our money-saving tips.
                   Our powerful expense management app is here to help you take control of your finances,
                   so you can live life to the fullest without worrying about your wallet.
                   Say goodbye to financial stress and hello to financial freedom!
-                <h4 style="color: blueviolet;">Start your journey to a brighter financial future with us today.</h4>
+                <h4>Start your journey to a brighter financial future with us today.</h4>
                 </p>
               </div>
             </div>
@@ -104,13 +105,13 @@
       </div>
     </section>
 
-    <section id="workdy" class="section padding-140-80 d-flex align-items-center justify-content-center">
-      <div class="container max-width-1250">
-        <div class="section__wrapper animation-text">
-          <div class="text-align-center">
-            <h3>Spend Smart</h3>
+    <section id="workdy" class="section pt-5 pb-5 d-flex align-items-center justify-content-center">
+      <div class="container max-width-1250 pt-5 pb-5">
+        <div class="section__wrapper  pb-5">
+          <div class="text-align-center pt-5">
+            <h3 class="mt-5 mb-3">Spend Smart</h3>
           </div>
-          <div class="row">
+          <div class="row pt-4">
             <div class="col-md-4">
               <div class="text-black shadow-lg mb-4 text-center box-wk">
                 <h2 class="item-tit">Efficient spending</h2>
@@ -145,13 +146,13 @@
       </div>
     </section>
 
-    <section id="about-us" class="section padding-140-80">
+    <section id="about-us" class="section pt-5 pb-5">
       <div class="container max-width-1250">
-        <div class="section__wrapper animation-text margin-top-10">
+        <div class="section__wrapper">
           <div class="row align-items-center" style="margin: 10% 0;">
             <div class="col-lg-6">
               <div class="text-align-center">
-                <h3>About Us</h3>
+                <h3 class="mt-5 mb-3">About Us</h3>
               </div>
               <div class="text-align-justify">
                 <p>
@@ -182,13 +183,13 @@
     </section>
 
 
-    <section id="contacts" class="section padding-140-80">
+    <section id="contacts" class="section pt-4 pb-5">
       <div class="container max-width-1250">
-        <div class="section__wrapper animation-text margin-top-10">
+        <div class="section__wrapper">
           <div class="row flex-md-row-reverse" style="margin: 10% 0;">
             <div class="col-lg-6">
               <div class="text-align-center">
-                <h3>Contacts</h3>
+                <h3 class="mt-5 mb-3">Contacts</h3>
               </div>
               <div class="text-align-justify">
                 <p>
@@ -198,7 +199,7 @@
                   Whether you have questions about our software or need assistance with a specific issue,
                   we're here to help. Don't hesitate to get in touch! We're always happy to hear from you.
                 </p>
-                <a href="mailto:email@example.com" class="contactsBTN text-decoration-none">
+                <a href="mailto:email@example.com" class="contactsBTN p-1 mt-5 text-decoration-none">
                   <span>Contact us</span>
                 </a>
               </div>
@@ -224,10 +225,10 @@
         <a href=""><i class="fa-brands fa-twitter"></i></a>
       </div>
       <ul class="display-flex justify-content-center text-align-center">
-        <li><a class="text-decoration-none" href="#home">Home</a></li>
-        <li><a class="text-decoration-none" href="#about-us">About us</a></li>
-        <li><a class="text-decoration-none" href="#workdy">Work Dynamics</a></li>
-        <li><a class="text-decoration-none" href="#contacts">Contacts</a></li>
+        <li><a class="text-decoration-none m-2" href="#home">Home</a></li>
+        <li><a class="text-decoration-none m-2" href="#about-us">About us</a></li>
+        <li><a class="text-decoration-none m-2" href="#workdy">Work Dynamics</a></li>
+        <li><a class="text-decoration-none m-2" href="#contacts">Contacts</a></li>
       </ul>
     </div>
     <div class="Footerbar text-align-center">

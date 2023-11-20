@@ -251,13 +251,15 @@ div > a {
 }
 
 div > h3 {
-  margin: 50px 0;
   font-size: 40px;
+}
+
+h4 {
+  color: blueviolet;
 }
 
 li > a {
   color: white;
-  margin: 20px;
   font-size: 1.3em;
   opacity: 0.7;
 }
@@ -275,12 +277,10 @@ li > a:not(:hover) {
 /* CLASSES */
 
 .contactsBTN{
-  border: 2px solid blueviolet;
+  border: 1px solid blueviolet;
   background-color: blueviolet;
   color: white;
   border-radius: 10px;
-  padding: 5px 10px;
-  margin: 20px 0;
 }
 
 .contactsBTN:hover{
@@ -292,7 +292,6 @@ li > a:not(:hover) {
 .contactsBTN:not(:hover){
   transition: 2s;
 }
-
 
 .position-fixed {
   position: fixed;
@@ -320,13 +319,4 @@ li > a:not(:hover) {
 
 .text-align-center {
   text-align: center;
-}
-
-.padding-140-80 {
-  padding-top: 100px;
-  padding-bottom: 120px;
-}
-
-.margin-top-10 {
-  margin-top: 10px;
 }
