@@ -1,4 +1,6 @@
-<html lang="en"><head>
+<html lang="en">
+
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Expense Flow</title>
@@ -6,54 +8,59 @@
   <script src="/src/scripts/index.js"></script>
   <script src="/src/scripts/home.js"></script>
   <link rel="stylesheet" href="/src/styles/index.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 
 <body>
   <header class="position-fixed">
     <div class="Navheader max-width-1250">
-      
+
       <div class="menu-toggle" id="menuToggle">
         <button type="button" class="btn" onclick="toggleMenu()">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
-            <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
           </svg>
         </button>
         <a href="#home" class="logo_media"><img src="/src/assets/logo_media.png" alt="ExpenseFlow"></a>
       </div>
-      
+
       <div class="Navbar-area display-flex justify-content-space-between align-items-center" id="menu">
-        
+
         <a href="#home" class="logo"><img src="/src/assets/logo_media.png" alt="ExpenseFlow"></a>
 
         <a class="text-decoration-none position-relative" href="#home">Home</a>
         <a class="text-decoration-none position-relative" href="#workdy">Work Dynamics</a>
         <a class="text-decoration-none position-relative" href="#about-us">About us</a>
         <a class="text-decoration-none position-relative" href="#contacts">Contacts</a>
-        
+
         <div class="btn">
           <a class="text-decoration-none m-r-20 position-relative" href="#">Login</a>
           <a class="text-decoration-none position-relative" href="#">Register</a>
         </div>
-      </div> 
+      </div>
     </div>
   </header>
-  
+
   <main>
     <section id="home" class="section padding-140-80">
       <div class="container max-width-1250">
         <div class="row">
-          <div class="col-lg-6 text">
+          <div class="col-lg-6 d-flex align-items-center">
             <div class="section__wrapper animation-text margin-top-10 text-align-justify">
               <div class="text-align-center">
                 <h3>Expense Management Software</h3>
               </div>
               <p>
                 Simplify your expense tracking and financial management with our user-friendly software.
-              Monitor real-time employee expenses, streamline budget management, and
-              automate the approval and reimbursement process.
-              Say goodbye to administrative hassles and hello to efficient expense management.
+                Monitor real-time employee expenses, streamline budget management, and
+                automate the approval and reimbursement process.
+                Say goodbye to administrative hassles and hello to efficient expense management.
               </p>
             </div>
           </div>
@@ -67,23 +74,23 @@
         </div>
       </div>
     </section>
-    
+
 
     <section id="wallet" class="section padding-140-80">
       <div class="container max-width-1250">
         <div class="section__wrapper animation-text margin-top-10 text-align-justify">
           <div class="row flex-md-row-reverse" style="margin: 0;">
-            <div class="col-lg-6 text">
+            <div class="col-lg-6">
               <div class="text-align-center">
                 <h3>Do you want your wallet to be sad?</h3>
               </div>
               <div class="text-align-justify">
                 <p>
-                  Join us now and let's turn those tears into smiles with our money-saving tips. 
-                  Our powerful expense management app is here to help you take control of your finances, 
-                  so you can live life to the fullest without worrying about your wallet. 
-                  Say goodbye to financial stress and hello to financial freedom! 
-                  <h4 style="color: blueviolet;">Start your journey to a brighter financial future with us today.</h4>
+                  Join us now and let's turn those tears into smiles with our money-saving tips.
+                  Our powerful expense management app is here to help you take control of your finances,
+                  so you can live life to the fullest without worrying about your wallet.
+                  Say goodbye to financial stress and hello to financial freedom!
+                <h4 style="color: blueviolet;">Start your journey to a brighter financial future with us today.</h4>
                 </p>
               </div>
             </div>
@@ -96,19 +103,20 @@
         </div>
       </div>
     </section>
-    
+
     <section id="workdy" class="section padding-140-80 d-flex align-items-center justify-content-center">
       <div class="container max-width-1250">
         <div class="section__wrapper animation-text">
-          <div class="text-align-center">  
+          <div class="text-align-center">
             <h3>Spend Smart</h3>
           </div>
-            <div class="row">
+          <div class="row">
             <div class="col-md-4">
               <div class="text-black shadow-lg mb-4 text-center box-wk">
                 <h2 class="item-tit">Efficient spending</h2>
                 <div class="item_txt">
-                  <p>Optimize your expenses with our application, which is 4x more efficient than others, thanks to our advanced expense management algorithm.</p>
+                  <p>Optimize your expenses with our application, which is 4x more efficient than others, thanks to our
+                    advanced expense management algorithm.</p>
                 </div>
               </div>
             </div>
@@ -117,41 +125,49 @@
                 <div class="text-black shadow-lg mb-4 text-center box-wk">
                   <h2 class="item-tit">Minimalistic look</h2>
                   <div class="item_txt">
-                    <p>Experience a sleek and intuitive design based on the latest design principles, making our application easy to use and visually pleasing.</p>
+                    <p>Experience a sleek and intuitive design based on the latest design principles, making our
+                      application easy to use and visually pleasing.</p>
                   </div>
                 </div>
-              </div> 
+              </div>
             </div>
             <div class="col-md-4">
               <div class="text-black shadow-lg mb-4 text-center box-wk">
                 <h2 class="item-tit">Safer than ever</h2>
                 <div class="item_txt">
-                  <p>Rest assured knowing that our application utilizes state-of-the-art security technologies to safeguard your data.</p>
+                  <p>Rest assured knowing that our application utilizes state-of-the-art security technologies to
+                    safeguard your data.</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </section> 
-        
+    </section>
+
     <section id="about-us" class="section padding-140-80">
       <div class="container max-width-1250">
         <div class="section__wrapper animation-text margin-top-10">
           <div class="row align-items-center" style="margin: 10% 0;">
-            <div class="col-lg-6 text">
-              <div class="text-align-center"> 
+            <div class="col-lg-6">
+              <div class="text-align-center">
                 <h3>About Us</h3>
               </div>
               <div class="text-align-justify">
                 <p>
-                  At Expense Flow, we are more than just a financial management platform. We are your partners in achieving financial success. Our mission is to empower you to take control of your finances and turn your financial goals into a reality.
+                  At Expense Flow, we are more than just a financial management platform. We are your partners in
+                  achieving financial success. Our mission is to empower you to take control of your finances and turn
+                  your financial goals into a reality.
                 </p>
                 <p>
-                  With a commitment to transparency, innovation, and user satisfaction, we've developed a cutting-edge application designed to simplify the complexities of financial management. Whether you're budgeting, saving, or planning for the future, we provide the tools and insights you need to make informed decisions.
+                  With a commitment to transparency, innovation, and user satisfaction, we've developed a cutting-edge
+                  application designed to simplify the complexities of financial management. Whether you're budgeting,
+                  saving, or planning for the future, we provide the tools and insights you need to make informed
+                  decisions.
                 </p>
                 <p>
-                  Join us on this journey towards financial empowerment. Let's build a future where financial freedom is within everyone's reach.
+                  Join us on this journey towards financial empowerment. Let's build a future where financial freedom is
+                  within everyone's reach.
                 </p>
               </div>
             </div>
@@ -164,26 +180,27 @@
         </div>
       </div>
     </section>
-    
+
 
     <section id="contacts" class="section padding-140-80">
       <div class="container max-width-1250">
         <div class="section__wrapper animation-text margin-top-10">
           <div class="row flex-md-row-reverse" style="margin: 10% 0;">
-            <div class="col-lg-6 text">
-              <div class="text-align-center"> 
+            <div class="col-lg-6">
+              <div class="text-align-center">
                 <h3>Contacts</h3>
               </div>
               <div class="text-align-justify">
                 <p>
-                  We're always here to help! Feel free to reach out to us anytime using the contact information below. 
-                  We pride ourselves on our prompt and responsive customer service. You can expect a quick reply to your inquiries. 
-                  Whether you have questions about our software or need assistance with a specific issue, 
+                  We're always here to help! Feel free to reach out to us anytime using the contact information below.
+                  We pride ourselves on our prompt and responsive customer service. You can expect a quick reply to your
+                  inquiries.
+                  Whether you have questions about our software or need assistance with a specific issue,
                   we're here to help. Don't hesitate to get in touch! We're always happy to hear from you.
                 </p>
                 <a href="mailto:email@example.com" class="contactsBTN text-decoration-none">
                   <span>Contact us</span>
-                </a>                
+                </a>
               </div>
             </div>
             <div class="col-lg-6 image">
@@ -195,7 +212,7 @@
         </div>
       </div>
     </section>
-    
+
   </main>
 
   <footer>
@@ -218,6 +235,7 @@
       <p>All rights reserved. The 'Expense Flow' name and logo are trademarks of Expense Flow, Inc.</p>
     </div>
   </footer>
-  
+
 </body>
+
 </html>
