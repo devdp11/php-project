@@ -40,7 +40,6 @@ header .Navbar-area > a:not(:hover) {
 header .btn > a:nth-child(1) {
   border: 2px solid blueviolet;
   color: blueviolet;
-  border-radius: 25px;
   padding: 5px 20px;
 }
 
@@ -58,7 +57,6 @@ header .btn > a:nth-child(2) {
   border: 2px solid blueviolet;
   background-color: blueviolet;
   color: white;
-  border-radius: 25px;
   padding: 5px 20px;
 }
 
@@ -119,10 +117,8 @@ main #contacts .image > div {
 }
 
 .box-wk {
-  padding: 20px;
   background-color: blueviolet;
   color: white;
-  border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, opacity 0.2s ease-in-out;
 }
@@ -138,7 +134,6 @@ main #contacts .image > div {
 
 footer {
   background-color: black;
-  padding: 20px 0;
 }
 
 footer p {
@@ -146,10 +141,7 @@ footer p {
 }
 
 .socialIcons a {
-  padding: 10px;
   background-color: white;
-  margin: 10px;
-  border-radius: 50%;
 }
 
 .socialIcons a:hover {
@@ -177,10 +169,6 @@ footer p {
   padding: 20px 0;
 }
 
-.Footerbar {
-  padding: 0 10px;
-}
-
 /* MEDIA */
 
 @media (max-width: 1000px) {
@@ -190,15 +178,11 @@ footer p {
 
   .menu-toggle {
     display: block;
-    margin: 10px 0;
-    
   }
 
   .menu-toggle button {
     color: white;
     background-color: blueviolet;
-    border-radius: 5px;
-    border: none;
   }
 
   .logo_media{
@@ -236,7 +220,6 @@ footer p {
   .Navfooter ul li {
     width: 100%;
     text-align: center;
-    margin: 10px 0;
   }
 }
 
@@ -248,10 +231,6 @@ a > img {
 
 div > a {
   font-size: 20px;
-}
-
-div > h3 {
-  font-size: 40px;
 }
 
 h4 {
@@ -280,7 +259,6 @@ li > a:not(:hover) {
   border: 1px solid blueviolet;
   background-color: blueviolet;
   color: white;
-  border-radius: 10px;
 }
 
 .contactsBTN:hover{
@@ -293,18 +271,6 @@ li > a:not(:hover) {
   transition: 2s;
 }
 
-.position-fixed {
-  position: fixed;
-}
-
-.justify-content-space-between {
-  justify-content: space-between;
-}
-
-.align-items-center {
-  align-items: center;
-}
-
 .text-align-justify {
   text-align: justify;
 }
@@ -315,8 +281,4 @@ li > a:not(:hover) {
 
 .max-width-1250 {
   max-width: 1250px;
-}
-
-.text-align-center {
-  text-align: center;
 }
