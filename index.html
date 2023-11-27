@@ -5,9 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Expense Flow</title>
 
-  <script src="/src/scripts/index.js"></script>
-  <script src="/src/scripts/home.js"></script>
-  <link rel="stylesheet" href="/src/styles/index.css">
+  <script src="/index.js"></script>
+  <link rel="stylesheet" href="/index.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
     integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -16,6 +15,9 @@
 </head>
 
 <body>
+  <?php
+    include('pages/login.php')
+  ?>
   <header class="position-fixed">
     <div class="Navheader max-width-1250">
 
@@ -38,11 +40,11 @@
         <a class="text-decoration-none position-relative" href="#workdy" onclick="removeActiveClass()">Work Dynamics</a>
         <a class="text-decoration-none position-relative" href="#about-us" onclick="removeActiveClass()">About us</a>
         <a class="text-decoration-none position-relative" href="#contacts" onclick="removeActiveClass()">Contacts</a>
-        
+
 
         <div class="btn">
-          <a class="text-decoration-none m-r-20 position-relative rounded px- py-1" href="#">Login</a>
-          <a class="text-decoration-none position-relative rounded px-2 py-1" href="#">Register</a>
+          <a class="text-decoration-none m-r-20 position-relative rounded px- py-1" href="src/pages/login" target="_self">Login</a>
+          <a class="text-decoration-none position-relative rounded px-2 py-1" href="/register.php" target="_self">Register</a>
         </div>
       </div>
     </div>
@@ -75,7 +77,6 @@
         </div>
       </div>
     </section>
-
 
     <section id="wallet" class="section pt-5 pb-4">
       <div class="container max-width-1250">
@@ -199,7 +200,8 @@
                   Whether you have questions about our software or need assistance with a specific issue,
                   we're here to help. Don't hesitate to get in touch! We're always happy to hear from you.
                 </p>
-                <a class="contactsBTN text-decoration-none rounded px-2 py-1" href="mailto:email@example.com" class="contactsBTN p-1 mt-5 text-decoration-none">
+                <a class="contactsBTN text-decoration-none rounded px-2 py-1" href="mailto:email@example.com"
+                  class="contactsBTN p-1 mt-5 text-decoration-none">
                   <span>Contact us</span>
                 </a>
               </div>
@@ -220,7 +222,8 @@
     <div class="Navfooter py-5">
       <div class="socialIcons display-flex justify-content-center">
         <a class="rounded-circle m-2 p-2" href=""><i class="fa-brands fa-facebook"></i></a>
-        <a class="rounded-circle m-2 p-2" href="https://github.com/diogoPinheiro11/php-project"><i class="fa-brands fa-github"></i></a>
+        <a class="rounded-circle m-2 p-2" href="https://github.com/diogoPinheiro11/php-project"><i
+            class="fa-brands fa-github"></i></a>
         <a class="rounded-circle m-2 p-2" href=""><i class="fa-brands fa-instagram"></i></a>
         <a class="rounded-circle m-2 p-2" href=""><i class="fa-brands fa-twitter"></i></a>
       </div>
