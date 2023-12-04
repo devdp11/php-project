@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/infra/middlewares/middleware-not-authenticated.php';
-// require_once __DIR__ . './setupdatabase.php';
+require_once __DIR__ . '/setupdatabase.php';
 ?>
 
 <!DOCTYPE html>
@@ -8,37 +8,251 @@ require_once __DIR__ . '/infra/middlewares/middleware-not-authenticated.php';
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <title>SIR 2023/24</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="./src/styles/home.css">
+    <script src="./src/scripts/home.js"></script>
 </head>
 
-<body>
+<body class="m-0">
+    <header class="position-fixed w-100" style="background-color: white;">
+        <div class="navBar px-3 mx-auto max-width-1250px">
+            <div class="toogle-btn d-none align-items-center my-3 border-0">
+                <button type="button" class="btn mx-2" onclick="toggleMenu()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-list" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+                    </svg>
+                </button>
+                <a class="logo d-none mr-auto pb-1" href="#home"><img src="src/assets/logo.png" alt="logo"></a>
+            </div>
+
+            <div class="btn index my-2">
+                <a href="#home"><img class="pb-2" src="src/assets/logo.png" alt="logo"></a>
+                <a class="text-decoration-none mx-5" style="color: black;" href="#home">Home</a>
+                <a class="text-decoration-none mx-5" style="color: black;" href="#workflow">Workflow</a>
+                <a class="text-decoration-none mx-5" style="color: black;" href="#aboutus">About Us</a>
+                <a class="text-decoration-none mx-5" style="color: black;" href="#contacts">Contacts</a>
+                <a class="btn-container text-decoration-none mx-4 px-3 py-1 rounded" style="color: blueviolet;" href="#">Login</a>
+                <a class="btn-container text-decoration-none mx-4 px-2 py-1 rounded" style="color: white;" href="#">Sign Up</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="position-fixed h-100 w-50 sidebar" style="background-color: white;" id="sidebar">
+        <a class="h5 d-block mx-3 my-2 p-3 text-decoration-none" style="color: black;" href="#home"
+            onclick="untoggleMenu()">Home</a>
+        <a class="h5 d-block mx-3 my-2 p-3 text-decoration-none" style="color: black;" href="#workflow"
+            onclick="untoggleMenu()">Workflow</a>
+        <a class="h5 d-block mx-3 my-2 p-3 text-decoration-none" style="color: black;" href="#aboutus"
+            onclick="untoggleMenu()">About Us</a>
+        <a class="h5 d-block mx-3 my-2 p-3 text-decoration-none" style="color: black;" href="#contacts"
+            onclick="untoggleMenu()">Contacts</a>
+        <a class="h5 d-block mx-3 my-2 p-3 text-decoration-none" style="color: blueviolet;" href="#">Login</a>
+        <a class="h5 d-block mx-3 my-2 p-3 text-decoration-none" style="color: blueviolet;" href="#">Sign Up</a>
+    </div>
+
     <main>
-        <div class="container py-4">
-            <header class="pb-3 mb-4 border-bottom">
-                <a href="/" class="d-flex align-items-center text-dark text-decoration-none"><img
-                        src="/crud/assets/images/logo-estg.svg" alt="ESTG" class="mw-100"></a>
-            </header>
-            <div class="p-5 mb-4 bg-body-tertiary rounded">
-                <div class="container-fluid py-5 ">
-                    <h1 class="display-5 fw-bold">Olá👋</h1>
-                    <div class="d-flex justify-content">
-                        <a href="/crud/pages/public/signin.php"><button class="btn btn-success btn-lg px-5 me-2">Sign
-                                In</button></a>
-                        <a href="/crud/pages/public/signup.php"><button class="btn btn-info btn-lg px-4">Sign
-                                Up</button></a>
+        <section id="home" class="section py-5">
+            <div class="max-width-1250px py-5 px-4 mx-auto">
+                <div class="row d-flex flex-wrap py-5">
+                    <div class="col-lg-6 d-flex align-items-center">
+                        <div class="section__wrapper">
+                            <h3> Expense Flow - Manage your Money </h3>
+                            <p class="h6 my-3">
+                                Simplify your expense tracking and financial management with our user-friendly software.
+                                Monitor real-time employee expenses, streamline budget management, and
+                                automate the approval and reimbursement process.
+                                Say goodbye to administrative hassles and hello to efficient expense management.
+                            </p>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="h-auto w-100">
+                            <img src="src/assets/home.png" alt="home" class="object-fit-cover w-100">
+                        </div>
                     </div>
                 </div>
             </div>
+        </section>
 
-            <footer class="p-3 bg-dark text-white mt-4">
-                <article>IPVC ESTG - Engenharia Informática &copy; - 2023-2024</article>
-            </footer>
-        </div>
+        <section class="section py-5">
+            <div class="max-width-1250px py-5 px-4 mx-auto">
+                <div class="row d-flex flex-wrap">
+                    <div class="col-lg-6 d-flex align-items-center">
+                        <div class="section__wrapper">
+                            <h3 class="my-5 h2">Do you want your wallet to be sad?</h3>
+                            <p class="my-5">
+                                Join us now and let's turn those tears into smiles with our money-saving tips.
+                                Our powerful expense management app is here to help you take control of your finances,
+                                so you can live life to the fullest without worrying about your wallet.
+                                Say goodbye to financial stress and hello to financial freedom!
+                            <h4 style="color: blueviolet;">Start your journey to a brighter financial future with us
+                                today.</h4>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="h-auto w-100">
+                            <img src="src/assets/wallet.png" alt="wallet" class="object-fit-cover w-100">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="workflow" class="section py-5">
+            <div class="max-width-1250px py-5 px-4 mx-auto">
+                <div class="section__wrapper py-5">
+                    <div class="section_title pt-4 text-center">
+                        <h3 class="h1">Our Workflow</h3>
+                    </div>
+                    <div class="row d-flex flex-wrap">
+                        <div class="col-md-4 d-flex align-items-center">
+                            <div class="text-black shadow-lg m-4 text-center rounded p-3 card__content"
+                                style="background-color: blueviolet; color: white;">
+                                <h2>Efficient spending</h2>
+                                <div class="card__text">
+                                    <p>Optimize your expenses with our application, which is 4x more efficient than
+                                        others, thanks to our advanced expense management algorithm.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 d-flex align-items-center">
+                            <div class="text-black shadow-lg m-4 text-center rounded p-3 card__content"
+                                style="background-color: blueviolet; color: white;">
+                                <h2>Minimalistic look</h2>
+                                <div class="card__text">
+                                    <p>Experience a sleek and intuitive design based on the latest design principles,
+                                        making our
+                                        application easy to use and visually pleasing.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 d-flex align-items-center">
+                            <div class="text-black shadow-lg m-4 text-center rounded p-3 card__content"
+                                style="background-color: blueviolet; color: white;">
+                                <h2>Safer than ever</h2>
+                                <div class="card__text">
+                                    <p>Rest assured knowing that our application utilizes state-of-the-art security
+                                        technologies to
+                                        safeguard your data.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="mt-4 mb-4">
+
+                        <div class="col-lg-12 col-md-12 text-center">
+                            <h5>We've been doing a lot of work for everyone around the globe!</h5>
+                            <div class="section__btn mt-4 mb-4">
+                                <a class="h6 p-1 text-decoration-none rounded" style="color: blueviolet;" href="#">Check
+                                    Out</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="aboutus" class="section mt-5 py-5">
+            <div class="max-width-1250px mt-5 py-4 px-4 mx-auto">
+                <div class="row d-flex flex-wrap py-5">
+                    <div class="col-lg-6 d-flex align-items-center">
+                        <div class="section__wrapper">
+                            <h3> About Expense Flow </h3>
+                            <p>
+                                At Expense Flow, we are more than just a financial management platform. We are your
+                                partners in
+                                achieving financial success. Our mission is to empower you to take control of your
+                                finances and turn
+                                your financial goals into a reality.
+                            </p>
+                            <p>
+                                With a commitment to transparency, innovation, and user satisfaction, we've developed a
+                                cutting-edge
+                                application designed to simplify the complexities of financial management. Whether
+                                you're budgeting,
+                                saving, or planning for the future, we provide the tools and insights you need to make
+                                informed
+                                decisions.
+                            </p>
+                            <p>
+                                Join us on this journey towards financial empowerment. Let's build a future where
+                                financial freedom is
+                                within everyone's reach.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="h-auto w-100">
+                            <img src="src/assets/aboutus.png" alt="aboutus" class="object-fit-cover w-100">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contacts" class="section mt-5 py-5">
+            <div class="max-width-1250px my-5 mx-auto py-5 px-4">
+                <div class="py-3">
+                    <div class="row d-flex flex-wrap py-5">
+                        <div class="col-lg-6 d-flex align-items-center">
+                            <div class="section__wrapper">
+                                <h3> Contact Expense Flow </h3>
+                                <p>
+                                    We're always here to help! Feel free to reach out to us anytime using the contact
+                                    information below.
+                                    We pride ourselves on our prompt and responsive customer service. You can expect a
+                                    quick reply to your
+                                    inquiries.
+                                    Whether you have questions about our software or need assistance with a specific
+                                    issue,
+                                    we're here to help. Don't hesitate to get in touch! We're always happy to hear from
+                                    you.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="h-auto w-100">
+                                <img src="src/assets/contact.png" alt="contacts" class="object-fit-cover w-100">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
+
+    <footer class="py-1" style="background-color: black; color: white;">
+        <div class="NavFot py-4">
+            <div class="social d-flex justify-content-center">
+                <a class="rounded-circle m-2 p-2" style="background-color: white;" href=""><i
+                        class="fa-brands fa-facebook" style="color: black;"></i></a>
+                <a class="rounded-circle m-2 p-2" style="background-color: white;"
+                    href="https://github.com/diogoPinheiro11/php-project"><i class="fa-brands fa-github"
+                        style="color: black;"></i></a>
+                <a class="rounded-circle m-2 p-2" style="background-color: white;" href=""><i
+                        class="fa-brands fa-instagram" style="color: black;"></i></a>
+                <a class="rounded-circle m-2 p-2" style="background-color: white;" href=""><i
+                        class="fa-brands fa-twitter" style="color: black;"></i></a>
+            </div>
+        </div>
+
+        <div class="text-center px-3">
+            <p>&copy; 2023 Expense Flow. All rights reserved.</p>
+            <p>The 'Expense Flow' name and logo are trademarks of Expense Flow, Inc.</p>
+        </div>
+    </footer>
 </body>
 
 </html>
