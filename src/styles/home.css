@@ -17,6 +17,26 @@ header {
   transition-duration: 1s;
 }
 
+.index > a:nth-child(6){
+  border: 2px solid blueviolet;
+  background-color: white;
+}
+
+.index > a:nth-child(7){
+  border: 2px solid blueviolet;
+  background-color: blueviolet;
+}
+
+.index > a:nth-child(6):hover {
+  color: white!important;
+  background-color: blueviolet;
+}
+
+.index > a:nth-child(7):hover {
+  color: blueviolet!important;
+  background-color: white;
+}
+
 /* MAIN CSS */
 .section:nth-child(2n) {
   background-color: rgb(231, 231, 231);
@@ -46,7 +66,6 @@ header {
 }
 
 .card__content:hover {
-  background-color: purple !important;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   transform: scale(1.1);
   transition-duration: 1s;
@@ -86,7 +105,7 @@ header {
   overflow-x: hidden;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 1090px) {
   .index {
     display: none;
   }

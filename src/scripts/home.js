@@ -9,7 +9,7 @@ function untoggleMenu() {
 }
 
 window.addEventListener("resize", function () {
-  if (window.innerWidth > 700) {
+  if (window.innerWidth > 1090) {
     var sidebar = document.getElementById("sidebar");
     sidebar.classList.remove("active");
   }
