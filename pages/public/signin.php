@@ -7,7 +7,8 @@ $title = ' - Sign In';
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Expense Flow - Sign IN</title>
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -15,7 +16,6 @@ $title = ' - Sign In';
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
     integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <meta charset="UTF-8">
 </head>
 <body style="background-color: hsl(0, 0%, 96%)" class="py-5">
   <section class="py-4 px-5">
@@ -53,13 +53,13 @@ $title = ' - Sign In';
               <form action="../../controllers/auth/signin.php" method="post">
                 <!-- Email input -->
                 <div class="form-outline mb-4">
-                  <label for="Email">Email Adress</label>
+                  <label class="mb-2" for="Email">Email Adress</label>
                   <input type="email" class="form-control" id="Email" placeholder="Email" name="email" maxlength="255" value="<?= isset($_REQUEST['email']) ? $_REQUEST['email'] : null ?>">
                 </div>
 
                 <!-- Password input -->
                 <div class="form-outline mb-4">
-                  <label for="password">Password</label>
+                  <label class="mb-2" for="password">Password</label>
                   <input type="password" class="form-control" id="password" placeholder="Password" name="password" maxlength="255" value="<?= isset($_REQUEST['password']) ? $_REQUEST['password'] : null ?>">
                 </div>
 
@@ -70,7 +70,7 @@ $title = ' - Sign In';
 
                 <!-- Submit button -->
                 <div class="d-flex justify-content-center mb-4">
-                  <button class="w-25 btn btn-lg btn-primary mb-2" type="submit" name="user" value="login">Sign In</button>
+                  <button class="w-50 btn btn-lg btn-primary mb-2" type="submit" name="user" value="login">Sign In</button>
                 </div>
 
                 <div class="text-center">
