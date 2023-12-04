@@ -24,8 +24,12 @@ function login($req)
 
     $user = checkErrors($data, $req);
 
-    if ($user) {
+    if ($user && !$user['deleted_at']) { // Adiciona verificação para usuário não deletado
         doLogin($data);
+    } elseif ($user['deleted_at']) {
+        $_SESSION['errors'] = "Usuário deletado. Não é possível fazer login.";
+        $params = '?' . http_build_query($req);
+        header('location: /php-project/pages/public/signin.php' . $params);
     }
 }
 
