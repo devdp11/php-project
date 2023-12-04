@@ -15,7 +15,7 @@ $title = ' - Admin management';
   <main class="bg-light">
     <section class="py-4">
       <div class="d-flex justify-content">
-        <a href="/crud/pages/secure/"><button class="btn btn-secondary px-5 me-2">Back</button></a>
+        <a href="/php-project/pages/secure/"><button class="btn btn-secondary px-5 me-2">Back</button></a>
         <a href="./user.php"><button class="btn btn-success px-4 me-2">Create user</button></a>
       </div>
     </section>
@@ -72,7 +72,7 @@ $title = ' - Admin management';
                 </td>
                 <td>
                   <div class="d-flex justify-content">
-                    <a href="/crud/controllers/admin/user.php?<?= 'user=update&id=' . $user['id'] ?>"><button type="button"
+                    <a href="/php-project/controllers/admin/user.php?<?= 'user=update&id=' . $user['id'] ?>"><button type="button"
                         class="btn btn-primary me-2">update</button></a>
                     <button type="button" class="btn btn-warning" data-bs-toggle="modal"
                       data-bs-target="#delete<?= $user['id'] ?>">delete</button>
@@ -92,7 +92,7 @@ $title = ' - Admin management';
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      <a href="/crud/controllers/admin/user.php?<?= 'user=delete&id=' . $user['id'] ?>"><button type="button"
+                      <a href="/php-project/controllers/admin/user.php?<?= 'user=delete&id=' . $user['id'] ?>"><button type="button"
                           class="btn btn-danger">Confirm</button></a>
                     </div>
                   </div>

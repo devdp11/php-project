@@ -28,7 +28,7 @@ $title = ' - user';
     ?>
   </section>
   <section class="pb-4">
-    <form enctype="multipart/form-data" action="/crud/controllers/admin/user.php" method="post"
+    <form enctype="multipart/form-data" action="/php-project/controllers/admin/user.php" method="post"
       class="form-control py-3">
       <div class="input-group mb-3">
         <span class="input-group-text">Name</span>

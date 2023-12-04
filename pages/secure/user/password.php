@@ -12,7 +12,7 @@ $user = user();
 </div>
 <main>
   <section class="py-4">
-    <a href="/crud/pages/secure/user/profile.php"><button type="button" class="btn btn-secondary px-5">Back</button></a>
+    <a href="/php-project/pages/secure/user/profile.php"><button type="button" class="btn btn-secondary px-5">Back</button></a>
   </section>
   <section>
     <?php
@@ -33,7 +33,7 @@ $user = user();
     ?>
   </section>
   <section>
-    <form action="/crud/controllers/admin/user.php" method="post" class="form-control py-3">
+    <form action="/php-project/controllers/admin/user.php" method="post" class="form-control py-3">
       <div class="input-group mb-3">
         <span class="input-group-text">Name</span>
         <input type="text" readonly class="form-control" name="name" placeholder="<?= $user['name'] ?>"

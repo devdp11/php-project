@@ -28,14 +28,14 @@ if (isset($_GET['user'])) {
         $user = getById($_GET['id']);
         $user['action'] = 'update';
         $params = '?' . http_build_query($user);
-        header('location: /crud/pages/secure/admin/user.php' . $params);
+        header('location: /php-project/pages/secure/admin/user.php' . $params);
     }
 
     if ($_GET['user'] == 'delete') {
         $user = getById($_GET['id']);
         if ($user['administrator']) {
             $_SESSION['errors'] = ['This user cannot be deleted!'];
-            header('location: /crud/pages/secure/admin/');
+            header('location: /php-project/pages/secure/admin/');
             return false;
         }
 
@@ -43,7 +43,7 @@ if (isset($_GET['user'])) {
 
         if ($success) {
             $_SESSION['success'] = 'User deleted successfully!';
-            header('location: /crud/pages/secure/admin/');
+            header('location: /php-project/pages/secure/admin/');
         }
     }
 }
@@ -55,7 +55,7 @@ function create($req)
     if (isset($data['invalid'])) {
         $_SESSION['errors'] = $data['invalid'];
         $params = '?' . http_build_query($req);
-        header('location: /crud/pages/secure/admin/user.php' . $params);
+        header('location: /php-project/pages/secure/admin/user.php' . $params);
         return false;
     }
 
@@ -63,7 +63,7 @@ function create($req)
 
     if ($success) {
         $_SESSION['success'] = 'User created successfully!';
-        header('location: /crud/pages/secure/admin/');
+        header('location: /php-project/pages/secure/admin/');
     }
 }
 
@@ -75,7 +75,7 @@ function update($req)
         $_SESSION['errors'] = $data['invalid'];
         $_SESSION['action'] = 'update';
         $params = '?' . http_build_query($req);
-        header('location: /crud/pages/secure/admin/user.php' . $params);
+        header('location: /php-project/pages/secure/admin/user.php' . $params);
 
         return false;
     }
@@ -86,7 +86,7 @@ function update($req)
         $_SESSION['success'] = 'User successfully changed!';
         $data['action'] = 'update';
         $params = '?' . http_build_query($data);
-        header('location: /crud/pages/secure/admin/user.php' . $params);
+        header('location: /php-project/pages/secure/admin/user.php' . $params);
     }
 }
 
@@ -97,7 +97,7 @@ function updateProfile($req)
     if (isset($data['invalid'])) {
         $_SESSION['errors'] = $data['invalid'];
         $params = '?' . http_build_query($req);
-        header('location: /crud/pages/secure/user/profile.php' . $params);
+        header('location: /php-project/pages/secure/user/profile.php' . $params);
         } else {
         $user = user(); 
         $data['id'] = $user['id'];
@@ -109,7 +109,7 @@ function updateProfile($req)
             $_SESSION['success'] = 'User successfully changed!';
             $_SESSION['action'] = 'update';
             $params = '?' . http_build_query($data);
-            header('location: /crud/pages/secure/user/profile.php' . $params);
+            header('location: /php-project/pages/secure/user/profile.php' . $params);
         }
     }
 }
@@ -120,13 +120,13 @@ function changePassword($req)
     if (isset($data['invalid'])) {
         $_SESSION['errors'] = $data['invalid'];
         $params = '?' . http_build_query($req);
-        header('location: /crud/pages/secure/user/password.php' . $params);
+        header('location: /php-project/pages/secure/user/password.php' . $params);
     } else {
         $data['id'] = userId();
         $success = updatePassword($data);
         if ($success) {
             $_SESSION['success'] = 'Password successfully changed!';
-            header('location: /crud/pages/secure//user/password.php');
+            header('location: /php-project/pages/secure//user/password.php');
         }
     }
 }

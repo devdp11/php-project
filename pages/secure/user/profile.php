@@ -13,7 +13,7 @@ $user = user();
 <main>
   <section class="py-4">
     <div class="d-flex justify-content">
-      <a href="/crud/"><button type="button" class="btn btn-secondary px-5 me-2">Back</button></a>
+      <a href="/php-project/"><button type="button" class="btn btn-secondary px-5 me-2">Back</button></a>
       <a href="./password.php"><button class="btn btn-warning px-2 me-2">Change Password</button></a>
     </div>
   </section>
@@ -36,7 +36,7 @@ $user = user();
     ?>
   </section>
   <section>
-    <form enctype="multipart/form-data" action="/crud/controllers/admin/user.php" method="post"
+    <form enctype="multipart/form-data" action="/php-project/controllers/admin/user.php" method="post"
       class="form-control py-3">
       <div class="input-group mb-3">
         <span class="input-group-text">Name</span>

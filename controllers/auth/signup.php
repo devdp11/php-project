@@ -20,7 +20,7 @@ function signUp($req)
 
         $params = '?' . http_build_query($req);
 
-        header('location: /crud/pages/public/signup.php' . $params);
+        header('location: /php-project/pages/public/dashboard.php' . $params);
     } else {
 
         $user = createNewUser($data);
@@ -31,7 +31,7 @@ function signUp($req)
 
             setcookie("id", $data['id'], time() + (60 * 60 * 24 * 30), "/");
             setcookie("name", $data['name'], time() + (60 * 60 * 24 * 30), "/");
-            header('location: /crud/');
+            header('location: /php-project/');
         }
     }
 }

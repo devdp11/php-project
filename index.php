@@ -39,8 +39,8 @@ require_once __DIR__ . '/setupdatabase.php';
                 <a class="text-decoration-none mx-5" style="color: black;" href="#workflow">Workflow</a>
                 <a class="text-decoration-none mx-5" style="color: black;" href="#aboutus">About Us</a>
                 <a class="text-decoration-none mx-5" style="color: black;" href="#contacts">Contacts</a>
-                <a class="btn-container text-decoration-none mx-4 px-3 py-1 rounded" style="color: blueviolet;" href="#">Login</a>
-                <a class="btn-container text-decoration-none mx-4 px-2 py-1 rounded" style="color: white;" href="#">Sign Up</a>
+                <a class="btn-container text-decoration-none mx-4 px-3 py-1 rounded" style="color: blueviolet;" href="./pages/public/signin.php">Login</a>
+                <a class="btn-container text-decoration-none mx-4 px-2 py-1 rounded" style="color: white;" href="./pages/public/signup.php">Sign Up</a>
             </div>
         </div>
     </header>

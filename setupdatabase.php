@@ -81,8 +81,8 @@ date_default_timezone_set('Europe/Lisbon');
 # DEFAULT USER TO ADD
 $user = [
     'name' => 'root',
-    'email' => 'root@root',
-    'password' => 'root',
+    'email' => 'root@root.com',
+    'password' => 'root123',
     'created_at' => date('Y-m-d H:i:s'),
     'updated_at' => date('Y-m-d H:i:s')
 ];
