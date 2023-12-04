@@ -17,7 +17,7 @@ $title = '- Sign Up';
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body style="background-color: hsl(0, 0%, 96%)">
-  <section>
+  <section class="py-4 px-5">
     <?php
     if (isset($_SESSION['success'])) {
       echo '<div class="alert alert-success alert-dismissible fade show" role="alert">';
@@ -73,8 +73,8 @@ $title = '- Sign Up';
                 </div>
                 <!-- Password input -->
                 <div class="form-outline mb-3">
-                  <label class="mb-2" for="confirmar_palavra_passe">Confirm Password</label>
-                  <input type="password" class="form-control" id="confirmar_palavra_passe" name="confirmar_palavra_passe" placeholder="Confirm password">
+                  <label class="mb-2" for="confirm_password">Confirm Password</label>
+                  <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirm password">
                 </div>
 
                 <!-- Submit button -->

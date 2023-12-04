@@ -36,7 +36,7 @@ $title = '- App';
         </div>
 
         <?php
-        if (isAuthenticated() && $user['administrator']) {
+        if (isAuthenticated() && $user['admin']) {
             echo '<div class="col-md-6">
                     <div class="h-100 p-5 bg-body-tertiary border rounded-3">
                         <h2>Admin</h2>

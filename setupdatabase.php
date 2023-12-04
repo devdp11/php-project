@@ -16,6 +16,7 @@ $pdo->exec('
         name varchar(255) NOT NULL,
         password varchar(255) NOT NULL,
         email varchar(255) NOT NULL,
+        admin BOOLEAN NOT NULL DEFAULT false,
         created_at timestamp NULL DEFAULT NULL,
         updated_at timestamp NULL DEFAULT NULL,
         deleted_at timestamp NULL DEFAULT NULL,
@@ -83,6 +84,7 @@ $user = [
     'name' => 'root',
     'email' => 'root@root.com',
     'password' => 'root123',
+    'admin' => true,
     'created_at' => date('Y-m-d H:i:s'),
     'updated_at' => date('Y-m-d H:i:s')
 ];
@@ -96,6 +98,7 @@ $sqlCreate = "INSERT INTO
         name, 
         password, 
         email,
+        admin,
         created_at,
         updated_at
     ) 
@@ -103,6 +106,7 @@ $sqlCreate = "INSERT INTO
         :name, 
         :password, 
         :email,
+        :admin,
         :created_at,
         :updated_at
     )";
@@ -115,6 +119,7 @@ $success = $PDOStatement->execute([
     ':name' => $user['name'],
     ':password' => $user['password'],
     ':email' => $user['email'],
+    ':admin' => $user['admin'],
     ':created_at' => $user['created_at'],
     ':updated_at' => $user['updated_at']
 ]);
