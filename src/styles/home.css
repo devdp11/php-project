@@ -1,0 +1,106 @@
+/* BODY CSS */
+body {
+  font-family: sans-serif;
+}
+
+/* HEADER CSS */
+header {
+  z-index: 999;
+}
+
+.navBar img {
+  max-width: 100px;
+}
+
+.index > a:hover {
+  color: blueviolet !important;
+  transition-duration: 1s;
+}
+
+/* MAIN CSS */
+.section:nth-child(2n) {
+  background-color: rgb(231, 231, 231);
+}
+
+.section__wrapper > p {
+  text-align: justify;
+}
+
+/* SECTION_BTN A */
+.section__btn a {
+  border: 2px solid blueviolet;
+}
+
+.section__btn a:hover {
+  background-color: blueviolet;
+  border: 2px solid blueviolet;
+  color: white !important;
+  transition-duration: 1s;
+}
+
+/* CARD__CONTENT */
+.card__content {
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out,
+    box-shadow 0.2s ease-in-out, opacity 0.2s ease-in-out;
+}
+
+.card__content:hover {
+  background-color: purple !important;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transform: scale(1.1);
+  transition-duration: 1s;
+}
+
+/* FOOTER */
+.social a i {
+  font-size: 2em;
+}
+
+.social a i:hover {
+  color: white !important;
+  transition-duration: 1s;
+}
+
+.social a:hover {
+  background-color: black !important;
+  transition-duration: 1s;
+}
+
+/* CLASSES CSS */
+.max-width-1250px {
+  max-width: 1250px;
+}
+
+.index > a:not(:hover),
+.section__btn a:not(:hover),
+.card__content:not(:hover) {
+  transition-duration: 2s;
+}
+
+/* RESPONSIVE MENU */
+.sidebar {
+  top: 5.7rem;
+  left: -50%;
+  transition: left 0.3s ease;
+  overflow-x: hidden;
+}
+
+@media (max-width: 800px) {
+  .index {
+    display: none;
+  }
+
+  .toogle-btn {
+    display: flex !important;
+  }
+
+  .logo {
+    display: block !important;
+  }
+
+  .sidebar.active {
+    left: 0;
+    z-index: 999;
+  }
+}
