@@ -17,6 +17,25 @@ $title = '- Sign Up';
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body style="background-color: hsl(0, 0%, 96%)">
+
+  <style>
+      .btn-blueviolet {
+          background-color: blueviolet;
+          color:white;
+          border-color: blueviolet;
+      }
+
+      .btn-blueviolet:hover {
+          background-color: white;
+          color: blueviolet;
+          border-color: darkviolet;
+      }
+
+      .btn-blueviolet:focus {
+          box-shadow: 0 0 0 0.2rem rgba(138, 43, 226, 0.25); /* Adiciona uma sombra sutil ao focar */
+      }
+  </style>
+
   <section class="py-4 px-5">
     <?php
     if (isset($_SESSION['success'])) {
@@ -38,27 +57,29 @@ $title = '- Sign Up';
   <div class="px-4 py-2 px-md-5 text-center text-lg-start">
     <div class="container">
       <div class="row gx-lg-5 align-items-center">
-        <div class="col-lg-6 mb-5 mb-lg-0">
-          <h1 class="my-5 display-3 fw-bold ls-tight">
-            The best offer <br />
-            <span class="text-primary">for your business</span>
-          </h1>
+        <div class="col-lg-6 mb-5 mb-lg-0 text-purple">
+          <div class="d-flex align-items-center justify-content-start">
+              <a href="../../index.php">
+                  <img src="../resources/assets/logo.png" alt="logo" style="width: 350px; height: auto;">
+              </a>
+          </div>
           <p style="color: hsl(217, 10%, 50.8%)">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Eveniet, itaque accusantium odio, soluta, corrupti aliquam
-            quibusdam tempora at cupiditate quis eum maiores libero
-            veritatis? Dicta facilis sint aliquid ipsum atque?
+            Take control of your expenses and financial journey with Expense Flow – your trusted companion in managing finances effortlessly. Join a community of savvy individuals who have discovered the power of organized budgeting and expense tracking.
+          <br>
+          <br>
+            Register now to unlock a world of financial possibilities. Start your journey towards financial freedom with Expense Flow – because you deserve the best in managing your expenses.
           </p>
         </div>
 
         <div class="col-lg-6 mb-5 mb-lg-0">
+          
           <div class="card">
             <div class="card-body py-5 px-md-5">
               <form action="../../controllers/auth/signup.php" method="post">
 
                 <div class="form-outline mb-3">
                   <label class="mb-2" for="name">Name</label>
-                  <input type="text" class="form-control" name="name" placeholder="name" maxlength="100" size="100" value="<?= isset($_REQUEST['name']) ? $_REQUEST['name'] : null ?>" required>
+                  <input type="text" class="form-control" name="name" placeholder="Name" maxlength="100" size="100" value="<?= isset($_REQUEST['name']) ? $_REQUEST['name'] : null ?>" required>
                 </div>
 
                 <!-- Email input -->
@@ -79,32 +100,12 @@ $title = '- Sign Up';
 
                 <!-- Submit button -->
                 <div class="d-flex justify-content-center mb-3">
-                  <button class="w-50 btn btn-lg btn-primary mb-2" type="submit" name="user" value="signUp">Sign Up</button>
+                  <button class="w-50 btn btn-lg btn-blueviolet mb-2" type="submit" name="user" value="signUp">Sign Up</button>
                 </div>
 
                 <!-- HasACC -->
                 <div class="d-flex justify-content-center mb-2">
                   <label class="d-flex">Already have an <a class="text-decoration-none mx-1" href="./signin.php" style="color: blueviolet"> account?</a></label>
-                </div>
-                
-                <!-- Register buttons -->
-                <div class="text-center">
-                  <p>or sign up with:</p>
-                  <button type="button" class="btn btn-link btn-floating mx-1">
-                    <i class="fab fa-facebook-f"></i>
-                  </button>
-
-                  <button type="button" class="btn btn-link btn-floating mx-1">
-                    <i class="fab fa-google"></i>
-                  </button>
-
-                  <button type="button" class="btn btn-link btn-floating mx-1">
-                    <i class="fab fa-twitter"></i>
-                  </button>
-
-                  <button type="button" class="btn btn-link btn-floating mx-1">
-                    <i class="fab fa-github"></i>
-                  </button>
                 </div>
               </form>
             </div>
