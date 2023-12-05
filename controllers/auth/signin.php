@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once __DIR__ . '/../../infra/repositories/userRepository.php';
-require_once __DIR__ . '/../../helpers/validations/app/validate-login-password.php';
+require_once __DIR__ . '/../../repositories/userRepository.php';
+require_once __DIR__ . '/../../validations/app/validate-sign-in.php';
 
 if (isset($_POST['user'])) {
     if ($_POST['user'] == 'login') {

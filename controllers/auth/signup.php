@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-require_once __DIR__ . '/../../infra/repositories/userRepository.php';
-require_once __DIR__ . '/../../helpers/validations/app/validate-sign-up.php';
+require_once __DIR__ . '/../../repositories/userRepository.php';
+require_once __DIR__ . '/../../validations/app/validate-sign-up.php';
 
 if (isset($_POST['user'])) {
     if ($_POST['user'] == 'signUp') {

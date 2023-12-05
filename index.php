@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/infra/middlewares/middleware-not-authenticated.php';
-require_once __DIR__ . '/setupdatabase.php';
+require_once __DIR__ . '../middlewares/middleware-not-authenticated.php';
+require_once __DIR__ . '../setupdatabase.php';
 ?>
 
 <!DOCTYPE html>
@@ -15,8 +15,8 @@ require_once __DIR__ . '/setupdatabase.php';
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <link rel="stylesheet" href="./src/styles/home.css">
-    <script src="./src/scripts/home.js"></script>
+    <link rel="stylesheet" href="./pages/resources/styles/home.css">
+    <script src="./pages/resources/scripts/home.js"></script>
 </head>
 
 <body class="m-0">
@@ -30,11 +30,11 @@ require_once __DIR__ . '/setupdatabase.php';
                             d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
                     </svg>
                 </button>
-                <a class="logo d-none mr-auto pb-1" href="#home"><img src="src/assets/logo.png" alt="logo"></a>
+                <a class="logo d-none mr-auto pb-1" href="#home"><img src="./pages/resources/assets/logo.png" alt="logo"></a>
             </div>
 
             <div class="btn index my-2">
-                <a href="#home"><img class="pb-2" src="src/assets/logo.png" alt="logo"></a>
+                <a href="#home"><img class="pb-2" src="./pages/resources/assets/logo.png" alt="logo"></a>
                 <a class="text-decoration-none mx-5" style="color: black;" href="#home">Home</a>
                 <a class="text-decoration-none mx-5" style="color: black;" href="#workflow">Workflow</a>
                 <a class="text-decoration-none mx-5" style="color: black;" href="#aboutus">About Us</a>
@@ -76,7 +76,7 @@ require_once __DIR__ . '/setupdatabase.php';
                     </div>
                     <div class="col-lg-6">
                         <div class="h-auto w-100">
-                            <img src="src/assets/home.png" alt="home" class="object-fit-cover w-100">
+                            <img src="./pages/resources/assets/home.png" alt="home" class="object-fit-cover w-100">
                         </div>
                     </div>
                 </div>
@@ -101,7 +101,7 @@ require_once __DIR__ . '/setupdatabase.php';
                     </div>
                     <div class="col-lg-6">
                         <div class="h-auto w-100">
-                            <img src="src/assets/wallet.png" alt="wallet" class="object-fit-cover w-100">
+                            <img src="./pages/resources/assets/wallet.png" alt="wallet" class="object-fit-cover w-100">
                         </div>
                     </div>
                 </div>
@@ -195,7 +195,7 @@ require_once __DIR__ . '/setupdatabase.php';
                     </div>
                     <div class="col-lg-6">
                         <div class="h-auto w-100">
-                            <img src="src/assets/aboutus.png" alt="aboutus" class="object-fit-cover w-100">
+                            <img src="./pages/resources/assets/aboutus.png" alt="aboutus" class="object-fit-cover w-100">
                         </div>
                     </div>
                 </div>
@@ -224,7 +224,7 @@ require_once __DIR__ . '/setupdatabase.php';
                         </div>
                         <div class="col-lg-6">
                             <div class="h-auto w-100">
-                                <img src="src/assets/contact.png" alt="contacts" class="object-fit-cover w-100">
+                                <img src="./pages/resources/assets/contact.png" alt="contacts" class="object-fit-cover w-100">
                             </div>
                         </div>
                     </div>

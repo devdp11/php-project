@@ -1,9 +1,9 @@
 <?php
 
-require_once __DIR__ . '/../../infra/repositories/userRepository.php';
-require_once __DIR__ . '/../../helpers/validations/admin/validate-user.php';
-require_once __DIR__ . '/../../helpers/validations/admin/validate-password.php';
-require_once __DIR__ . '/../../helpers/session.php';
+require_once __DIR__ . '/../../repositories/userRepository.php';
+require_once __DIR__ . '/../../validations/admin/validate-user.php';
+require_once __DIR__ . '/../../validations/admin/validate-password.php';
+require_once __DIR__ . '/../../validations/session.php';
 
 if (isset($_POST['user'])) {
     if ($_POST['user'] == 'create') {
@@ -133,6 +133,6 @@ function changePassword($req)
 
 function delete_user($user)
 {
-    $data = deleteUser($user['id']);
+    $data = softDeleteUser($user['id']);
     return $data;
 }

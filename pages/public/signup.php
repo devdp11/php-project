@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../../infra/middlewares/middleware-not-authenticated.php';
+require_once __DIR__ . '/../../middlewares/middleware-not-authenticated.php';
 $title = '- Sign Up';
 ?>
 

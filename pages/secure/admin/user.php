@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../../../infra/middlewares/middleware-administrator.php';
+require_once __DIR__ . '/../../../middlewares/middleware-administrator.php';
 require_once __DIR__ . '/../../../templates/header.php'; 
 
 $title = ' - user';

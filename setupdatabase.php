@@ -1,6 +1,6 @@
 <?php
 # EASY DATABASE SETUP
-require __DIR__ . '/infra/db/connection.php';
+require __DIR__ . '/db/connection.php';
 
 # DROP TABLES (if they exist)
 $tablesToDrop = ['expenses', 'attachments', 'categories', 'methods', 'users'];
