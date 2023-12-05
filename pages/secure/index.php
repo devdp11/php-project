@@ -1,17 +1,11 @@
 <?php
-require_once __DIR__ . '../../../middlewares/middleware-user.php';
-@require_once __DIR__ . '/../../validations/session.php';
-include_once __DIR__ . '../../../templates/header.php';
-
-$user = user();
-$title = '- App';
+    require_once __DIR__ . '../../../middlewares/middleware-user.php';
+    @require_once __DIR__ . '/../../validations/session.php';
+    include_once __DIR__ . '/../templates/header.php';
+    $user = user();
 ?>
 
 <main>
-    <header class="pb-3 mb-4 border-bottom">
-        <a href="/" class="d-flex align-items-center text-dark text-decoration-none"><img
-                src="/php-project/assets/images/logo-estg.svg" alt="ESTG" class="mw-100"></a>
-    </header>
     <div class="p-5 mb-4 bg-body-tertiary rounded-3">
         <div class="container-fluid py-5">
             <h1 class="display-5 fw-bold">Hello
@@ -30,8 +24,12 @@ $title = '- App';
         <div class="col-md-6">
             <div class="h-100 p-5 text-bg-dark rounded-3">
                 <h2>Profile</h2>
-                <a href="/php-project/pages/secure/user/profile.php"><button class="btn btn-outline-light px-5"
+                <a href="/php-project/pages/secure/user/profile.php"><button class="btn px-5"
                         type="button">Change</button></a>
+            </div>
+            <div class="h-100 p-5 text-bg-dark rounded-3">
+                <a href="../public/dashboard.php"><button class="btn"
+                        type="button">Go Back</button></a>
             </div>
         </div>
 
@@ -47,7 +45,3 @@ $title = '- App';
         ?>
     </div>
 </main>
-
-<?php
-include_once __DIR__ . '../../../templates/footer.php';
-?>

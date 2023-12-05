@@ -4,7 +4,7 @@
 
 .sidebar {
     top: 5.5rem;
-    left: -50%;
+    left: -1000px;
     transition: left 0.3s ease;
     overflow-x: hidden;
 }
@@ -23,8 +23,12 @@
     transition-duration: 2s;
 }
 
-@media (max-width: 1000px) {
-    .sidebar {
-        width: 50%!important;
+@media (max-width: 400px) {
+    .navBar > a {
+        display: none;
+    }
+
+    .sidebar > a:nth-child(1) {
+        display: block!important;
     }
 }

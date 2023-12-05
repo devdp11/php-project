@@ -33,7 +33,7 @@ $title = ' - Sign In';
     }
 
     .btn-blueviolet:focus {
-        box-shadow: 0 0 0 0.2rem rgba(138, 43, 226, 0.25); /* Adiciona uma sombra sutil ao focar */
+        box-shadow: 0 0 0 0.2rem rgba(138, 43, 226, 0.25);
     }
   </style>
   <section class="py-4 px-5">
@@ -53,9 +53,9 @@ $title = ' - Sign In';
     <div class="container">
       <div class="row gx-lg-5 align-items-center">
         <div class="col-lg-6 mb-5 mb-lg-0">
-          <div class="d-flex align-items-center justify-content-start">
-            <a href="../../index.php">
-              <img src="../resources/assets/logo.png" alt="logo" style="width: 350px; height: auto;">
+          <div class="d-flex justify-content-center">
+            <a class="text-decoration-none" href="../../index.php">
+              <h1 class="fw-bold" style="color: blueviolet">EXPENSE FLOW</h1>
             </a>
           </div>
           <p style="color: hsl(217, 10%, 50.8%)">

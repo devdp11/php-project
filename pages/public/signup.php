@@ -54,19 +54,19 @@ $title = '- Sign Up';
     }
     ?>
   </section>
-  <div class="px-4 py-2 px-md-5 text-center text-lg-start">
+  <div class="px-4 py-5 px-md-5 text-center text-lg-start">
     <div class="container">
       <div class="row gx-lg-5 align-items-center">
         <div class="col-lg-6 mb-5 mb-lg-0 text-purple">
-          <div class="d-flex align-items-center justify-content-start">
-              <a href="../../index.php">
-                  <img src="../resources/assets/logo.png" alt="logo" style="width: 350px; height: auto;">
-              </a>
+          <div class="d-flex justify-content-center">
+            <a class="text-decoration-none" href="../../index.php">
+              <h1 class="fw-bold" style="color: blueviolet">EXPENSE FLOW</h1>
+            </a>
           </div>
-          <p style="color: hsl(217, 10%, 50.8%)">
+          <p class="my-4" style="color: hsl(217, 10%, 50.8%)">
             Take control of your expenses and financial journey with Expense Flow – your trusted companion in managing finances effortlessly. Join a community of savvy individuals who have discovered the power of organized budgeting and expense tracking.
-          <br>
-          <br>
+          </p>
+          <p>
             Register now to unlock a world of financial possibilities. Start your journey towards financial freedom with Expense Flow – because you deserve the best in managing your expenses.
           </p>
         </div>
