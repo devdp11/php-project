@@ -35,7 +35,7 @@ $title = '- Sign Up';
     }
     ?>
   </section>
-  <div class="px-4 py-5 px-md-5 text-center text-lg-start">
+  <div class="px-4 py-2 px-md-5 text-center text-lg-start">
     <div class="container">
       <div class="row gx-lg-5 align-items-center">
         <div class="col-lg-6 mb-5 mb-lg-0">
