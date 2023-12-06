@@ -32,4 +32,3 @@
             <a class="fw-bold text-decoration-none ms-auto" href="../secure" style="color: blueviolet">Hello <?= $user['name'] ?? null ?>! </a>
         </div>
     </header>
-

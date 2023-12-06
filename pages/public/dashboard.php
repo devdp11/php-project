@@ -7,8 +7,8 @@
 ?>
 
 <?php 
-    $customButtons = '
-
+    $sideBTN = '
+        
         <a class="h6 d-block mx-3 my-2 p-3 text-decoration-none dropdown-toggle" href="#" role="button" id="expensesDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;"> Expenses </a>
 
         <ul class="dropdown-menu" aria-labelledby="expensesDropdown">
