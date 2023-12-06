@@ -29,7 +29,7 @@
                 </button>
                 <a class="logo mr-auto pb-1" href="#"><img src="../resources/assets/logo.png" alt="logo"></a>
             </div>
-            <a class="fw-bold text-decoration-none ms-auto mt-1" href="../secure" style="color: blueviolet">Hello <?= $user['name'] ?? null ?>! </a>
+            <a class="fw-bold text-decoration-none ms-auto" href="../secure" style="color: blueviolet">Hello <?= $user['name'] ?? null ?>! </a>
         </div>
     </header>
 
