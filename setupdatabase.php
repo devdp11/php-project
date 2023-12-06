@@ -15,16 +15,13 @@ foreach ($tablesToCheck as $table) {
     }
 }
 
-// If tables don't exist, create them
 if (!$tablesExist) {
-    // Drop existing tables
     $tablesToDrop = ['expenses', 'attachments', 'categories', 'methods', 'users'];
 
     foreach ($tablesToDrop as $table) {
         $pdo->exec("DROP TABLE IF EXISTS $table;");
     }
 
-    // Create tables
     $pdo->exec('
         CREATE TABLE users (
             id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -92,7 +89,6 @@ if (!$tablesExist) {
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
     ');
 
-    // Default user to add
     $user = [
         'name' => 'root',
         'email' => 'root@root.com',
@@ -102,10 +98,8 @@ if (!$tablesExist) {
         'updated_at' => date('Y-m-d H:i:s')
     ];
 
-    // Hash password
     $user['password'] = password_hash($user['password'], PASSWORD_DEFAULT);
 
-    // Insert user
     $sqlCreate = "INSERT INTO 
         users (
             name, 
@@ -124,10 +118,8 @@ if (!$tablesExist) {
             :updated_at
         )";
 
-    // Prepare query
     $PDOStatement = $pdo->prepare($sqlCreate);
 
-    // Execute
     $success = $PDOStatement->execute([
         ':name' => $user['name'],
         ':password' => $user['password'],
@@ -136,5 +128,64 @@ if (!$tablesExist) {
         ':created_at' => $user['created_at'],
         ':updated_at' => $user['updated_at']
     ]);
+    
+    $categoriesToInsert = [
+        ['description' => 'General'],        
+        ['description' => 'Food'],
+        ['description' => 'Transportation'],
+        ['description' => 'Utilities'],
+        ['description' => 'Entertainment'],
+        ['description' => 'Rent'],
+        ['description' => 'Insurance'],        
+        ['description' => 'Mechanic'],        
+        ['description' => 'Payroll Taxes'],        
+        ['description' => 'Healthcare'],        
+        ['description' => 'Investing'],        
+        ['description' => 'Debt Payments'],        
+        ['description' => 'Personal'],        
+        ['description' => 'Miscellaneous'],        
+        ['description' => 'Communication'],      
+        ['description' => 'Housing'],      
+    ];
+
+    foreach ($categoriesToInsert as $categoryData) {
+        $CreateQuery = "INSERT INTO categories (description, created_at, updated_at) 
+                                VALUES (:description, NOW(), NOW())";
+        
+        $Statment = $pdo->prepare($CreateQuery);
+
+        $Sucess = $Statment->execute([
+            ':description' => $categoryData['description']
+        ]);
+
+        if (!$Sucess) {
+            echo "Error adding a category: " . implode(" - ", $Statment->errorInfo()) . PHP_EOL;
+        }
+    }
+
+    $methodsToInsert = [
+        ['description' => 'Cash'],
+        ['description' => 'Credit Card'],
+        ['description' => 'Web Currency'],
+        ['description' => 'PayPal'],
+        ['description' => 'MB WAY'],
+        ['description' => 'Cash APP'],
+        ['description' => 'Skrill'],
+    ];
+
+    foreach ($methodsToInsert as $methodData) {
+        $CreateQuery = "INSERT INTO methods (description, created_at, updated_at) 
+                            VALUES (:description, NOW(), NOW())";
+        
+        $Statment = $pdo->prepare($CreateQuery);
+
+        $Sucess = $Statment->execute([
+            ':description' => $methodData['description']
+        ]);
+
+        if (!$Sucess) {
+            echo "Error adding a payment method: " . implode(" - ", $Statment->errorInfo()) . PHP_EOL;
+        }
+    }    
 }
 ?>
