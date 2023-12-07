@@ -1,9 +1,7 @@
 <?php
 require_once __DIR__ . '../../../../middlewares/middleware-user.php';
-include_once __DIR__ . '../../../../templates/header.php';
 @require_once __DIR__ . '/../../../validations/session.php';
 
-$title = ' - Profile';
 $user = user();
 ?>
 

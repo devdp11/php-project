@@ -3,26 +3,15 @@
     @require_once __DIR__ . '../../../validations/session.php';
     $user = user();
         
-    $sideBTN = TRUE;
-    include_once __DIR__ . '/../templates/header.php';
-    $title = 'Dashboard';
 ?>
 
-<?php 
-    $sideBTN = '
-        <a class="h6 d-block mx-3 my-2 p-3 text-decoration-none dropdown-toggle" href="#" role="button" id="expensesDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;"> Expenses </a>
-
-        <ul class="dropdown-menu" aria-labelledby="expensesDropdown">
-            <li><a class="dropdown-item my-2" href="./expenses.php">Manage Expenses</a></li>
-            <li><a class="dropdown-item my-2" href="#">List Expenses</a></li>
-            <li><a class="dropdown-item my-2" href="#">Share Expenses</a></li>
-        </ul>
-
-        <a class="h6 d-block mx-3 my-2 p-3 text-decoration-none" style="color: black;" href="#" onclick="untoggleMenu()">Payment Methods</a>
-        <a class="h6 d-block mx-3 my-2 p-3 text-decoration-none" style="color: black;" href="#" onclick="untoggleMenu()">Expense Categories</a>
-    ';
-
-include_once __DIR__ . '/../templates/sidebar.php'; 
-?>
-
-<script> document.title = "EFlow - <?= $title ?? '' ?>"; </script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <a href="../secure">PROFILE</a>    
+</body>
+</html>

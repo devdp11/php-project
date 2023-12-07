@@ -1,10 +1,8 @@
 <?php
 require_once __DIR__ . '/../../../repositories/userRepository.php';
 require_once __DIR__ . '/../../../middlewares/middleware-administrator.php';
-require_once __DIR__ . '/../../../templates/header.php'; 
 
 $users = getAll();
-$title = ' - Admin management';
 ?>
 
 <div class="pt-1 ">

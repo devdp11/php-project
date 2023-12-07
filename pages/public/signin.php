@@ -16,26 +16,10 @@ $title = ' - Sign In';
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
     integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
+  <link rel="stylesheet" href="../resources/styles/auth.css">
+  </head>
+  
 <body style="background-color: hsl(0, 0%, 96%)" class="py-5">
-
-  <style>
-    .btn-blueviolet {
-        background-color: blueviolet;
-        color:white;
-        border-color: blueviolet;
-    }
-
-    .btn-blueviolet:hover {
-        background-color: white;
-        color: blueviolet;
-        border-color: darkviolet;
-    }
-
-    .btn-blueviolet:focus {
-        box-shadow: 0 0 0 0.2rem rgba(138, 43, 226, 0.25);
-    }
-  </style>
   <section class="py-4 px-5">
     <?php
       if (isset($_SESSION['errors'])) {

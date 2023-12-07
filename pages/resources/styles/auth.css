@@ -1,0 +1,15 @@
+.btn-blueviolet {
+    background-color: blueviolet;
+    color:white;
+    border-color: blueviolet;
+}
+
+.btn-blueviolet:hover {
+    background-color: white;
+    color: blueviolet;
+    border-color: darkviolet;
+}
+
+.btn-blueviolet:focus {
+    box-shadow: 0 0 0 0.2rem rgba(138, 43, 226, 0.25); /* Adiciona uma sombra sutil ao focar */
+}
