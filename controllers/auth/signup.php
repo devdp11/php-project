@@ -24,14 +24,11 @@ function signUp($req)
         if ($user) {
             if (!$user['deleted_at']) {
                 $_SESSION['id'] = $user['id'];
-                $_SESSION['name'] = $user['name'];
+                $_SESSION['first_name'] = $user['first_name'];
 
                 setcookie("id", $data['id'], time() + (60 * 60 * 24 * 30), "/");
-                setcookie("name", $data['name'], time() + (60 * 60 * 24 * 30), "/");
-                header('location: /php-project/pages/public/dashboard.php');
-            } else {
-                $_SESSION['errors'] = "Usuário criado, mas foi deletado suavemente. Não é possível fazer login.";
-                header('location: /php-project/pages/public/dashboard.php');
+                setcookie("first_name", $data['first_name'], time() + (60 * 60 * 24 * 30), "/");
+                header('location: /php-project/pages/secure/dashboard.php');
             }
         }
     }

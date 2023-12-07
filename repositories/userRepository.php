@@ -6,7 +6,8 @@ function createUser($user)
     $user['password'] = password_hash($user['password'], PASSWORD_DEFAULT);
     $sqlCreate = "INSERT INTO 
     users (
-        name, 
+        first_name,
+        last_name, 
         password, 
         email, 
         admin,
@@ -14,7 +15,8 @@ function createUser($user)
         updated_at
     ) 
     VALUES (
-        :name, 
+        :first_name,
+        :last_name, 
         :password, 
         :email, 
         :admin,
@@ -25,7 +27,8 @@ function createUser($user)
     $PDOStatement = $GLOBALS['pdo']->prepare($sqlCreate);
 
     $success = $PDOStatement->execute([
-        ':name' => $user['name'],
+        ':first_name' => $user['first_name'],
+        ':last_name' => $user['last_name'],
         ':password' => $user['password'],
         ':email' => $user['email'],
         ':admin' => $user['admin'],
@@ -147,13 +150,15 @@ function createNewUser($user)
 
     $sqlCreate = "INSERT INTO 
     users (
-        name, 
+        first_name,
+        last_name, 
         email, 
         password,
         admin
     ) 
     VALUES (
-        :name, 
+        :first_name,
+        :last_name, 
         :email, 
         :password,
         :admin
@@ -161,7 +166,8 @@ function createNewUser($user)
 
     $PDOStatement = $GLOBALS['pdo']->prepare($sqlCreate);
     $success = $PDOStatement->execute([
-        ':name' => $user['name'],
+        ':first_name' => $user['first_name'],
+        ':last_name' => $user['last_name'],
         ':email' => $user['email'],
         ':password' => $user['password'],
         ':admin' => $user['admin'],

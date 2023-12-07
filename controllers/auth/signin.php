@@ -24,10 +24,10 @@ function login($req)
 
     $user = checkErrors($data, $req);
 
-    if ($user && !$user['deleted_at']) { // Adiciona verificação para usuário não deletado
+    if ($user && !$user['deleted_at']) {
         doLogin($data);
     } elseif ($user['deleted_at']) {
-        $_SESSION['errors'] = "Usuário deletado. Não é possível fazer login.";
+        $_SESSION['errors'] = "Usuário apagado. Não é possível fazer login.";
         $params = '?' . http_build_query($req);
         header('location: /php-project/pages/public/signin.php' . $params);
     }
@@ -49,12 +49,12 @@ function checkErrors($data, $req)
 function doLogin($data)
 {
     $_SESSION['id'] = $data['id'];
-    $_SESSION['name'] = $data['name'];
+    $_SESSION['first_name'] = $data['first_name'];
 
     setcookie("id", $data['id'], time() + (60 * 60 * 24 * 30), "/");
-    setcookie("name", $data['name'], time() + (60 * 60 * 24 * 30), "/");
+    setcookie("first_name", $data['first_name'], time() + (60 * 60 * 24 * 30), "/");
 
-    $home_url = 'http://' . $_SERVER['HTTP_HOST'] . '/php-project/pages/public/dashboard.php';
+    $home_url = 'http://' . $_SERVER['HTTP_HOST'] . '/php-project/pages/public/secure/dashboard.php';
     header('Location: ' . $home_url);
 }
 
@@ -71,7 +71,7 @@ function logout()
     }
 
     setcookie('id', '', time() - 3600, "/");
-    setcookie('name', '', time() - 3600, "/");
+    setcookie('first_name', '', time() - 3600, "/");
 
     $home_url = 'http://' . $_SERVER['HTTP_HOST'] . '/php-project';
     header('Location: ' . $home_url);

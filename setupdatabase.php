@@ -25,7 +25,8 @@ if (!$tablesExist) {
     $pdo->exec('
         CREATE TABLE users (
             id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-            name varchar(255) NOT NULL,
+            first_name varchar(255) NOT NULL,
+            last_name varchar(255) NOT NULL,
             password varchar(255) NOT NULL,
             email varchar(255) NOT NULL,
             admin BOOLEAN NOT NULL DEFAULT false,
@@ -33,7 +34,7 @@ if (!$tablesExist) {
             updated_at timestamp NULL DEFAULT NULL,
             deleted_at timestamp NULL DEFAULT NULL,
             PRIMARY KEY (id),
-            UNIQUE KEY users_name_unique (name)
+            UNIQUE KEY users_id_unique (id)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
         CREATE TABLE methods (
@@ -90,7 +91,8 @@ if (!$tablesExist) {
     ');
 
     $user = [
-        'name' => 'root',
+        'first_name' => 'root',
+        'last_name' => 'root',
         'email' => 'root@root.com',
         'password' => 'root123',
         'admin' => true,
@@ -102,7 +104,8 @@ if (!$tablesExist) {
 
     $sqlCreate = "INSERT INTO 
         users (
-            name, 
+            first_name,
+            last_name, 
             password, 
             email,
             admin,
@@ -110,7 +113,8 @@ if (!$tablesExist) {
             updated_at
         ) 
         VALUES (
-            :name, 
+            :first_name,
+            :last_name,  
             :password, 
             :email,
             :admin,
@@ -121,7 +125,8 @@ if (!$tablesExist) {
     $PDOStatement = $pdo->prepare($sqlCreate);
 
     $success = $PDOStatement->execute([
-        ':name' => $user['name'],
+        ':first_name' => $user['first_name'],
+        ':last_name' => $user['last_name'],
         ':password' => $user['password'],
         ':email' => $user['email'],
         ':admin' => $user['admin'],

@@ -1,6 +1,5 @@
 <?php
 require_once __DIR__ . '/../../middlewares/middleware-not-authenticated.php';
-$title = '- Sign Up';
 ?>
 
 <!DOCTYPE html>
@@ -59,10 +58,19 @@ $title = '- Sign Up';
           <div class="card">
             <div class="card-body py-5 px-md-5">
               <form action="../../controllers/auth/signup.php" method="post">
-
-                <div class="form-outline mb-3">
-                  <label class="mb-2" for="name">Name</label>
-                  <input type="text" class="form-control" name="name" placeholder="Name" maxlength="100" size="100" value="<?= isset($_REQUEST['name']) ? $_REQUEST['name'] : null ?>" required>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-outline mb-3">
+                        <label class="mb-2" for="first_name">First Name</label>
+                        <input type="text" class="form-control" name="first_name" placeholder="First Name" maxlength="100" size="100" value="<?= isset($_REQUEST['first_name']) ? $_REQUEST['first_name'] : null ?>" required>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-outline mb-3">
+                        <label class="mb-2" for="last_name">Last Name</label>
+                        <input type="text" class="form-control" name="last_name" placeholder="Last Name" maxlength="100" size="100" value="<?= isset($_REQUEST['last_name']) ? $_REQUEST['last_name'] : null ?>" required>
+                    </div>
+                  </div>
                 </div>
 
                 <!-- Email input -->
