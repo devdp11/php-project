@@ -30,10 +30,10 @@
                             <a class="mx-4 my-2 rounded list-group-item list-group-item-action" data-toggle="list"
                                 href="#account-change-password">Change password</a>
                             <form action="../../controllers/auth/signin.php" method="post">
-                                <button class="btn btn-danger mx-4 my-2" type="submit" name="user" value="logout">Logout</button>
+                                <button class="btn btn-danger mx-4 mt-2" type="submit" name="user" value="logout">Logout</button>
                             </form>
-                            <form action="../../controllers/auth/signin.php" method="post">
-                                <button class="btn btn-danger mx-4 my-2" type="submit" name="user" value="delete">Delete Account</button>
+                            <form action="../../controllers/auth/signin.php" method="post" onsubmit="return confirmDelete()">
+                                <button class="btn btn-danger mx-4" type="submit" name="user" value="delete">Delete Account</button>
                             </form>
                         </div>
                 </div>
@@ -74,7 +74,6 @@
                                             <input type="text" class="form-control mb-1" name="last_name" value="<?= $user['last_name'] ?>">
                                         </div>
                                     </div>
-                                    
                                     <div class="form-group">
                                         <label class="form-label">Email</label>
                                         <input type="text" class="form-control mb-1" name="email" value="<?= $user['email'] ?>">
@@ -132,3 +131,10 @@
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        function confirmDelete() {
+            var result = confirm("Tem certeza de que deseja excluir sua conta?");
+            return result;
+        }
+    </script>
