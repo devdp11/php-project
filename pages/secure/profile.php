@@ -16,7 +16,7 @@
 
 <?php include __DIR__ . '/dashboard.php'; ?>
     
-    <div class="light-style col-auto flex-grow-1 container-p-y">
+    <div class="col-auto flex-grow-1 container-p-y">
         <h4 class="font-weight-bold py-3 mb-1">
             Account settings
         </h4>
@@ -24,25 +24,26 @@
             <div class="row no-gutters row-border-light">
                 <div class="col-md-2 pt-0 d-flex flex-column">
                     <div class="mb-4"></div>
-                    <div class="list-group account-settings-links">
-                        <a class="mx-4 my-2 rounded list-group-item list-group-item-action" data-toggle="list"
-                            href="#account-general">Profile</a>
-                        <a class="mx-4 my-2 rounded list-group-item list-group-item-action" data-toggle="list"
-                            href="#account-change-password">Change password</a>
-                        <form action="../../controllers/auth/signin.php" method="post">
-                            <button class="btn btn-danger mx-4 my-2" type="submit" name="user" value="logout">Logout</button>
-                        </form>
-                    </div>
+                        <div class="list-group account-settings-links">
+                            <a class="mx-4 my-2 rounded list-group-item list-group-item-action" data-toggle="list"
+                                href="#account-general">Profile</a>
+                            <a class="mx-4 my-2 rounded list-group-item list-group-item-action" data-toggle="list"
+                                href="#account-change-password">Change password</a>
+                            <form action="../../controllers/auth/signin.php" method="post">
+                                <button class="btn btn-danger mx-4 my-2" type="submit" name="user" value="logout">Logout</button>
+                            </form>
+                            <form action="../../controllers/auth/signin.php" method="post">
+                                <button class="btn btn-danger mx-4 my-2" type="submit" name="user" value="delete">Delete Account</button>
+                            </form>
+                        </div>
                 </div>
                 <div class="col-md-9">
                     <div class="tab-content">
                         <div class="tab-pane fade active show" id="account-general">
                             <div class="card-body text-center">
-                                <!-- Avatar Section -->
                                 <div class="my-4">
                                     <?php if (!empty($user['avatar'])): ?>
                                         <?php
-                                        // Decodificar a string base64 de volta para dados binários
                                         $avatarData = base64_decode($user['avatar']);
                                         $avatarSrc = 'data:image/jpeg;base64,' . base64_encode($avatarData);
                                         ?>
@@ -52,7 +53,6 @@
                                     <?php endif; ?>
                                 </div>
 
-                                <!-- Upload Form Section -->
                                 <form action="../../controllers/user/update-avatar.php" method="post" enctype="multipart/form-data">
                                     <label class="btn btn-outline-primary">
                                         Choose Image

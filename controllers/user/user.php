@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Location: ../../pages/secure/profile.php');
         exit();
     } else {
-        echo 'Error updating user profile.';
+        echo 'Error updating profile.';
     }
 } else {
     echo 'Invalid request method.';

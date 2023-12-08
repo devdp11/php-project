@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_avatar'])) {
             header('Location: ../../pages/secure/profile.php');
             exit();
         } else {
-            echo 'Erro ao atualizar o avatar.';
+            echo 'Error updating avatar.';
         }
     }
 }

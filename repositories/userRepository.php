@@ -96,7 +96,6 @@ function updateUser($user)
         $user['password'] = password_hash($user['password'], PASSWORD_DEFAULT);
     }
 
-    // Set updated_at to the current timestamp
     $user['updated_at'] = date('Y-m-d H:i:s');
 
     $sqlUpdate = "UPDATE users SET
@@ -118,7 +117,7 @@ function updateUser($user)
         ':email' => $user['email'],
         ':country' => $user['country'],
         ':birthdate' => $user['birthdate'],
-        ':updated_at' => $user['updated_at'], // Add the updated_at parameter
+        ':updated_at' => $user['updated_at'],
     ];
 
     if (!empty($passwordUpdate)) {
@@ -193,14 +192,18 @@ function createNewUser($user)
         last_name, 
         email, 
         password,
-        admin
+        admin,
+        created_at,
+        updated_at
     ) 
     VALUES (
         :first_name,
         :last_name, 
         :email, 
         :password,
-        :admin
+        :admin,
+        NOW(), 
+        NOW()
     )";
 
     $PDOStatement = $GLOBALS['pdo']->prepare($sqlCreate);
