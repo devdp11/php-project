@@ -11,7 +11,8 @@ function createUser($user)
         first_name,
         last_name, 
         password, 
-        email, 
+        email,
+        avatar, 
         admin,
         created_at, 
         updated_at
@@ -20,7 +21,8 @@ function createUser($user)
         :first_name,
         :last_name, 
         :password, 
-        :email, 
+        :email,
+        :avatar,
         :admin,
         NOW(), 
         NOW()
@@ -48,6 +50,24 @@ function getById($id)
     $PDOStatement->bindValue(1, $id, PDO::PARAM_INT);
     $PDOStatement->execute();
     return $PDOStatement->fetch();
+}
+
+function getHashedPasswordById($id)
+{
+    
+    $PDOStatement = $GLOBALS['pdo']->prepare('SELECT password FROM users WHERE id = ?;');
+        
+    $PDOStatement->bindValue(1, $id, PDO::PARAM_INT);
+        
+    $PDOStatement->execute();
+        
+    $userData = $PDOStatement->fetch(PDO::FETCH_ASSOC);
+   
+    if (!$userData) {
+        return false;
+    }
+
+    return $userData['password'];
 }
 
 function getByEmail($email)
@@ -110,25 +130,24 @@ function updateUser($user)
     return $success;
 }
 
-
-function updatePassword($user)
+function updatePassword($id, $hashedPassword)
 {
-    if (isset($user['password']) && !empty($user['password'])) {
-        $user['password'] = password_hash($user['password'], PASSWORD_DEFAULT);
+    $sqlUpdatePassword = "UPDATE users SET
+        password = :password,
+        updated_at = :updated_at
+        WHERE id = :id";
 
-        $sqlUpdate = "UPDATE  
-        users SET
-            password = :password,
-            updated_at = NOW()
-        WHERE id = :id;";
+    $PDOStatement = $GLOBALS['pdo']->prepare($sqlUpdatePassword);
 
-        $PDOStatement = $GLOBALS['pdo']->prepare($sqlUpdate);
+    $bindParams = [
+        ':id' => $id,
+        ':password' => $hashedPassword,
+        ':updated_at' => $user['updated_at'],
+    ];
 
-        return $PDOStatement->execute([
-            ':id' => $user['id'],
-            ':password' => $user['password'],
-        ]);
-    }
+    $success = $PDOStatement->execute($bindParams);
+
+    return $success;
 }
 
 function softDeleteUser($id)
@@ -143,6 +162,24 @@ function softDeleteUser($id)
     return $PDOStatement->execute([
         ':id' => $id,
     ]);
+}
+
+function updateUserAvatar($userId, $avatar)
+{
+    $sqlUpdate = "UPDATE users SET
+        avatar = :avatar
+        WHERE id = :id";
+
+    $PDOStatement = $GLOBALS['pdo']->prepare($sqlUpdate);
+
+    $bindParams = [
+        ':id' => $userId,
+        ':avatar' => $avatar,
+    ];
+
+    $success = $PDOStatement->execute($bindParams);
+
+    return $success;
 }
 
 function createNewUser($user)

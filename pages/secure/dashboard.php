@@ -46,7 +46,7 @@
                             </a>
                         </li>
                         <li class="nav-item py-3 mask <?= $user['admin'] ? '' : 'd-none'; ?>">
-                            <a href="./manageUsers.php" class="nav-link text-white">
+                            <a href="./manage-user.php" class="nav-link text-white">
                                 <i class="fa-solid fa-money-check-dollar" title="Users"></i>
                                 <span class="fs-6 ms-3 d-none d-sm-inline">Users</span>
                             </a>
@@ -60,12 +60,5 @@
                     </a>
                 </div>
             </div>
-            <div class="col-auto">
-                ola
-            </div>
-        </div>
-    </div>
-
-</body>
-</html>
+            
 
