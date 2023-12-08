@@ -1,3 +1,7 @@
 .nav-pills li a:hover {
-    background-color: blueviolet;
+  background-color: blueviolet;
+}
+
+.sidebar-color {
+  color: #666666;
 }

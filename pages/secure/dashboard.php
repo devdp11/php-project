@@ -45,7 +45,7 @@
                                 <span class="fs-6 ms-3 d-none d-sm-inline">Payments</span>
                             </a>
                         </li>
-                        <li class="nav-item py-3 mask">
+                        <li class="nav-item py-3 mask <?= $user['admin'] ? '' : 'd-none'; ?>">
                             <a href="./manageUsers.php" class="nav-link text-white">
                                 <i class="fa-solid fa-money-check-dollar" title="Users"></i>
                                 <span class="fs-6 ms-3 d-none d-sm-inline">Users</span>
