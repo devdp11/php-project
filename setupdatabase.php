@@ -29,6 +29,9 @@ if (!$tablesExist) {
             last_name varchar(255) NOT NULL,
             password varchar(255) NOT NULL,
             email varchar(255) NOT NULL,
+            avatar longblob NULL,
+            country varchar(255) NULL,
+            birthdate date NULL,
             admin BOOLEAN NOT NULL DEFAULT false,
             created_at timestamp NULL DEFAULT NULL,
             updated_at timestamp NULL DEFAULT NULL,
@@ -93,7 +96,10 @@ if (!$tablesExist) {
     $user = [
         'first_name' => 'root',
         'last_name' => 'root',
+        'avatar' => 'NULL',
         'email' => 'root@root.com',
+        'country' => 'Portugal',
+        'birthdate' => '2003/08/19',
         'password' => 'root123',
         'admin' => true,
         'created_at' => date('Y-m-d H:i:s'),
@@ -106,8 +112,11 @@ if (!$tablesExist) {
         users (
             first_name,
             last_name, 
-            password, 
+            password,
+            avatar,
             email,
+            country,
+            birthdate,
             admin,
             created_at,
             updated_at
@@ -115,8 +124,11 @@ if (!$tablesExist) {
         VALUES (
             :first_name,
             :last_name,  
-            :password, 
+            :password,
+            :avatar,
             :email,
+            :country,
+            :birthdate,
             :admin,
             :created_at,
             :updated_at
@@ -128,7 +140,10 @@ if (!$tablesExist) {
         ':first_name' => $user['first_name'],
         ':last_name' => $user['last_name'],
         ':password' => $user['password'],
+        ':avatar' => $user['avatar'],
         ':email' => $user['email'],
+        ':country' => $user['country'],
+        ':birthdate' => $user['birthdate'],
         ':admin' => $user['admin'],
         ':created_at' => $user['created_at'],
         ':updated_at' => $user['updated_at']

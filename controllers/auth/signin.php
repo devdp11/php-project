@@ -54,7 +54,7 @@ function doLogin($data)
     setcookie("id", $data['id'], time() + (60 * 60 * 24 * 30), "/");
     setcookie("first_name", $data['first_name'], time() + (60 * 60 * 24 * 30), "/");
 
-    $home_url = 'http://' . $_SERVER['HTTP_HOST'] . '/php-project/pages/public/secure/dashboard.php';
+    $home_url = 'http://' . $_SERVER['HTTP_HOST'] . '/php-project/pages/secure/dashboard.php';
     header('Location: ' . $home_url);
 }
 

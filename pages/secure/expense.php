@@ -34,7 +34,7 @@
                             </a>
                         </li>
                         <li class="nav-item py-3">
-                            <a href="./expense.php" class="nav-link text-white">
+                            <a href="#" class="nav-link text-white">
                                 <i class="fa-solid fa-table-list" title="Expenses"></i>
                                 <span class="fs-6 ms-3 d-none d-sm-inline">Expenses</span>
                             </a>

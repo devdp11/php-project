@@ -23,7 +23,7 @@
         <div class="col-md-6">
             <div class="h-100 p-5 text-bg-dark rounded-3">
                 <a href="/php-project/pages/secure/user/profile.php"><button class="btn px-5" type="button">CHANGE</button></a>
-                <a href="../public/dashboard.php">BACK</a>
+                <a href="./dashboard.php">BACK</a>
             </div>
         </div>
 
