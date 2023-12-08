@@ -60,7 +60,8 @@
                     </a>
                 </div>
             </div>
-            <div class="container light-style flex-grow-1 container-p-y">
+
+            <div class="light-style col-auto flex-grow-1 container-p-y">
                 <h4 class="font-weight-bold py-3 mb-1">
                     Account settings
                 </h4>
