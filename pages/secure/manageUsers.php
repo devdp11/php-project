@@ -2,22 +2,28 @@
     require_once __DIR__ . '../../../middlewares/middleware-user.php';
     @require_once __DIR__ . '/../../validations/session.php';
     $user = user();
+    $countriesJson = file_get_contents('../templates/countries.json');
+    $countries = json_decode($countriesJson, true);
 ?>
 
+<!--Website: wwww.codingdung.com-->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./fontawesome-free-6.2.1-web/css/all.css">
+    <link rel="stylesheet" href="../resources/styles/profile.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../resources/styles/sidebar.css">
 </head>
+
 <body>
-    <div class="container-fluid">
+<div class="container-fluid">
         <div class="row flex-nowrap">
             <div class="bg-dark col-auto min-vh-100 d-flex flex-column">
                 <div class="bg-dark p-2">
@@ -40,12 +46,6 @@
                             </a>
                         </li>
                         <li class="nav-item py-3 mask">
-                            <a href="#" class="nav-link text-white">
-                                <i class="fa-solid fa-money-check-dollar" title="Payments"></i>
-                                <span class="fs-6 ms-3 d-none d-sm-inline">Payments</span>
-                            </a>
-                        </li>
-                        <li class="nav-item py-3 mask">
                             <a href="./manageUsers.php" class="nav-link text-white">
                                 <i class="fa-solid fa-money-check-dollar" title="Users"></i>
                                 <span class="fs-6 ms-3 d-none d-sm-inline">Users</span>
@@ -60,9 +60,17 @@
                     </a>
                 </div>
             </div>
+            
+            <!-- código para gerir utilizadores aqui -->
+
         </div>
     </div>
-
+    
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-</html>
 
+
+
+</html>
