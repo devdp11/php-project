@@ -1,6 +1,8 @@
 <?php
 require_once __DIR__ . '../../db/connection.php';
 
+date_default_timezone_set('Europe/Lisbon');
+
 function createUser($user)
 {
     $user['password'] = password_hash($user['password'], PASSWORD_DEFAULT);
@@ -74,12 +76,16 @@ function updateUser($user)
         $user['password'] = password_hash($user['password'], PASSWORD_DEFAULT);
     }
 
+    // Set updated_at to the current timestamp
+    $user['updated_at'] = date('Y-m-d H:i:s');
+
     $sqlUpdate = "UPDATE users SET
         first_name = :first_name,
         last_name = :last_name,
         email = :email,
         country = :country,
-        birthdate = :birthdate
+        birthdate = :birthdate,
+        updated_at = :updated_at
         $passwordUpdate
         WHERE id = :id";
 
@@ -92,6 +98,7 @@ function updateUser($user)
         ':email' => $user['email'],
         ':country' => $user['country'],
         ':birthdate' => $user['birthdate'],
+        ':updated_at' => $user['updated_at'], // Add the updated_at parameter
     ];
 
     if (!empty($passwordUpdate)) {
@@ -102,6 +109,7 @@ function updateUser($user)
 
     return $success;
 }
+
 
 function updatePassword($user)
 {

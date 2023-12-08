@@ -1,6 +1,8 @@
 <?php
 require_once __DIR__ . '/db/connection.php';
 
+date_default_timezone_set('Europe/Lisbon');
+
 // Check if tables exist
 $tablesToCheck = ['users', 'methods', 'categories', 'attachments', 'expenses'];
 $tablesExist = true;

@@ -98,7 +98,7 @@
                                         </div>
                                     </div>
                                     <div class="card-body d-flex justify-content-center">
-                                        <form action="../../controllers/update-profile.php" method="post">
+                                        <form action="../../controllers/user/user.php" method="post">
                                             <div class="row">
                                                 <div class="col-auto form-group">
                                                     <label class="form-label">First Name</label>
