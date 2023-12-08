@@ -1,5 +1,4 @@
 <?php
-
 require_once __DIR__ . '/../../validations/user/validate-update-password.php';
 require_once __DIR__ . '/../../repositories/userRepository.php';
 @require_once __DIR__ . '/../../validations/session.php';

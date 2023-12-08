@@ -19,7 +19,7 @@ function signUp($req)
         $params = '?' . http_build_query($req);
         header('location: /php-project/pages/public/signup.php' . $params);
     } else {
-        $user = createNewUser($data);
+        $user = registerUser($data);
 
         if ($user) {
             if (!$user['deleted_at']) {

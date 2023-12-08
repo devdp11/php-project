@@ -44,10 +44,28 @@ function createUser($user)
     return $success;
 }
 
+function getAll()
+{
+    $PDOStatement = $GLOBALS['pdo']->query('SELECT * FROM users;');
+    $users = [];
+    while ($listaDeusers = $PDOStatement->fetch()) {
+        $users[] = $listaDeusers;
+    }
+    return $users;
+}
+
 function getById($id)
 {
     $PDOStatement = $GLOBALS['pdo']->prepare('SELECT * FROM users WHERE id = ?;');
     $PDOStatement->bindValue(1, $id, PDO::PARAM_INT);
+    $PDOStatement->execute();
+    return $PDOStatement->fetch();
+}
+
+function getByEmail($email)
+{
+    $PDOStatement = $GLOBALS['pdo']->prepare('SELECT * FROM users WHERE email = ? LIMIT 1;');
+    $PDOStatement->bindValue(1, $email);
     $PDOStatement->execute();
     return $PDOStatement->fetch();
 }
@@ -68,24 +86,6 @@ function getHashedPasswordById($id)
     }
 
     return $userData['password'];
-}
-
-function getByEmail($email)
-{
-    $PDOStatement = $GLOBALS['pdo']->prepare('SELECT * FROM users WHERE email = ? LIMIT 1;');
-    $PDOStatement->bindValue(1, $email);
-    $PDOStatement->execute();
-    return $PDOStatement->fetch();
-}
-
-function getAll()
-{
-    $PDOStatement = $GLOBALS['pdo']->query('SELECT * FROM users;');
-    $users = [];
-    while ($listaDeusers = $PDOStatement->fetch()) {
-        $users[] = $listaDeusers;
-    }
-    return $users;
 }
 
 function updateUser($user)
@@ -163,10 +163,13 @@ function softDeleteUser($id)
     ]);
 }
 
-function updateUserAvatar($userId, $avatar)
+function updateAvatar($userId, $avatar)
 {
+    $user['updated_at'] = date('Y-m-d H:i:s');
+
     $sqlUpdate = "UPDATE users SET
-        avatar = :avatar
+        avatar = :avatar,
+        updated_at = :updated_at
         WHERE id = :id";
 
     $PDOStatement = $GLOBALS['pdo']->prepare($sqlUpdate);
@@ -174,6 +177,7 @@ function updateUserAvatar($userId, $avatar)
     $bindParams = [
         ':id' => $userId,
         ':avatar' => $avatar,
+        ':updated_at' => $user['updated_at'],
     ];
 
     $success = $PDOStatement->execute($bindParams);
@@ -181,7 +185,7 @@ function updateUserAvatar($userId, $avatar)
     return $success;
 }
 
-function createNewUser($user)
+function registerUser($user)
 {
     $user['password'] = password_hash($user['password'], PASSWORD_DEFAULT);
     $user['admin'] = false;

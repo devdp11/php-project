@@ -53,7 +53,7 @@
                                     <?php endif; ?>
                                 </div>
 
-                                <form action="../../controllers/user/update-avatar.php" method="post" enctype="multipart/form-data">
+                                <form action="../../controllers/user/avatar.php" method="post" enctype="multipart/form-data">
                                     <label class="btn btn-outline-primary">
                                         Choose Image
                                         <input type="file" class="account-settings-fileinput d-none" name="avatar">
@@ -134,7 +134,7 @@
 
     <script>
         function confirmDelete() {
-            var result = confirm("Tem certeza de que deseja excluir sua conta?");
+            var result = confirm("Are you sure about the account removal?");
             return result;
         }
     </script>
