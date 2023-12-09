@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '../../../repositories/userRepository.php';
+require_once __DIR__ . '../../../repositories/user.php';
 
 function validatePasswordUpdate($userId, $currentPassword, $newPassword, $repeatPassword)
 {

@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once __DIR__ . '/../../repositories/userRepository.php';
+require_once __DIR__ . '/../../repositories/user.php';
 require_once __DIR__ . '/../../validations/app/validate-sign-in.php';
 
 if (isset($_POST['user'])) {

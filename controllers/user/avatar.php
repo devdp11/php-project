@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../../db/connection.php';
-require_once __DIR__ . '/../../repositories/userRepository.php';
+require_once __DIR__ . '/../../repositories/user.php';
 @require_once __DIR__ . '/../../validations/session.php';
 $user = user();
 
