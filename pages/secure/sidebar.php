@@ -15,6 +15,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../resources/styles/global.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 </head>
 
@@ -80,7 +81,7 @@
                     </a>
                 </li>
                 <li class="nav-item py-1 mask <?= $user['admin'] ? '' : 'd-none'; ?>">
-                    <a href="./display-users.php" class="nav-link text-white">
+                    <a href="display-users.php" class="nav-link text-white">
                         <i class="fa-solid fa-money-check-dollar" title="Users"></i>
                         <span class="fs-6 ms-1 d-none d-sm-inline">Users</span>
                     </a>
@@ -95,7 +96,7 @@
                     ?>
                     <img src="<?= $avatarSrc ?>" alt="avatar" class="img-fluid rounded-circle me-2" width="50px">
                 <?php else: ?>
-                    <img src="../resources/assets/logo.png" alt="default avatar" class="img-fluid rounded me-2" width="50px">
+                    <i class="fas fa-user-circle fa-3x me-2 text-secondary"></i>
                 <?php endif;?>
 
                 <span>

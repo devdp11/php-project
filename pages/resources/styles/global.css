@@ -1,15 +1,36 @@
 .btn-blueviolet {
-    background-color: blueviolet;
-    color:white;
-    border-color: blueviolet;
+  background-color: blueviolet;
+  color: white;
+  border-color: blueviolet;
 }
 
 .btn-blueviolet:hover {
-    background-color: white;
-    color: blueviolet;
-    border-color: darkviolet;
+  background-color: white;
+  color: blueviolet;
+  border-color: darkviolet;
 }
 
 .btn-blueviolet:focus {
-    box-shadow: 0 0 0 0.2rem rgba(138, 43, 226, 0.25); /* Adiciona uma sombra sutil ao focar */
+  box-shadow: 0 0 0 0.2rem rgba(138, 43, 226, 0.25); /* Adiciona uma sombra sutil ao focar */
+}
+
+.btn-blueviolet-reverse {
+  background-color: white;
+  color: blueviolet;
+  border-color: blueviolet;
+}
+
+.btn-blueviolet-reverse:hover {
+  background-color: blueviolet;
+  color: white;
+  border-color: darkviolet;
+}
+
+.btn-blueviolet-reverse:focus {
+  box-shadow: 0 0 0 0.2rem rgba(138, 43, 226, 0.25); /* Adiciona uma sombra sutil ao focar */
+}
+
+.btn a {
+  color: inherit;
+  text-decoration: none;
 }

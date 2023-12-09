@@ -94,62 +94,91 @@ if (!$tablesExist) {
             CONSTRAINT expenses_user_id_foreign FOREIGN KEY (user_id) REFERENCES users (id)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
     ');
-
-    $user = [
-        'first_name' => 'root',
-        'last_name' => 'root',
-        'avatar' => 'NULL',
-        'email' => 'root@root.com',
-        'country' => 'Portugal',
-        'birthdate' => '2003/08/19',
-        'password' => 'root123',
-        'admin' => true,
-        'created_at' => date('Y-m-d H:i:s'),
-        'updated_at' => date('Y-m-d H:i:s')
+        
+    $usersToInsert = [
+        [
+            'first_name' => 'Rafael',
+            'last_name' => 'André',
+            'email' => 'kromenz@expflow.com',
+            'country' => 'Portugal',
+            'birthdate' => '2003-08-19',
+            'password' => 'rafael123',
+            'admin' => true,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ],
+        [
+            'first_name' => 'Diogo',
+            'last_name' => 'Pinheiro',
+            'email' => 'pinheiro@expflow.com',
+            'country' => 'Portugal',
+            'birthdate' => '2003-12-11',
+            'password' => 'pinheiro123',
+            'admin' => true,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ],
+        [
+            'first_name' => 'root',
+            'last_name' => 'root',
+            'email' => 'root@root.com',
+            'country' => 'Portugal',
+            'birthdate' => '2003/08/19',
+            'password' => 'root123',
+            'admin' => true,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]
     ];
 
-    $user['password'] = password_hash($user['password'], PASSWORD_DEFAULT);
+    foreach ($usersToInsert as $userData) {
+        $userData['password'] = password_hash($userData['password'], PASSWORD_DEFAULT);
 
-    $sqlCreate = "INSERT INTO 
-        users (
-            first_name,
-            last_name, 
-            password,
-            avatar,
-            email,
-            country,
-            birthdate,
-            admin,
-            created_at,
-            updated_at
-        ) 
-        VALUES (
-            :first_name,
-            :last_name,  
-            :password,
-            :avatar,
-            :email,
-            :country,
-            :birthdate,
-            :admin,
-            :created_at,
-            :updated_at
-        )";
+        $sqlCreateUser = "INSERT INTO 
+            users (
+                first_name,
+                last_name, 
+                password,
+                avatar,
+                email,
+                country,
+                birthdate,
+                admin,
+                created_at,
+                updated_at
+            ) 
+            VALUES (
+                :first_name,
+                :last_name,  
+                :password,
+                :avatar,
+                :email,
+                :country,
+                :birthdate,
+                :admin,
+                :created_at,
+                :updated_at
+            )";
 
-    $PDOStatement = $pdo->prepare($sqlCreate);
+        $PDOStatementUser = $pdo->prepare($sqlCreateUser);
 
-    $success = $PDOStatement->execute([
-        ':first_name' => $user['first_name'],
-        ':last_name' => $user['last_name'],
-        ':password' => $user['password'],
-        ':avatar' => $user['avatar'],
-        ':email' => $user['email'],
-        ':country' => $user['country'],
-        ':birthdate' => $user['birthdate'],
-        ':admin' => $user['admin'],
-        ':created_at' => $user['created_at'],
-        ':updated_at' => $user['updated_at']
-    ]);
+        $successUser = $PDOStatementUser->execute([
+            ':first_name' => $userData['first_name'],
+            ':last_name' => $userData['last_name'],
+            ':password' => $userData['password'],
+            ':avatar' => $userData['avatar'],
+            ':email' => $userData['email'],
+            ':country' => $userData['country'],
+            ':birthdate' => $userData['birthdate'],
+            ':admin' => $userData['admin'],
+            ':created_at' => $userData['created_at'],
+            ':updated_at' => $userData['updated_at']
+        ]);
+
+        if (!$successUser) {
+            echo "Error adding user: " . implode(" - ", $PDOStatementUser->errorInfo()) . PHP_EOL;
+        }
+    }
     
     $categoriesToInsert = [
         ['description' => 'General'],        

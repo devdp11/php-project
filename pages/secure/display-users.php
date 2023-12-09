@@ -20,9 +20,17 @@
 
         <div class="container">
             <button class="btn btn-blueviolet my-5">
-                <a href="./manage-user.php">Add User</a>
+                <a href="manage-user.php" class="text-decoration-none">Add User</a>
             </button>
 
+
+            <?php
+            if (isset($_GET['success']) && $_GET['success'] == 1) {
+                echo '<div id="success-alert" class="alert alert-danger" role="alert">';
+                echo 'User removed successfully!';
+                echo '</div>';
+            }
+            ?>
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -52,26 +60,34 @@
                         echo "</td>";
                     
                         echo "<td>";
-                        echo "<button class='btn btn-primary px-2 mx-2' onclick='updateUser({$user['id']})'>Update</button>";
-                        echo "<button class='btn btn-danger mx-2' onclick='deleteUser({$user['id']})'>Delete</button>";
+                        echo "<button class='btn btn-blueviolet-reverse px-2 mx-2'><a onclick='updateUser({$user['id']})'>Update</a></button>";
+                        echo "<button class='btn btn-danger mx-2'><a onclick='deleteUser({$user['id']})'>Delete</a></button>";
                         echo "</td>";
                     
                         echo "</tr>";
                     }
                     ?>
                 </tbody>
-                </table>
+            </table>
         </div>
     </div>
 
     <script>
-        function updateUser(userId) {
-            alert("Update user with ID " + userId);
-        }
+        
+        setTimeout(function() {
+            var successAlert = document.getElementById('success-alert');
+            if (successAlert) {
+                successAlert.style.display = 'none';
+            }
+        }, 2000);
 
+        function updateUser(userId) {
+            window.location.href = "update-user.php?id=" + userId;
+        }
+        
         function deleteUser(userId) {
             if (confirm("Are you sure you want to delete this user?")) {
-                alert("Delete user with ID " + userId);
+                window.location.href = "delete-user.php?id=" + userId;
             }
         }
     </script>

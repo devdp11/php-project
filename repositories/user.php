@@ -46,21 +46,26 @@ function createUser($user)
 
 function getAll()
 {
-    $PDOStatement = $GLOBALS['pdo']->query('SELECT * FROM users;');
-    $users = [];
-    while ($listaDeusers = $PDOStatement->fetch()) {
-        $users[] = $listaDeusers;
-    }
-    return $users;
+    $stmt = $GLOBALS['pdo']->prepare('SELECT * FROM users WHERE deleted_at IS NULL;');
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
 function getById($id)
 {
-    $PDOStatement = $GLOBALS['pdo']->prepare('SELECT * FROM users WHERE id = ?;');
-    $PDOStatement->bindValue(1, $id, PDO::PARAM_INT);
-    $PDOStatement->execute();
-    return $PDOStatement->fetch();
+    try {
+        $PDOStatement = $GLOBALS['pdo']->prepare('SELECT * FROM users WHERE id = :id');
+        $PDOStatement->bindParam(':id', $id, PDO::PARAM_INT);
+        $PDOStatement->execute();
+
+        return $PDOStatement->fetch(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        echo 'Error: ' . $e->getMessage();
+        return false;
+    }
 }
+
 
 function getByEmail($email)
 {
@@ -91,6 +96,8 @@ function getHashedPasswordById($id)
 function updateUser($user)
 {
     $passwordUpdate = '';
+    $updateFields = [];
+
     if (isset($user['password']) && !empty($user['password'])) {
         $passwordUpdate = ', password = :password';
         $user['password'] = password_hash($user['password'], PASSWORD_DEFAULT);
@@ -99,30 +106,42 @@ function updateUser($user)
     $user['updated_at'] = date('Y-m-d H:i:s');
 
     $sqlUpdate = "UPDATE users SET
-        first_name = :first_name,
-        last_name = :last_name,
-        email = :email,
-        country = :country,
-        birthdate = :birthdate,
-        updated_at = :updated_at
-        $passwordUpdate
-        WHERE id = :id";
-
-    $PDOStatement = $GLOBALS['pdo']->prepare($sqlUpdate);
+        updated_at = :updated_at";
 
     $bindParams = [
         ':id' => $user['id'],
-        ':first_name' => $user['first_name'],
-        ':last_name' => $user['last_name'],
-        ':email' => $user['email'],
-        ':country' => $user['country'],
-        ':birthdate' => $user['birthdate'],
         ':updated_at' => $user['updated_at'],
     ];
 
-    if (!empty($passwordUpdate)) {
-        $bindParams[':password'] = $user['password'];
+    if (isset($user['first_name'])) {
+        $sqlUpdate .= ', first_name = :first_name';
+        $bindParams[':first_name'] = $user['first_name'];
     }
+
+    if (isset($user['last_name'])) {
+        $sqlUpdate .= ', last_name = :last_name';
+        $bindParams[':last_name'] = $user['last_name'];
+    }
+
+    if (isset($user['email'])) {
+        $sqlUpdate .= ', email = :email';
+        $bindParams[':email'] = $user['email'];
+    }
+
+    if (isset($user['country'])) {
+        $sqlUpdate .= ', country = :country';
+        $bindParams[':country'] = $user['country'];
+    }
+
+    if (isset($user['birthdate'])) {
+        $sqlUpdate .= ', birthdate = :birthdate';
+        $bindParams[':birthdate'] = $user['birthdate'];
+    }
+
+    $sqlUpdate .= $passwordUpdate;
+    $sqlUpdate .= ' WHERE id = :id';
+
+    $PDOStatement = $GLOBALS['pdo']->prepare($sqlUpdate);
 
     $success = $PDOStatement->execute($bindParams);
 

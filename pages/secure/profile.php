@@ -23,14 +23,12 @@
                 <li class="breadcrumb-item">Profile</li>
             </ol>
         </nav>
-
-    <link rel="stylesheet" href="../resources/styles/global.css">
     
     <div class="container mt-5">
 
         <div class="d-flex justify-content-center">
-            <button class="btn btn-info mx-2 my-0" onclick="showProfile()">Profile</button>
-            <button class="btn btn-success mx-2 my-0" onclick="showChangePassword()">Password</button>
+            <button class="btn btn-blueviolet-reverse mx-2 my-0" onclick="showProfile()">Profile</button>
+            <button class="btn btn-blueviolet mx-2 my-0" onclick="showChangePassword()">Password</button>
             <form action="../../controllers/auth/signin.php" method="post" onsubmit="return deleteCf()" class="mx-2 my-0">
                 <button class="btn btn-danger" type="submit" name="user" value="delete">Delete</button>
             </form>
@@ -48,11 +46,11 @@
                     <?php else: ?>
                     <?php endif; ?>   
                     <form action="../../controllers/user/avatar.php" method="post" enctype="multipart/form-data">
-                        <label class="btn btn-outline-primary mt-2">
+                        <label class="btn btn-blueviolet-reverse mt-2">
                             Choose
                             <input type="file" class="account-settings-fileinput d-none" name="avatar">
                         </label>
-                        <button type="submit" class="btn btn-primary px-3 mt-2" name="update_avatar">Upload</button>
+                        <button type="submit" class="btn btn-blueviolet px-3 mt-2" name="update_avatar">Upload</button>
                     </form>
                 </div>
             </div>
@@ -91,7 +89,7 @@
 
                         <div class="text-right my-3">
                             <button type="submit" class="btn btn-blueviolet">Save changes</button>&nbsp;
-                            <button type="button" class="btn btn-default">Cancel</button>
+                            <button type="button" class="btn btn-danger">Cancel</button>
                         </div>
                     </form>
                 </div>
