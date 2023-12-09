@@ -9,62 +9,41 @@ $user = [];
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $userId = (int)$_GET['id'];
 
-    // Busca os dados do usuário pelo ID
+    // Retrieves the user data from the database
     $user = getById($userId);
+    $userDetails = $user;
 
-    // Verifica se o usuário foi encontrado
-    if (!$user) {
-        echo "User not found.";
-        // Você pode redirecionar para a página de exibição de usuários ou mostrar uma mensagem de erro.
+    // Validates the user's input
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $formUserId = (int)$_POST['id'];
+        if ($formUserId != $user['id']) {
+            echo "Invalid user ID.";
+            // Handle the error, maybe redirect or display an error message
+            exit();
+        }
+
+        $first_name = $_POST['firstname'];
+        $last_name = $_POST['lastname'];
+        $email = $_POST['email'];
+        $admin = isset($_POST['admin']) ? 1 : 0;
+
+        // Updates the user data in the database
+        updateUser([
+            'id' => $userId,
+            'first_name' => $first_name,
+            'last_name' => $last_name,
+            'email' => $email,
+            'admin' => $admin,
+        ]);
+
+        // Redirects to the page of the updated user
+        header("Location: ./display-users.php?id=$userId");
         exit();
     }
 } else {
-    echo "Invalid user ID.";
-    // Você pode redirecionar para a página de exibição de usuários ou mostrar uma mensagem de erro.
-    exit();
-}
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Certifica-se de que o ID do formulário corresponde ao ID do usuário
-    $formUserId = (int)$_POST['id'];
-    if ($formUserId != $user['id']) {
-        echo "Invalid user ID.";
-        // Handle the error, maybe redirect or display an error message
-        exit();
-    }
-
-    $first_name = $_POST['firstname'];
-    $last_name = $_POST['lastname'];
-    $email = $_POST['email'];
-    $admin = isset($_POST['admin']) ? 1 : 0;
-
-    // Verifica se uma nova senha foi fornecida
-    if (!empty($_POST['password'])) {
-        $password = $_POST['password'];
-
-        if (empty($password) || !preg_match('/^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^a-zA-Z\d])\S{8,}$/', $password)) {
-            $errors['password'] = 'Password must be at least 8 characters long and contain at least one digit, one uppercase letter, one lowercase letter, and one special character!';
-        } else {
-            // Hash da nova senha
-            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-            // Atualiza a senha no banco de dados
-            updatePassword($userId, $hashedPassword);
-        }
-    }
-
-    // Atualiza os dados do usuário no banco de dados
-    updateUser([
-        'id' => $userId,
-        'first_name' => $first_name,
-        'last_name' => $last_name,
-        'email' => $email,
-        'admin' => $admin,
-    ]);
-
-    // Redireciona para a página de exibição de usuários
-    header("Location: ./display-users.php");
-    exit();
+  echo "Invalid user ID.";
+  // You can redirect to the page of displaying users or show a message
+  exit();
 }
 ?>
 
@@ -86,17 +65,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <div class="form-group mt-3">
                 <label for="firstname">First Name</label>
-                <input type="text" class="form-control" id="firstname" name="firstname" placeholder="First Name" value="<?php echo ($user['first_name']); ?>">
+                <input type="text" class="form-control" id="firstname" name="firstname" placeholder="First Name" value="<?php echo ($userDetails['first_name']); ?>">
             </div>
 
             <div class="form-group mt-3">
                 <label for="lastname">Last Name</label>
-                <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Last Name" value="<?php echo ($user['last_name']); ?>">
+                <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Last Name" value="<?php echo ($userDetails['last_name']); ?>">
             </div>
 
             <div class="form-group mt-3">
                 <label for="email">Email</label>
-                <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="Enter email" value="<?php echo ($user['email']); ?>">
+                <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="Enter email" value="<?php echo ($userDetails['email']); ?>">
             </div>
 
             <div class="form-group mt-3">
@@ -108,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
 
             <div class="form-check mt-3">
-                <input class="form-check-input" type="checkbox" name="admin" id="admin" <?php echo $user['admin'] ? 'checked' : ''; ?>>
+                <input class="form-check-input" type="checkbox" name="admin" id="admin" <?php echo $userDetails['admin'] ? 'checked' : ''; ?>>
                 <label class="form-check-label" for="admin">
                     Admin?
                 </label>
