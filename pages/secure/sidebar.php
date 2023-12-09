@@ -46,6 +46,7 @@
     text-align: center;
   }
 </style>
+
 <body>
     <div class="container-fluid p-0 d-flex h-100">
         <div id="bdSidebar" class="d-flex flex-column flex-shrink-0 p-3 bg-black text-white offcanvas-md offcanvas-start" style="width: 280px;">
@@ -79,7 +80,7 @@
                     </a>
                 </li>
                 <li class="nav-item py-1 mask <?= $user['admin'] ? '' : 'd-none'; ?>">
-                    <a href="./manage-user.php" class="nav-link text-white">
+                    <a href="./display-users.php" class="nav-link text-white">
                         <i class="fa-solid fa-money-check-dollar" title="Users"></i>
                         <span class="fs-6 ms-1 d-none d-sm-inline">Users</span>
                     </a>

@@ -14,7 +14,7 @@ require_once __DIR__ . '/../../middlewares/middleware-not-authenticated.php';
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
     integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="../resources/styles/auth.css">
+  <link rel="stylesheet" href="../resources/styles/global.css">
   </head>
   
 <body style="background-color: hsl(0, 0%, 96%)" class="py-5">
