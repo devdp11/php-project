@@ -19,8 +19,8 @@
         </nav>
 
         <div class="container">
-            <button class="btn btn-blueviolet my-5">
-                <a href="manage-user.php" class="text-decoration-none">Add User</a>
+            <button class="btn btn-blueviolet mt-5 mb-2">
+                <a href="add-user.php" class="text-decoration-none">Add User</a>
             </button>
 
 

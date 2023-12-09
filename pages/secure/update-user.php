@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ]);
 
     // Redireciona para a página de exibição de usuários
-    header("Location: display-users.php");
+    header("Location: ./display-users.php");
     exit();
 }
 ?>
