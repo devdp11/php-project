@@ -25,7 +25,6 @@
         </nav>
     
     <div class="container mt-5">
-
         <div class="d-flex justify-content-center">
             <button class="btn btn-blueviolet-reverse mx-2 my-0" onclick="showProfile()">Profile</button>
             <button class="btn btn-blueviolet mx-2 my-0" onclick="showChangePassword()">Password</button>
@@ -89,7 +88,7 @@
 
                         <div class="text-right my-3">
                             <button type="submit" class="btn btn-blueviolet">Save changes</button>&nbsp;
-                            <button type="button" class="btn btn-danger">Cancel</button>
+                            <button type="button" class="btn btn-danger" onclick="refreshPage()">Cancel</button>
                         </div>
                     </form>
                 </div>
@@ -111,7 +110,7 @@
 
                         <div class="text-right my-3">
                             <button type="submit" class="btn btn-blueviolet">Save changes</button>&nbsp;
-                            <button type="button" class="btn btn-default">Cancel</button>
+                            <button type="button" class="btn btn-danger" onclick="refreshPage()">Cancel</button>
                         </div>
                     </form>
                 </div>
@@ -137,6 +136,9 @@
     function showProfile() {
         document.getElementById('passwordSection').style.display = 'none';
         document.getElementById('profileSection').style.display = 'block';
+    }
+    function refreshPage() {
+        location.reload(true);
     }
 
 </script>
