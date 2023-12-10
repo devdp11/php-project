@@ -31,7 +31,7 @@
 
                     echo '<script>';
                     echo 'setTimeout(function() {';
-                    echo '  window.location.href = "/display-users.php";';
+                    echo '  window.location.href = "php-project/pages/secure/display-users.php";';
                     echo '}, 1500);';
                     echo '</script>';
                 }

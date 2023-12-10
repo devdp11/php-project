@@ -103,6 +103,9 @@
                     <h6 class="mt-2 mb-0">Hello <?= $user['first_name'] ?? 'Guest' ?>!</h6>
                     <small><?= $user['email'] ?? null ?></small>
                 </span>
+                <form action="../../controllers/auth/signin.php" method="post">
+                    <button class="btn btn-danger btn-lg px-4" type="submit" name="user" value="logout">Logout</button>
+                </form>
             </div>
         </div>
 

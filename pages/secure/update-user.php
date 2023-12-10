@@ -15,12 +15,6 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 
     // Validates the user's input
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $formUserId = (int)$_POST['id'];
-        if ($formUserId != $user['id']) {
-            echo "Invalid user ID.";
-            // Handle the error, maybe redirect or display an error message
-            exit();
-        }
 
         $first_name = $_POST['firstname'];
         $last_name = $_POST['lastname'];
@@ -37,7 +31,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         ]);
 
         // Redirects to the page of the updated user
-        header("Location: ./display-users.php?id=$userId");
+        header("Location: ./display-users.php");
         exit();
     }
 } else {
