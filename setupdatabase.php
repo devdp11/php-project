@@ -77,6 +77,8 @@ if (!$tablesExist) {
             amount decimal(10,2) NOT NULL,
             paid tinyint(1) NOT NULL,
             date date NOT NULL,
+            receipt_img longblob NULL,
+            payed BOOLEAN NOT NULL DEFAULT false,
             note varchar(255) DEFAULT NULL,
             attachment_id bigint(20) UNSIGNED NOT NULL,
             user_id bigint(20) UNSIGNED NOT NULL,
