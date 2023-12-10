@@ -66,7 +66,6 @@ function getById($id)
     }
 }
 
-
 function getByEmail($email)
 {
     $PDOStatement = $GLOBALS['pdo']->prepare('SELECT * FROM users WHERE email = ? LIMIT 1;');
