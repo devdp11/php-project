@@ -82,30 +82,34 @@
                 </li>
                 <li class="nav-item py-1 mask <?= $user['admin'] ? '' : 'd-none'; ?>">
                     <a href="display-users.php" class="nav-link text-white">
-                        <i class="fa-solid fa-money-check-dollar" title="Users"></i>
+                        <i class="fa-solid fa-users" title="Users"></i>
                         <span class="fs-6 ms-1 d-none d-sm-inline">Users</span>
                     </a>
                 </li>
             </ul>
             <hr>
-            <div class="d-flex">
-                <?php if (!empty($user['avatar'])): ?>
-                    <?php
-                        $avatarData = base64_decode($user['avatar']);
-                        $avatarSrc = 'data:image/jpeg;base64,' . base64_encode($avatarData);
-                    ?>
-                    <img src="<?= $avatarSrc ?>" alt="avatar" class="img-fluid rounded-circle me-2" width="50px">
-                <?php else: ?>
-                    <i class="fas fa-user-circle fa-3x me-2 text-secondary"></i>
-                <?php endif;?>
+            <div class="d-flex align-items-center">
+                <div class="d-flex">
+                    <?php if (!empty($user['avatar'])): ?>
+                        <?php
+                            $avatarData = base64_decode($user['avatar']);
+                            $avatarSrc = 'data:image/jpeg;base64,' . base64_encode($avatarData);
+                        ?>
+                        <img src="<?= $avatarSrc ?>" alt="avatar" class="img-fluid rounded-circle me-2" width="50px">
+                    <?php else: ?>
+                        <i class="fas fa-user-circle fa-3x me-2 text-secondary"></i>
+                    <?php endif;?>
 
-                <span>
-                    <h6 class="mt-2 mb-0">Hello <?= $user['first_name'] ?? 'Guest' ?>!</h6>
-                    <small><?= $user['email'] ?? null ?></small>
-                </span>
-                <form action="../../controllers/auth/signin.php" method="post">
-                    <button class="btn btn-danger btn-lg px-4" type="submit" name="user" value="logout">Logout</button>
-                </form>
+                    <span>
+                        <h6 class="mt-2 mb-0">Hello <?= $user['first_name'] ?? 'Guest' ?>!</h6>
+                        <small><?= $user['email'] ?? null ?></small>
+                    </span>
+                    <form action="../../controllers/auth/signin.php" method="post">
+                        <button class="btn btn-outline-danger btn-sm" type="submit" name="user" value="logout">
+                            <i class="fas fa-sign-out-alt" style="color: red; font-size: 15px;"></i>
+                        </button>
+                    </form>   
+                </div> 
             </div>
         </div>
 

@@ -34,3 +34,19 @@
   color: inherit;
   text-decoration: none;
 }
+
+.card-style {
+  background-color: white;
+  color: blueviolet;
+  border-color: darkviolet;
+}
+
+.card-style:hover {
+  background-color: blueviolet;
+  color: white;
+  border-color: blueviolet;
+}
+
+.card-style:focus {
+  box-shadow: 0 0 0 0.2rem rgba(138, 43, 226, 0.25); /* Adiciona uma sombra sutil ao focar */
+}

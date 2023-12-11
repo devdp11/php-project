@@ -34,7 +34,7 @@
         </div>
 
         <div class="row mt-5">
-            <div class="col-md-4">
+            <div class="col-md-4 d-flex align-items-center justify-content-center">
                 <div class="text-center">
                     <?php if (!empty($user['avatar'])): ?>
                         <?php

@@ -6,7 +6,7 @@
 
 <?php include __DIR__ . '/sidebar.php'; ?>
 
-    <div class="p-4">
+    <div class="p-4 overflow-auto h-100">
         <nav style="--bs-breadcrumb-divider:'>';font-size:14px">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><i class="fa-solid fa-house"></i></li>

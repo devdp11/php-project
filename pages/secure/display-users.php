@@ -7,8 +7,27 @@
 
 <?php include __DIR__ . '/sidebar.php'; ?>
 
+    <style>
+        .style {
+            background-color: blueviolet;
+            color: white;
+            border-color: blueviolet;
+        }
+
+        .style:hover {
+            
+            background-color: white;
+            color: blueviolet;
+            border-color: darkviolet;
+        }
+
+        .style:focus {
+            box-shadow: 0 0 0 0.2rem rgba(138, 43, 226, 0.25); /* Adiciona uma sombra sutil ao focar */
+        }
+    </style>
+
     <link rel="stylesheet" href="../resources/styles/global.css">
-    <div class="p-4">
+    <div class="p-4 overflow-auto h-100">
         <nav style="--bs-breadcrumb-divider:'>';font-size:14px">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><i class="fa-solid fa-house"></i></li>
@@ -31,44 +50,25 @@
                 echo '</div>';
             }
             ?>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                    <th scope="col">First Name</th>
-                    <th scope="col">Last Name</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Birthdate</th>
-                    <th scope="col">Admin</th>
-                    <th scope="col">Operations</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    $users = getAll();
+            <div class="row row-cols-1 row-cols-md-3 g-2">
+                <?php
+                $users = getAll();
 
-                    foreach ($users as $user) {
-                        echo "<tr>";
-                        echo "<td>{$user['first_name']}</td>";
-                        echo "<td>{$user['last_name']}</td>";
-                        echo "<td>{$user['email']}</td>";
-                        echo "<td>";
-                        echo $user['birthdate'] ? $user['birthdate'] : "No Birthdate Found";
-                        echo "</td>";
-                    
-                        echo "<td>";
-                        echo $user['admin'] == 1 ? "Yes" : "No";
-                        echo "</td>";
-                    
-                        echo "<td>";
-                        echo "<button class='btn btn-blueviolet-reverse px-2 mx-2'><a onclick='updateUser({$user['id']})'>Update</a></button>";
-                        echo "<button class='btn btn-danger mx-2'><a onclick='deleteUser({$user['id']})'>Delete</a></button>";
-                        echo "</td>";
-                    
-                        echo "</tr>";
-                    }
-                    ?>
-                </tbody>
-            </table>
+                foreach ($users as $user) {
+                    echo "<div class='col'>";
+                    echo "<div class='card style'>";
+                    echo "<div class='card-body' onclick='updateUser({$user['id']})'>";
+                    echo "<button class='btn btn-danger btn-sm float-end' onclick='deleteUser({$user['id']})'><i class='fas fa-trash-alt'></i></button>";
+                    echo "<h5 class='card-title'>{$user['first_name']} {$user['last_name']}</h5>";
+                    echo "<p class='card-text'><strong>Email:</strong> {$user['email']}</p>";
+                    echo "<p class='card-text'><strong>Birthdate:</strong> " . ($user['birthdate'] ? $user['birthdate'] : "No Birthdate Found") . "</p>";
+                    echo "<p class='card-text'><strong>Admin:</strong> " . ($user['admin'] == 1 ? 'Yes' : 'No') . "</p>";
+                    echo "</div>";
+                    echo "</div>";
+                    echo "</div>";
+                }
+                ?>
+            </div>
         </div>
     </div>
 
@@ -87,7 +87,8 @@
         
         function deleteUser(userId) {
             if (confirm("Are you sure you want to delete this user?")) {
-                window.location.href = "delete-user.php?id=" + userId;
+                // Redirecionar para user.php com o ID do usuário na URL
+                window.location.href = "/php-project/repositories/user.php?action=softDeleteUser&id=" + userId;
             }
         }
     </script>

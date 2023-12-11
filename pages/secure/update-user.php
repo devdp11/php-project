@@ -42,7 +42,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 ?>
 
 <?php include __DIR__ . '/sidebar.php'; ?>
-<div class="p-4">
+<div class="p-4 overflow-auto h-100">
     <nav style="--bs-breadcrumb-divider:'>';font-size:14px">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><i class="fa-solid fa-house"></i></li>
@@ -81,7 +81,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
             </div>
 
             <div class="form-check mt-3">
-                <input class="form-check-input" type="checkbox" name="admin" id="admin" <?php echo $userDetails['admin'] ? 'checked' : ''; ?>>
+                <input class="form-check-input" type="checkbox" name="admin" id="admin" <?= $userDetails['admin'] == '1' ? 'checked' : '' ?>>
                 <label class="form-check-label" for="admin">
                     Admin?
                 </label>

@@ -21,6 +21,9 @@ if (isset($_POST['user'])) {
     if ($_POST['user'] == 'password') {
         changePassword($_POST);
     }
+    if ($_POST['admin'] == 'delete') {
+        softdelete($_POST);
+    }
 }
 
 if (isset($_GET['user'])) {
@@ -131,8 +134,31 @@ function changePassword($req)
     }
 }
 
-function delete_user($user)
+function softdelete()
 {
-    $data = softDeleteUser($user['id']);
-    return $data;
+    if (!isset($_SESSION['id'])) {
+        echo 'User ID not set in the session.';
+        exit();
+    }
+
+    $user = [
+        'id' => $_SESSION['id'],
+    ];
+
+    $deleteSuccess = softDeleteUser($user['id']);
+
+    if ($deleteSuccess) {
+        session_unset();
+        session_destroy();
+
+        setcookie(session_name(), '', time() - 3600);
+        setcookie('id', '', time() - 3600, "/");
+        setcookie('first_name', '', time() - 3600, "/");
+
+        $home_url = 'http://' . $_SERVER['HTTP_HOST'] . '/php-project';
+        header('Location: ' . $home_url);
+        exit();
+    } else {
+        echo 'Error deleting user account.';
+    }
 }

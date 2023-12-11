@@ -1,6 +1,15 @@
 <?php
 require_once __DIR__ . '../../db/connection.php';
 
+if (isset($_GET['action']) && $_GET['action'] === 'softDeleteUser' && isset($_GET['id'])) {
+    $userId = $_GET['id'];
+    $userData = softDeleteUser($userId);
+    
+    header("Location: /php-project/pages/secure/display-users.php");
+    
+    exit;
+}
+
 date_default_timezone_set('Europe/Lisbon');
 
 function createUser($user)
@@ -137,6 +146,11 @@ function updateUser($user)
         $bindParams[':birthdate'] = $user['birthdate'];
     }
 
+    if (isset($user['admin'])) {
+        $sqlUpdate .= ', admin = :admin';
+        $bindParams[':admin'] = $user['admin'];
+    }
+
     $sqlUpdate .= $passwordUpdate;
     $sqlUpdate .= ' WHERE id = :id';
 
@@ -169,16 +183,28 @@ function updatePassword($id, $hashedPassword)
 
 function softDeleteUser($id)
 {
-    $sqlUpdate = "UPDATE  
-        users SET
-            deleted_at = NOW()
-        WHERE id = :id;";
+    // Obter o e-mail do usuário antes de realizar a exclusão
+    $sqlSelectEmail = "SELECT email FROM users WHERE id = :id";
+    $selectStatement = $GLOBALS['pdo']->prepare($sqlSelectEmail);
+    $selectStatement->execute([':id' => $id]);
+    $userEmail = $selectStatement->fetchColumn();
 
-    $PDOStatement = $GLOBALS['pdo']->prepare($sqlUpdate);
+    // Concatenar 'deleted_' ao email
+    $newEmail = 'deleted_' . $userEmail;
 
-    return $PDOStatement->execute([
+    // Atualizar o usuário com o email modificado
+    $sqlUpdate = "UPDATE users SET
+                    email = :newEmail,
+                    deleted_at = NOW()
+                  WHERE id = :id;";
+    $updateStatement = $GLOBALS['pdo']->prepare($sqlUpdate);
+    $updateSuccess = $updateStatement->execute([
         ':id' => $id,
+        ':newEmail' => $newEmail,
     ]);
+
+    // Retornar informações do usuário antes da exclusão
+    return $userEmail;
 }
 
 function updateAvatar($userId, $avatar)
