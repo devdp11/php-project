@@ -58,16 +58,7 @@ if (!$tablesExist) {
             updated_at timestamp NULL DEFAULT NULL,
             deleted_at timestamp NULL DEFAULT NULL,
             PRIMARY KEY (id)
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-        CREATE TABLE attachments (
-            id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-            description varchar(255) NOT NULL,
-            created_at timestamp NULL DEFAULT NULL,
-            updated_at timestamp NULL DEFAULT NULL,
-            deleted_at timestamp NULL DEFAULT NULL,
-            PRIMARY KEY (id)
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;927719337
 
         CREATE TABLE expenses (
             expense_id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -91,6 +82,25 @@ if (!$tablesExist) {
             CONSTRAINT expenses_payment_id_foreign FOREIGN KEY (payment_id) REFERENCES methods (id),
             CONSTRAINT expenses_user_id_foreign FOREIGN KEY (user_id) REFERENCES users (id)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+        
+        CREATE TABLE shared_expenses (
+            id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+            receiver_user_id bigint(20) UNSIGNED NOT NULL,
+            sharer_user_id bigint(20) UNSIGNED NOT NULL,
+            expense_id bigint(20) UNSIGNED NOT NULL,
+            created_at timestamp NULL DEFAULT NULL,
+            updated_at timestamp NULL DEFAULT NULL,
+            deleted_at timestamp NULL DEFAULT NULL,
+            PRIMARY KEY (id),
+            KEY shared_expenses_receiver_user_id_foreign (receiver_user_id),
+            KEY shared_expenses_sharer_user_id_foreign (sharer_user_id),
+            KEY shared_expenses_expense_id_foreign (expense_id),
+            CONSTRAINT shared_expenses_receiver_user_id_foreign FOREIGN KEY (receiver_user_id) REFERENCES users (id),
+            CONSTRAINT shared_expenses_sharer_user_id_foreign FOREIGN KEY (sharer_user_id) REFERENCES users (id),
+            CONSTRAINT shared_expenses_expense_id_foreign FOREIGN KEY (expense_id) REFERENCES expenses (expense_id),
+            CONSTRAINT unique_users CHECK (receiver_user_id <> sharer_user_id)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+    
     ');
         
     $usersToInsert = [

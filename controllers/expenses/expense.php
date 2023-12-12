@@ -3,12 +3,17 @@ require_once __DIR__ . '/../../repositories/expense.php';
 @require_once __DIR__ . '/../../validations/session.php';
 @require_once __DIR__ . '/../../validations/expenses/validate-expense.php';
 
-if (isset($_POST['user']) && $_POST['user'] == 'add') {
-    eadd($_POST);
-}
+if (isset($_POST['user'])) {
+    $action = $_POST['user'];
 
-if (isset($_POST['user']) && $_POST['user'] == 'edit') {
-    eedit($_POST);
+    if ($action == 'add') {
+        eadd($_POST);
+    } elseif ($action == 'edit') {
+        eedit($_POST);
+    } elseif ($action == 'delete') {
+        $expenseId = $_POST['expense_id'];
+        edelete($expenseId);
+    }
 }
 
 function eadd($postData)
@@ -57,5 +62,26 @@ function eadd($postData)
         $params = '?' . http_build_query($postData);
         header('location: /php-project/pages/secure/expense.php' . $params);
     }
+}
+
+function edelete($expenseId)
+{
+    if (!isset($_SESSION['id'])) {
+        $_SESSION['errors'][] = 'User ID not set in the session.';
+        header('location: /php-project/pages/secure/expense.php');
+        exit();
+    }
+
+    $deleteSuccess = softDeleteExpense($expenseId);
+
+    if ($deleteSuccess) {
+        $_SESSION['success'] = 'Expense deleted successfully.';
+    } else {
+        $_SESSION['errors'][] = 'Error deleting expense.';
+        error_log("Error deleting expense with ID $expenseId: " . implode(" - ", $GLOBALS['pdo']->errorInfo()));
+    }
+
+    header('location: /php-project/pages/secure/expense.php');
+    exit();
 }
 ?>

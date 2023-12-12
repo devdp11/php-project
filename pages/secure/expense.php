@@ -55,10 +55,13 @@ $user = user();
     <div class="row row-cols-1 row-cols-md-3 g-3">
         <?php $expenses = getAllExpensesById($user['id']); ?>
         <?php foreach ($expenses as $expense) : ?>
-            <div class="col ">
+            <div class="col">
                 <div class="card style">
                     <div class="card-body">
-                        <button class='btn btn-danger btn-sm float-end'><i class="fas fa-trash-alt"></i></button>
+                        <form action="../../controllers/expenses/expense.php" method="post" onsubmit="return confirmDelete()">
+                            <input type="hidden" name="expense_id" value="<?php echo $expense['expense_id']; ?>">
+                            <button type="submit" name="user" value="delete" class='btn btn-danger btn-sm float-end'><i class="fas fa-trash-alt"></i></button>
+                        </form>
                         <h5 class="card-title"><?php echo $expense['description']; ?></h5>
                         <p class="card-text"><strong>Category:</strong> <?php echo $expense['category_description']; ?></p>
                         <?php if ($expense['payed'] == 1) : ?>
@@ -139,6 +142,7 @@ $user = user();
         </div>
     </div>
 
+    <!-- MODAL EDIT -->
     <div class="modal fade" id="edit-expense" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
@@ -158,6 +162,10 @@ $user = user();
 </div>
 
 <script>
+    function confirmDelete() {
+        return confirm("Are you sure you want to delete this expense?");
+    }
+    
     document.addEventListener('DOMContentLoaded', function() {
         const payedCheckbox = document.getElementById('payed');
         const paymentBox = document.getElementById('paymentBox');

@@ -58,7 +58,7 @@
                     echo "<div class='col'>";
                     echo "<div class='card style'>";
                     echo "<div class='card-body' onclick='updateUser({$user['id']})'>";
-                    echo "<button class='btn btn-danger btn-sm float-end' onclick='deleteUser({$user['id']})'><i class='fas fa-trash-alt'></i></button>";
+                    echo "<button class='btn btn-danger btn-sm float-end' style='z-index:999' onclick='deleteUser({$user['id']}, event)'><i class='fas fa-trash-alt'></i></button>";
                     echo "<h5 class='card-title'>{$user['first_name']} {$user['last_name']}</h5>";
                     echo "<p class='card-text'><strong>Email:</strong> {$user['email']}</p>";
                     echo "<p class='card-text'><strong>Birthdate:</strong> " . ($user['birthdate'] ? $user['birthdate'] : "No Birthdate Found") . "</p>";
@@ -85,7 +85,8 @@
             window.location.href = "update-user.php?id=" + userId;
         }
         
-        function deleteUser(userId) {
+        function deleteUser(userId, event) {
+            event.stopPropagation();    
             if (confirm("Are you sure you want to delete this user?")) {
                 // Redirecionar para user.php com o ID do usuário na URL
                 window.location.href = "/php-project/repositories/user.php?action=softDeleteUser&id=" + userId;
