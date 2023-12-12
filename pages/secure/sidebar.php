@@ -109,7 +109,7 @@
                 <div class="ms-auto">
                     <form action="../../controllers/auth/signin.php" method="post">
                         <button class="btn btn-outline-danger btn-sm" type="submit" name="user" value="logout">
-                            <i class="fas fa-sign-out-alt" style="color: red; font-size: 15px;"></i>
+                            <i class="fas fa-sign-out-alt" style="color: white; font-size: 15px;"></i>
                         </button>
                     </form>
                 </div>
