@@ -101,15 +101,18 @@
                     <?php endif;?>
 
                     <span>
-                        <h6 class="mt-2 mb-0">Hello <?= $user['first_name'] ?? 'Guest' ?>!</h6>
+                        <h6 class="mt-2 mb-0"><?= mb_strlen($user['first_name'] ?? '') > 16 ? substr($user['first_name'], 0, 16) . '...' : $user['first_name'] ?? 'Guest' ?></h6>
                         <small><?= $user['email'] ?? null ?></small>
-                    </span>
+                    </span>   
+                </div>
+                
+                <div class="ms-auto">
                     <form action="../../controllers/auth/signin.php" method="post">
                         <button class="btn btn-outline-danger btn-sm" type="submit" name="user" value="logout">
                             <i class="fas fa-sign-out-alt" style="color: red; font-size: 15px;"></i>
                         </button>
-                    </form>   
-                </div> 
+                    </form>
+                </div>
             </div>
         </div>
 
