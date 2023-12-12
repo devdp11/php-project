@@ -5,8 +5,7 @@ require_once __DIR__ . '/../../repositories/user.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!isset($_SESSION['id'])) {
-        echo 'User ID not set in the session.';
-        exit();
+        $errors[] = 'User ID not set in the session.';
     }
 
     $user = [
@@ -19,21 +18,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $validationResult = validatePasswordUpdate($user['id'], $user['current_password'], $user['new_password'], $user['repeat_password']);
 
     if ($validationResult !== true) {
-        echo 'Validation failed: ' . $validationResult;
-        exit();
+        $errors[] = 'Validation failed: ' . $validationResult;
     }
 
-    $hashedPassword = password_hash($user['new_password'], PASSWORD_DEFAULT);
+    if (empty($errors)) {
+        $hashedPassword = password_hash($user['new_password'], PASSWORD_DEFAULT);
 
-    $updateSuccess = updatePassword($user['id'], $hashedPassword);
+        $updateSuccess = updatePassword($user['id'], $hashedPassword);
 
-    if ($updateSuccess) {
-        header('Location: ../../pages/secure/profile.php');
-        exit();
-    } else {
-        echo 'Error updating password.';
+        if ($updateSuccess) {
+            $successMessage = 'Password updated successfully.';
+        } else {
+            $errors[] = 'Error updating password.';
+        }
     }
 } else {
-    echo 'Invalid request method.';
+    $errors[] = 'Invalid request method.';
+}
+
+if (!empty($errors)) {
+    $_SESSION['errors'] = $errors;
+    header('Location: ../../pages/secure/profile.php');
+    exit();
+}
+
+if ($successMessage) {
+    $_SESSION['success'] = $successMessage;
+    header('Location: ../../pages/secure/profile.php');
+    exit();
 }
 ?>

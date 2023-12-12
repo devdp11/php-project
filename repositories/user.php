@@ -183,16 +183,13 @@ function updatePassword($id, $hashedPassword)
 
 function softDeleteUser($id)
 {
-    // Obter o e-mail do usuário antes de realizar a exclusão
     $sqlSelectEmail = "SELECT email FROM users WHERE id = :id";
     $selectStatement = $GLOBALS['pdo']->prepare($sqlSelectEmail);
     $selectStatement->execute([':id' => $id]);
     $userEmail = $selectStatement->fetchColumn();
 
-    // Concatenar 'deleted_' ao email
     $newEmail = 'deleted_' . $userEmail;
 
-    // Atualizar o usuário com o email modificado
     $sqlUpdate = "UPDATE users SET
                     email = :newEmail,
                     deleted_at = NOW()
@@ -203,7 +200,6 @@ function softDeleteUser($id)
         ':newEmail' => $newEmail,
     ]);
 
-    // Retornar informações do usuário antes da exclusão
     return $userEmail;
 }
 

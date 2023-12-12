@@ -213,6 +213,7 @@ if (!$tablesExist) {
     }
 
     $methodsToInsert = [
+        ['description' => 'None'],
         ['description' => 'Cash'],
         ['description' => 'Credit Card'],
         ['description' => 'Web Currency'],

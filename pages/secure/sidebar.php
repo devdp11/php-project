@@ -114,7 +114,7 @@
         </div>
 
         <div class="bg-light flex-fill">
-            <div class="p-2 d-md-none d-flex text-white bg-black">
+            <div class="p-2 position-fixed d-md-none d-flex text-white bg-black" style="width:100%; z-index:999">
                 <a href="#" class="text-white" data-bs-toggle="offcanvas" data-bs-target="#bdSidebar">
                     <i class="fa-solid fa-bars"></i>
                 </a>

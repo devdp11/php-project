@@ -24,7 +24,27 @@
             </ol>
         </nav>
     
-    <div class="container mt-5">
+    <div class="container">
+
+        <section class="py-4 px-5">
+            <?php
+                if (isset($_SESSION['success'])) {
+                    echo '<div class="alert alert-success alert-dismissible fade show" role="alert">';
+                    echo $_SESSION['success'] . '<br>';
+                    echo '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+                    unset($_SESSION['success']);
+                }
+                if (isset($_SESSION['errors'])) {
+                    echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">';
+                    foreach ($_SESSION['errors'] as $error) {
+                        echo $error . '<br>';
+                    }
+                    echo '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
+                    unset($_SESSION['errors']);
+                }
+                ?>
+        </section>
+
         <div class="d-flex justify-content-center">
             <button class="btn btn-blueviolet-reverse mx-2 my-0" onclick="showProfile()">Profile</button>
             <button class="btn btn-blueviolet mx-2 my-0" onclick="showChangePassword()">Password</button>

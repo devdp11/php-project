@@ -11,18 +11,12 @@ $user = user();
 <style>
     .style {
         background-color: white;
-        color: blueviolet;
         border-color: darkviolet;
+        transition: transform 0.5s ease;
     }
 
     .style:hover {
-        background-color: blueviolet;
-        color: white;
-        border-color: blueviolet;
-    }
-
-    .style:focus {
-        box-shadow: 0 0 0 0.2rem rgba(138, 43, 226, 0.25); /* Adiciona uma sombra sutil ao focar */
+        transform: scale(1.05);
     }
 </style>
 
@@ -35,7 +29,7 @@ $user = user();
         </ol>
     </nav>
     
-    <button class="btn btn-blueviolet my-2" data-bs-toggle="modal" data-bs-target="#reg-modal">
+    <button class="btn btn-blueviolet my-2" data-bs-toggle="modal" data-bs-target="#add-expense">
         Add Expense
     </button>
     
@@ -58,10 +52,8 @@ $user = user();
         ?>
     </section>
     
-    <div class="row row-cols-1 row-cols-md-3 g-2">
-        <?php 
-        $expenses = getAllExpensesById($user['id']); 
-        ?>
+    <div class="row row-cols-1 row-cols-md-3 g-3">
+        <?php $expenses = getAllExpensesById($user['id']); ?>
         <?php foreach ($expenses as $expense) : ?>
             <div class="col ">
                 <div class="card style">
@@ -69,11 +61,13 @@ $user = user();
                         <button class='btn btn-danger btn-sm float-end'><i class="fas fa-trash-alt"></i></button>
                         <h5 class="card-title"><?php echo $expense['description']; ?></h5>
                         <p class="card-text"><strong>Category:</strong> <?php echo $expense['category_description']; ?></p>
-                        <p class="card-text"><strong>Payment Method:</strong> <?php echo $expense['payment_description']; ?></p>
+                        <?php if ($expense['payed'] == 1) : ?>
+                            <p class="card-text"><strong>Payment Method:</strong> <?php echo $expense['payment_description']; ?></p>
+                        <?php endif; ?>
                         <p class="card-text"><strong>Amount:</strong> <?php echo $expense['amount']; ?></p>
                         <p class="card-text"><strong>Payed:</strong> <?php echo ($expense['payed'] == 1) ? 'Yes' : 'No'; ?></p>
                         <p class="card-text"><strong>Date:</strong> <?php echo $expense['date']; ?></p>
-                        <button class='btn btn-blueviolet-reverse px-1'><a>Update</a></button>
+                        <button class='btn btn-blueviolet-reverse px-1' data-bs-toggle="modal" data-bs-target="#edit-expense">Update</button>
                     </div>
                 </div>
             </div>
@@ -81,7 +75,7 @@ $user = user();
     </div>
 
     <!-- MODAL ADD -->
-    <div class="modal fade" id="reg-modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+    <div class="modal fade" id="add-expense" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
@@ -89,15 +83,6 @@ $user = user();
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body pt-0">
-                    <?php if (isset($validationResult) && is_array($validationResult)): ?>
-                        <div class="alert alert-danger">
-                            <ul>
-                                <?php foreach ($validationResult as $error): ?>
-                                    <li><?= $error ?></li>
-                                <?php endforeach; ?>
-                            </ul>
-                        </div>
-                    <?php endif; ?>
                     <form action="../../controllers/expenses/expense.php" method="post">
                         <div class="form-group mt-3">
                             <label>Description</label>
@@ -147,12 +132,29 @@ $user = user();
                             <label>Note</label>
                             <textarea class="form-control" id="note" name="note" placeholder="Expense Note"><?= isset($_REQUEST['note']) ? $_REQUEST['note'] : '' ?></textarea>
                         </div>
-                        <button type="submit" class="btn btn-blueviolet mt-3" name="user" value="add">Create Expense</button>
+                        <button type="submit" class="btn btn-blueviolet mt-3" name="user" value="add">Create</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="edit-expense" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-title"> Edit expense </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body pt-0">
+                    <form action="../../controllers/expenses/expense.php" method="post">
+                        <button type="submit" class="btn btn-blueviolet mt-3" name="user" value="add">Update</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <script>

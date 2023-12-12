@@ -8,7 +8,7 @@ function getAllExpensesById($userId)
         $query .= 'FROM expenses ';
         $query .= 'LEFT JOIN categories ON expenses.category_id = categories.id ';
         $query .= 'LEFT JOIN methods ON expenses.payment_id = methods.id ';
-        $query .= 'WHERE expenses.user_id = :userId';
+        $query .= 'WHERE expenses.user_id = :userId AND expenses.deleted_at IS NULL';
 
         $PDOStatement = $GLOBALS['pdo']->prepare($query);
         $PDOStatement->bindParam(':userId', $userId, PDO::PARAM_INT);
@@ -29,7 +29,7 @@ function getAllExpensesById($userId)
 
 function getExpensesByCategory($categoryId)
 {
-    $query = "SELECT * FROM expenses WHERE category_id = :categoryId;";
+    $query = "SELECT * FROM expenses WHERE category_id = :categoryId AND deleted_at IS NULL;";
     $PDOStatement = $GLOBALS['pdo']->prepare($query);
     $PDOStatement->bindValue(':categoryId', $categoryId, PDO::PARAM_INT);
     $PDOStatement->execute();
@@ -40,17 +40,9 @@ function getExpensesByCategory($categoryId)
     return $expenses;
 }
 
-function getExpensesByMaxValue()
-{
-    $query = "SELECT * FROM expenses ORDER BY amount DESC LIMIT 1;";
-    $PDOStatement = $GLOBALS['pdo']->query($query);
-    $expense = $PDOStatement->fetch();
-    return $expense;
-}
-
 function getExpensesByPaymentMethod($paymentMethodId)
 {
-    $query = "SELECT * FROM expenses WHERE payment_id = :paymentMethodId;";
+    $query = "SELECT * FROM expenses WHERE payment_id = :paymentMethodId AND deleted_at IS NULL;";
     $PDOStatement = $GLOBALS['pdo']->prepare($query);
     $PDOStatement->bindValue(':paymentMethodId', $paymentMethodId, PDO::PARAM_INT);
     $PDOStatement->execute();
@@ -71,10 +63,23 @@ function getAllCategories()
 
 function getAllMethods()
 {
-    $stmt = $GLOBALS['pdo']->prepare('SELECT * FROM methods WHERE deleted_at IS NULL;');
+    $stmt = $GLOBALS['pdo']->prepare('SELECT * FROM methods WHERE deleted_at IS NULL AND description <> "None";');
     $stmt->execute();
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function getMethodByDescription($description)
+{
+    global $pdo;
+
+    $query = "SELECT * FROM methods WHERE description = :description AND deleted_at IS NULL";
+    $statement = $pdo->prepare($query);
+    $statement->execute([':description' => $description]);
+
+    $result = $statement->fetch(PDO::FETCH_ASSOC);
+
+    return $result;
 }
 
 function createExpense($expense)
@@ -129,6 +134,19 @@ function createExpense($expense)
         echo 'Error: ' . $e->getMessage();
         return false;
     }
+}
+
+function softDeleteExpense($expenseId)
+{
+    $sqlUpdate = "UPDATE expenses SET
+                    deleted_at = NOW()
+                  WHERE expense_id = :expenseId;";
+    $updateStatement = $GLOBALS['pdo']->prepare($sqlUpdate);
+    $updateSuccess = $updateStatement->execute([
+        ':expenseId' => $expenseId,
+    ]);
+
+    return $updateSuccess;
 }
 
 ?>

@@ -7,6 +7,10 @@ if (isset($_POST['user']) && $_POST['user'] == 'add') {
     eadd($_POST);
 }
 
+if (isset($_POST['user']) && $_POST['user'] == 'edit') {
+    eedit($_POST);
+}
+
 function eadd($postData)
 {
     if (!isset($_SESSION['id'])) {
@@ -23,33 +27,35 @@ function eadd($postData)
         header('location: /php-project/pages/secure/expense.php' . $params);
     }
 
-    // Check if validation result is an array (indicating validation success)
     if (is_array($validationResult)) {
         $user = [
             'id' => $_SESSION['id'],
         ];
-
+    
         $expenseData = [
             'category_id' => $validationResult['category'],
             'description' => $validationResult['description'],
-            'payment_id' => $validationResult['method'],
             'amount' => $validationResult['amount'],
             'date' => $validationResult['date'],
             'receipt_img' => null,
-            'payed' => isset($validationResult['payed']) ? 1 : 0,
             'note' => $validationResult['note'],
             'user_id' => $user['id'],
         ];
-
+    
+        $expenseData['payed'] = isset($validationResult['payed']) ? ($validationResult['payed'] ? 1 : 0) : 0;
+    
+        $expenseData['payment_id'] = $expenseData['payed'] ? $validationResult['method'] : getMethodByDescription('None')['id'];
+    
         $result = createExpense($expenseData);
-
+    
         if ($result) {
             $_SESSION['success'] = 'Expense created successfully.';
+        } else {
+            error_log("Error creating expense: " . implode(" - ", $result->errorInfo()));
         }
-
+    
         $params = '?' . http_build_query($postData);
         header('location: /php-project/pages/secure/expense.php' . $params);
     }
 }
-
 ?>
