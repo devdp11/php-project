@@ -27,6 +27,32 @@ function getAllExpensesById($userId)
     }
 }
 
+function getExpensesById($expenseId)
+{
+    try {
+        $query = 'SELECT expenses.*, categories.description AS category_description, methods.description AS payment_description ';
+        $query .= 'FROM expenses ';
+        $query .= 'LEFT JOIN categories ON expenses.category_id = categories.id ';
+        $query .= 'LEFT JOIN methods ON expenses.payment_id = methods.id ';
+        $query .= 'WHERE expenses.expense_id = :expenseId AND expenses.deleted_at IS NULL';
+
+        $PDOStatement = $GLOBALS['pdo']->prepare($query);
+        $PDOStatement->bindParam(':expenseId', $expenseId, PDO::PARAM_INT);
+        $PDOStatement->execute();
+
+        $expenses = [];
+
+        while ($expensesList = $PDOStatement->fetch(PDO::FETCH_ASSOC)) {
+            $expenses[] = $expensesList;
+        }
+
+        return $expenses;
+    } catch (PDOException $e) {
+        echo 'Error: ' . $e->getMessage();
+        return false;
+    }
+}
+
 function getExpensesByCategory($categoryId)
 {
     $query = "SELECT * FROM expenses WHERE category_id = :categoryId AND deleted_at IS NULL;";
@@ -130,6 +156,43 @@ function createExpense($expense)
         }
 
         return $success;
+    } catch (PDOException $e) {
+        echo 'Error: ' . $e->getMessage();
+        return false;
+    }
+}
+
+function updateExpense($expenseId, $description, $category, $paymentId, $amount, $date, $receiptImg, $payed, $note, $userId)
+{
+    try {
+        $sqlUpdate = "UPDATE expenses SET
+            category_id = :category_id,
+            description = :description,
+            payment_id = :payment_id,
+            amount = :amount,
+            date = :date,
+            receipt_img = :receipt_img,
+            payed = :payed,
+            note = :note,
+            user_id = :user_id,
+            updated_at = NOW()
+        WHERE
+            id = :expense_id";
+
+        $PDOStatement = $GLOBALS['pdo']->prepare($sqlUpdate);
+
+        return $PDOStatement->execute([
+            ':category_id' => $category,
+            ':description' => $description,
+            ':payment_id' => $paymentId,
+            ':amount' => $amount,
+            ':date' => $date,
+            ':receipt_img' => $receiptImg,
+            ':payed' => $payed,
+            ':note' => $note,
+            ':user_id' => $userId,
+            ':expense_id' => $expenseId,
+        ]);
     } catch (PDOException $e) {
         echo 'Error: ' . $e->getMessage();
         return false;
