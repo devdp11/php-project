@@ -1,53 +1,55 @@
 <?php
-require_once __DIR__ . '/../../repositories/user.php';
+require_once __DIR__ . '/../../repositories/expense.php';
 @require_once __DIR__ . '/../../validations/session.php';
+@require_once __DIR__ . '/../../validations/expenses/validate-expense.php';
 
-
-if (isset($_POST['user'])) {
-    if ($_POST['user'] == 'add') {
-        eadd($_POST);
-    }
-
-    if ($_POST['user'] == 'edit') {
-        eedit();
-    }
-    if ($_POST['user'] == 'delete') {
-        edelete();
-    }
+if (isset($_POST['user']) && $_POST['user'] == 'add') {
+    eadd($_POST);
 }
 
-function eadd()
+function eadd($postData)
 {
     if (!isset($_SESSION['id'])) {
-        echo 'User ID not set in the session.';
-        exit();
+        $_SESSION['errors'][] = 'User ID not set in the session.';
+        $params = '?' . http_build_query($postData);
+        header('location: /php-project/pages/secure/expense.php' . $params);
     }
 
-    $user = [
-        'id' => $_SESSION['id'],
-    ];
-}
+    $validationResult = isExpenseValid($postData);
 
-function eedit()
-{
-    if (!isset($_SESSION['id'])) {
-        echo 'User ID not set in the session.';
-        exit();
+    if (isset($validationResult['invalid'])) {
+        $_SESSION['errors'] = $validationResult['invalid'];
+        $params = '?' . http_build_query($postData);
+        header('location: /php-project/pages/secure/expense.php' . $params);
     }
 
-    $user = [
-        'id' => $_SESSION['id'],
-    ];
-}
+    // Check if validation result is an array (indicating validation success)
+    if (is_array($validationResult)) {
+        $user = [
+            'id' => $_SESSION['id'],
+        ];
 
-function edelete()
-{
-    if (!isset($_SESSION['id'])) {
-        echo 'User ID not set in the session.';
-        exit();
+        $expenseData = [
+            'category_id' => $validationResult['category'],
+            'description' => $validationResult['description'],
+            'payment_id' => $validationResult['method'],
+            'amount' => $validationResult['amount'],
+            'date' => $validationResult['date'],
+            'receipt_img' => null,
+            'payed' => isset($validationResult['payed']) ? 1 : 0,
+            'note' => $validationResult['note'],
+            'user_id' => $user['id'],
+        ];
+
+        $result = createExpense($expenseData);
+
+        if ($result) {
+            $_SESSION['success'] = 'Expense created successfully.';
+        }
+
+        $params = '?' . http_build_query($postData);
+        header('location: /php-project/pages/secure/expense.php' . $params);
     }
-
-    $user = [
-        'id' => $_SESSION['id'],
-    ];
 }
+
+?>

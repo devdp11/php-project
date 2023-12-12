@@ -77,4 +77,58 @@ function getAllMethods()
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
+function createExpense($expense)
+{
+    try {
+        $sqlCreate = "INSERT INTO expenses (
+            category_id,
+            description,
+            payment_id,
+            amount,
+            date,
+            receipt_img,
+            payed,
+            note,
+            user_id,
+            created_at,
+            updated_at
+        ) VALUES (
+            :category_id,
+            :description,
+            :payment_id,
+            :amount,
+            :date,
+            :receipt_img,
+            :payed,
+            :note,
+            :user_id,
+            NOW(),
+            NOW()
+        )";
+
+        $PDOStatement = $GLOBALS['pdo']->prepare($sqlCreate);
+
+        $success = $PDOStatement->execute([
+            ':category_id' => $expense['category_id'],
+            ':description' => $expense['description'],
+            ':payment_id' => $expense['payment_id'],
+            ':amount' => $expense['amount'],
+            ':date' => $expense['date'],
+            ':receipt_img' => $expense['receipt_img'],
+            ':payed' => $expense['payed'],
+            ':note' => $expense['note'],
+            ':user_id' => $expense['user_id'],
+        ]);
+
+        if ($success) {
+            $expense['expense_id'] = $GLOBALS['pdo']->lastInsertId();
+        }
+
+        return $success;
+    } catch (PDOException $e) {
+        echo 'Error: ' . $e->getMessage();
+        return false;
+    }
+}
+
 ?>
