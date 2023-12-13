@@ -57,7 +57,7 @@ $user = user();
         <?php foreach ($expenses as $expense) : ?>
             <div class="col">
                 <div class="card style" id="expense-card-<?php echo $expense['expense_id']; ?>">
-                    <div class="card-body" data-bs-toggle="modal" data-bs-target="#edit-expense-modal">
+                    <div class="card-body" data-bs-toggle="modal" data-bs-target="#edit-expense-modal" onclick="logExpenseId(<?php echo $expense['expense_id']; ?>)">
                         <form action="../../controllers/expenses/expense.php" method="post" onsubmit="return confirmDelete(event)">
                             <input type="hidden" name="expense_id" value="<?php echo $expense['expense_id']; ?>">
                             <button type="submit" name="user" value="delete" class='btn btn-danger btn-sm float-end'><i class="fas fa-trash-alt"></i></button>
@@ -161,12 +161,15 @@ $user = user();
 </div>
 
 <script>
+    function logExpenseId(expenseId) {
+        console.log("Expense ID:", expenseId);
+    }
+    
     function confirmDelete(event) {
         console.log("confirmDelete called");
         event.stopPropagation();
         return confirm("Are you sure you want to delete this expense?");
     }
-
 
     document.addEventListener('DOMContentLoaded', function() {
         const payedCheckbox = document.getElementById('payed');

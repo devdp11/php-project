@@ -248,30 +248,6 @@ if (!$tablesExist) {
         if (!$Sucess) {
             echo "Error adding a payment method: " . implode(" - ", $Statment->errorInfo()) . PHP_EOL;
         }
-    } 
-    
-    for ($i = 0; $i < 5; $i++) {
-        $expenseData = array(
-            'category_id' => 1,
-            'description' => 'Despesa de teste ' . ($i + 1),
-            'payment_id' => 1,
-            'amount' => 50.00 + $i * 10,
-            'date' => '2023-01-15',
-            'receipt_img' => null,
-            'payed' => true,
-            'note' => 'Nota de teste ' . ($i + 1),
-            'user_id' => 1,
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s'),
-            'deleted_at' => null
-        );
-
-        $createQuery = "INSERT INTO expenses (category_id, description, payment_id, amount, date, receipt_img, payed, note, user_id, created_at, updated_at, deleted_at) 
-                       VALUES (:category_id, :description, :payment_id, :amount, :date, :receipt_img, :payed, :note, :user_id, :created_at, :updated_at, :deleted_at)";
-
-        $statement = $pdo->prepare($createQuery);
-
-        $success = $statement->execute($expenseData);
     }
 }
 ?>
