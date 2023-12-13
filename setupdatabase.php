@@ -1,24 +1,23 @@
 <?php
-require_once __DIR__ . '/db/connection.php';
+@require_once __DIR__ . '/db/connection.php';
 
 date_default_timezone_set('Europe/Lisbon');
 
-// Check if tables exist
-$tablesToCheck = ['users', 'methods', 'categories', 'attachments', 'expenses'];
+$tablesToCheck = ['users', 'methods', 'categories', 'expenses', 'shared_expenses'];
 $tablesExist = true;
 
 foreach ($tablesToCheck as $table) {
     $tableExistQuery = "SHOW TABLES LIKE '$table'";
     $tableExistStatement = $pdo->query($tableExistQuery);
 
-    if ($tableExistStatement->rowCount() === 0) {
+    if ($tableExistStatement->rowCount() == 0) {
         $tablesExist = false;
         break;
     }
 }
 
 if (!$tablesExist) {
-    $tablesToDrop = ['shared_expenses', 'expenses','attachments', 'categories', 'methods', 'users'];
+    $tablesToDrop = ['shared_expenses', 'expenses', 'categories', 'methods', 'users'];
 
     foreach ($tablesToDrop as $table) {
         $pdo->exec("DROP TABLE IF EXISTS $table;");
