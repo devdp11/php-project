@@ -54,14 +54,15 @@ $user = user();
     
     <div class="row row-cols-1 row-cols-md-3 g-3">
         <?php $expenses = getAllExpensesById($user['id']); ?>
-        <?php foreach ($expenses as $expense) : ?>
+            <?php foreach ($expenses as $expense) : ?>
             <div class="col">
                 <div class="card style" id="expense-card-<?php echo $expense['expense_id']; ?>">
-                    <div class="card-body" onclick="openEditExpenseModal(<?php echo $expense['expense_id']; ?>)">
-                        <form action="../../controllers/expenses/expense.php" method="post" onsubmit="return confirmDelete(event)">
+                    <div class="card-body">
+                        <form action="../../controllers/expenses/expense.php" method="post" class="float-end" onsubmit="return confirmDelete(event)">
                             <input type="hidden" name="expense_id" value="<?php echo $expense['expense_id']; ?>">
-                            <button type="submit" name="user" value="delete" class='btn btn-danger btn-sm float-end'><i class="fas fa-trash-alt"></i></button>
+                            <button type="submit" name="user" value="delete" class='btn btn-danger btn-sm'><i class="fas fa-trash-alt"></i></button>
                         </form>
+                        <button type="button" class='btn btn-blueviolet btn-sm float-end mx-1' onclick="prepareShareModal(<?php echo $expense['expense_id']; ?>)"><i class="fas fa-share"></i></button>
                         <h5 class="card-title"><?php echo $expense['description']; ?></h5>
                         <p class="card-text"><strong>Category:</strong> <?php echo $expense['category_description']; ?></p>
                         <?php if ($expense['payed'] == 1) : ?>
@@ -152,13 +153,11 @@ $user = user();
                 <div class="modal-body pt-0">
                     <form id="edit-expense-form" action="../../controllers/expenses/expense.php" method="post">
                         <input type="hidden" name="expense_id" id="expense_id" value="<?php echo $existingExpense['expense_id']; ?>">
-                        
                         <!-- Description -->
                         <div class="form-group mt-3">
                             <label>Description</label>
                             <input type="text" class="form-control" id="description" name="description" placeholder="Expense Description" value="<?= isset($existingExpense['description']) ? $existingExpense['description'] : '' ?>" required>
                         </div>
-
                         <!-- Category -->
                         <div class="form-group mt-3">
                             <label>Category</label>
@@ -172,25 +171,21 @@ $user = user();
                                 ?>
                             </select>
                         </div>
-
                         <!-- Date -->
                         <div class="form-group mt-3">
                             <label>Date</label>
                             <input type="date" class="form-control" id="date" name="date" value="<?= isset($existingExpense['date']) ? $existingExpense['date'] : '' ?>" required>
                         </div>
-
                         <!-- Amount -->
                         <div class="form-group mt-3">
                             <label>Amount</label>
                             <input type="text" class="form-control" id="amount" name="amount" placeholder="Expense Amount" value="<?= isset($existingExpense['amount']) ? $existingExpense['amount'] : '' ?>" required>
                         </div>
-
                         <!-- Paid Checkbox -->
                         <div class="form-check mt-3">
                             <input class="form-check-input" type="checkbox" name="payed" id="payed" <?= isset($existingExpense['payed']) && $existingExpense['payed'] == 1 ? 'checked' : '' ?>>
                             <label class="form-check-label">Paid?</label>
                         </div>
-
                         <!-- Payment Method -->
                         <div class="form-group mt-3" id="paymentBox">
                             <label>Payment Method</label>
@@ -204,21 +199,40 @@ $user = user();
                                 ?>
                             </select>
                         </div>
-
                         <!-- Receipt Image -->
                         <div class="form-group mt-3">
                             <label>Receipt Image</label>
                             <input type="file" class="form-control" id="receipt_img" name="receipt_img">
                         </div>
-
                         <!-- Note -->
                         <div class="form-group mt-3">
                             <label>Note</label>
                             <textarea class="form-control" id="note" name="note" placeholder="Expense Note"><?= isset($existingExpense['note']) ? $existingExpense['note'] : '' ?></textarea>
                         </div>
-
                         <!-- Update Button -->
                         <button type="submit" class="btn btn-blueviolet mt-3" name="user" value="edit">Update</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL SHARE -->
+    <div class="modal fade" id="shareExpenseModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Share Expense</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="../../controllers/expenses/expense.php" method="post">
+                        <input type="hidden" name="expense_id" id="modalExpenseId" value="">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email of the User to Share With:</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        <button type="submit" name="user" value="share" class="btn btn-primary">Share</button>
                     </form>
                 </div>
             </div>
@@ -228,11 +242,15 @@ $user = user();
 </div>
 
 <script>
-    function logExpenseId(expenseId) {
+    function prepareShareModal(expenseId) {
         console.log("Expense ID:", expenseId);
-        window.location.href = "../../controllers/expenses/expense.php?id=" + expenseId;
+
+        document.getElementById('modalExpenseId').value = expenseId;
+
+        var myModal = new bootstrap.Modal(document.getElementById('shareExpenseModal'));
+        myModal.show();
     }
-    
+
     function confirmDelete(event) {
         console.log("confirmDelete called");
         event.stopPropagation();
@@ -249,17 +267,5 @@ $user = user();
             paymentBox.style.display = this.checked ? 'block' : 'none';
         });
     });
-
-    function openEditExpenseModal(expenseId) {
-        console.log(expenseId);
-        const editExpenseModal = new bootstrap.Modal(document.getElementById('edit-expense-modal'));
-        const editExpenseForm = document.getElementById('edit-expense-form');
-
-        // Set the expenseId in the form action
-        editExpenseForm.action = "../../controllers/expenses/expense.php?expenseId=" + expenseId;
-
-        // Open the modal
-        editExpenseModal.show();
-    }
 
 </script>

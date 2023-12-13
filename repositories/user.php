@@ -83,6 +83,26 @@ function getByEmail($email)
     return $PDOStatement->fetch();
 }
 
+function getIdByEmail($email)
+{
+    try {
+        $sql = 'SELECT id FROM users WHERE email = :email';
+        $PDOStatement = $GLOBALS['pdo']->prepare($sql);
+        $PDOStatement->bindParam(':email', $email, PDO::PARAM_STR);
+        $PDOStatement->execute();
+
+        $result = $PDOStatement->fetch(PDO::FETCH_ASSOC);
+
+        echo 'console.log($result);';
+
+        return ($result) ? $result['id'] : null;
+    } catch (PDOException $e) {
+        echo 'Error: ' . $e->getMessage();
+        return null;
+    }
+}
+
+
 function getHashedPasswordById($id)
 {
     

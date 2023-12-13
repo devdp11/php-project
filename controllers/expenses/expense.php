@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../../repositories/expense.php';
+require_once __DIR__ . '/../../repositories/user.php';
 @require_once __DIR__ . '/../../validations/session.php';
 @require_once __DIR__ . '/../../validations/expenses/validate-expense.php';
 
@@ -14,6 +15,10 @@ if (isset($_POST['user'])) {
     } elseif ($action == 'delete') {
         $expenseId = $_POST['expense_id'];
         edelete($expenseId);
+    } elseif ($action == 'share') {
+        $expenseId = $_POST['expense_id'];
+        $email = $_POST['email'];
+        eshare($expenseId, $email);
     }
 }
 
@@ -134,4 +139,59 @@ function eedit($expenseId, $postData)
     exit();
     
 }
+
+function eshare($expenseId, $email) 
+{
+    try {
+        $receiverUserId = getIdByEmail($email);
+
+        if (!$receiverUserId) {
+            $_SESSION['errors'][] = 'User with the email "' . $email . '" not found.';
+            header('location: /php-project/pages/secure/expense.php');
+            exit();
+        }
+
+        $sharerUserId = $_SESSION['id'];
+
+        $shareSuccess = shareExpense($expenseId, $sharerUserId, $receiverUserId);
+
+        if ($shareSuccess) {
+            $_SESSION['success'] = 'Expense shared successfully.';
+        } else {
+            $_SESSION['errors'][] = 'Error sharing expense.';
+            error_log("Error sharing expense with ID $expenseId: " . implode(" - ", $GLOBALS['pdo']->errorInfo()));
+        }
+
+        header('location: /php-project/pages/secure/expense.php');
+        exit();
+    } catch (PDOException $e) {
+        $_SESSION['errors'][] = 'Error: ' . $e->getMessage();
+        header('location: /php-project/pages/secure/expense.php');
+        exit();
+    }
+}
+
+function shareExpense($expenseId, $sharerUserId, $receiverUserId) 
+{
+    try {
+        $isAlreadyShared = isExpenseShared($expenseId, $sharerUserId, $receiverUserId);
+
+        if ($isAlreadyShared) {
+            $_SESSION['errors'][] = 'Expense is already shared with the specified user.';
+            return false;
+        }
+
+        $sharedExpense = [
+            'receiver_user_id' => $receiverUserId,
+            'sharer_user_id' => $sharerUserId,
+            'expense_id' => $expenseId,
+        ];
+
+        return createSharedExpense($sharedExpense);
+    } catch (PDOException $e) {
+        echo 'Error: ' . $e->getMessage();
+        return false;
+    }
+}
+
 ?>
