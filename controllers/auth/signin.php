@@ -64,9 +64,7 @@ function doLogin($data)
 function logout()
 {
     if (isset($_SESSION['id'])) {
-
         $_SESSION = array();
-
         if (isset($_COOKIE[session_name()])) {
             setcookie(session_name(), '', time() - 3600);
         }
@@ -75,6 +73,8 @@ function logout()
 
     setcookie('id', '', time() - 3600, "/");
     setcookie('first_name', '', time() - 3600, "/");
+
+    session_destroy();
 
     $home_url = 'http://' . $_SERVER['HTTP_HOST'] . '/php-project';
     header('Location: ' . $home_url);

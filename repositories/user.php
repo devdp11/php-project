@@ -5,7 +5,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'softDeleteUser' && isset($_GE
     $userId = $_GET['id'];
     $userData = softDeleteUser($userId);
     
-    header("Location: /php-project/pages/secure/display-users.php");
+    header("Location: /php-project/pages/secure/admin-users.php");
     
     exit;
 }

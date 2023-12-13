@@ -9,7 +9,7 @@
     $stmt->execute([$id]);
 
     // Redirecione de volta à página de usuários após a exclusão
-    header("Location: display-users.php?success=1");
+    header("Location: admin-users.php?success=1");
     exit();
 }
 ?>

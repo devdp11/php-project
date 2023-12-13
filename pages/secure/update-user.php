@@ -31,7 +31,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         ]);
 
         // Redirects to the page of the updated user
-        header("Location: ./display-users.php");
+        header("Location: ./admin-users.php");
         exit();
     }
 } else {

@@ -83,9 +83,9 @@
                     </div>
                 </li>
                 <li class="nav-item mb-3">
-                    <a href="#" class="btn-side">
-                        <i class="fa-solid fa-credit-card"></i>
-                        Methods
+                    <a href="./calendar.php" class="btn-side">
+                        <i class="fa-solid fa-calendar"></i>
+                        Expenses Calendar
                     </a>
                 </li>
                 <li class="nav-item mb-2">
@@ -95,10 +95,24 @@
                     </a>
                 </li>
                 <li class="nav-item py-1 mask <?= $user['admin'] ? '' : 'd-none'; ?>">
-                    <a href="display-users.php" class="nav-link text-white btn-side">
-                        <i class="fa-solid fa-users" title="Users"></i>
-                        <span class="fs-6 ms-1 d-none d-sm-inline">Users</span>
+                    <a href="#" class="nav-link text-white btn-side" data-bs-toggle="collapse" data-bs-target="#adminDropdown" aria-expanded="false">
+                        <i class="fa-solid fa-users" title="Admin"></i>
+                        <span class="fs-6 ms-1 d-none d-sm-inline">Admin</span>
                     </a>
+                    <div class="collapse" id="adminDropdown">
+                        <ul class="nav flex-column">
+                            <li class="nav-item mb-2">
+                                <a href="./admin-stats.php" class="mx-3">
+                                    Dashboard
+                                </a>
+                            </li>
+                            <li class="nav-item mb-2">
+                                <a href="./admin-users.php" class="mx-3">
+                                    Manage Users
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
             </ul>
             <hr>

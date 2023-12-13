@@ -25,6 +25,7 @@ $user = user();
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><i class="fa-solid fa-house"></i></li>
             <li class="breadcrumb-item">Dashboard</li>
+            <li class="breadcrumb-item">Expenses</li>
             <li class="breadcrumb-item">Shared Expenses</li>
         </ol>
     </nav>
