@@ -260,6 +260,27 @@ function createSharedExpense($sharedExpense)
     }
 }
 
+function removeSharedExpense($expenseId, $UserId)
+{
+    try {
+        $stmt = $GLOBALS['pdo']->prepare('
+            UPDATE shared_expenses
+            SET deleted_at = NOW()
+            WHERE expense_id = :expense_id
+              AND receiver_user_id = :receiver_user_id
+              AND deleted_at IS NULL
+        ');
+
+        $stmt->bindParam(':expense_id', $expenseId, PDO::PARAM_INT);
+        $stmt->bindParam(':receiver_user_id', $UserId, PDO::PARAM_INT);
+
+        return $stmt->execute();
+    } catch (PDOException $e) {
+        error_log('Error removing shared expense: ' . $e->getMessage());
+        return false;
+    }
+}
+
 function isExpenseShared($expenseId, $sharerUserId, $receiverUserId)
 {
     try {

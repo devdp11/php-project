@@ -19,6 +19,9 @@ if (isset($_POST['user'])) {
         $expenseId = $_POST['expense_id'];
         $email = $_POST['email'];
         eshare($expenseId, $email);
+    } elseif ($action == 'remove-shared') {
+        $expenseId = $_POST['expense_id'];
+        seremove($expenseId);
     }
 }
 
@@ -192,6 +195,29 @@ function shareExpense($expenseId, $sharerUserId, $receiverUserId)
         echo 'Error: ' . $e->getMessage();
         return false;
     }
+}
+
+function seremove($expenseId)
+{
+    if (!isset($_SESSION['id'])) {
+        $_SESSION['errors'][] = 'User ID not set in the session.';
+        header('location: /php-project/pages/secure/expense.php');
+        exit();
+    }
+
+    $UserId = $_SESSION['id'];
+
+    $success = removeSharedExpense($expenseId, $UserId);
+
+    if ($success) {
+        $_SESSION['success'] = 'Shared expense removed successfully.';
+    } else {
+        $_SESSION['errors'][] = 'Error removing shared expense.';
+        error_log("Error removing shared expense for user ID $UserId and expense ID $expenseId.");
+    }
+
+    header('location: /php-project/pages/secure/shared_expense.php');
+    exit();
 }
 
 ?>

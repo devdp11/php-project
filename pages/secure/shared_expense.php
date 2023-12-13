@@ -55,6 +55,10 @@ $user = user();
             <div class="col">
                 <div class="card style" id="expense-card-<?php echo $expense['expense_id']; ?>">
                     <div class="card-body">
+                        <form action="../../controllers/expenses/expense.php" method="post" class="float-end" onsubmit="return confirmRemoval(event)">
+                            <input type="hidden" name="expense_id" value="<?php echo $expense['expense_id']; ?>">
+                            <button type="submit" name="user" value="remove-shared" class='btn btn-danger btn-sm'><i class="fas fa-trash-alt"></i></button>
+                        </form>
                         <h5 class="card-title"><?php echo $expense['description']; ?></h5>
                         <p class="card-text"><strong>Category:</strong> <?php echo $expense['category_description']; ?></p>
                         <?php if ($expense['payed'] == 1) : ?>
@@ -69,3 +73,11 @@ $user = user();
             </div>
         <?php endforeach; ?>
     </div>
+
+    <script>
+    function confirmRemoval(event) {
+        console.log("confirmRemoval called");
+        event.stopPropagation();
+        return confirm("Are you sure you want to remove this shared expense?");
+    }
+</script>
