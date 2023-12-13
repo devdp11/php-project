@@ -394,5 +394,27 @@ if (!$tablesExist) {
             echo "Error adding expense: " . implode(" - ", $statement->errorInfo()) . PHP_EOL;
         }
     }
+
+    $sharedExpensesToInsert = [
+        ['receiver_user_id' => 1, 'sharer_user_id' => 2, 'expense_id' => 1],
+        ['receiver_user_id' => 3, 'sharer_user_id' => 2, 'expense_id' => 2],
+    ];
+    
+    foreach ($sharedExpensesToInsert as $sharedExpenseData) {
+        $createQuery = "INSERT INTO shared_expenses (receiver_user_id, sharer_user_id, expense_id, created_at, updated_at) 
+                        VALUES (:receiver_user_id, :sharer_user_id, :expense_id, NOW(), NOW())";
+    
+        $statement = $pdo->prepare($createQuery);
+    
+        $success = $statement->execute([
+            ':receiver_user_id' => $sharedExpenseData['receiver_user_id'],
+            ':sharer_user_id' => $sharedExpenseData['sharer_user_id'],
+            ':expense_id' => $sharedExpenseData['expense_id'],
+        ]);
+    
+        if (!$success) {
+            echo "Error adding a shared expense: " . implode(" - ", $statement->errorInfo()) . PHP_EOL;
+        }
+    }
 }
 ?>

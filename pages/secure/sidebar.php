@@ -38,7 +38,7 @@
     padding: 8px 5px;
   }
   
-  .mynav li a:hover{
+  .mynav li .btn-side:hover{
     background: rgba(255,255,255,0.2);
   }
   
@@ -57,31 +57,45 @@
             <hr>
             <ul class="mynav nav nav-pills flex-column mb-auto">
                 <li class="nav-item mb-3">
-                    <a href="./dashboard.php" class="active">
+                    <a href="./dashboard.php" class="btn-side active">
                         <i class="fa-solid fa-home"></i>
                         DashBoard
                     </a>
                 </li>
                 <li class="nav-item mb-3">
-                    <a href="./expense.php" class="">
+                    <a href="#" class="btn-side" data-bs-toggle="collapse" data-bs-target="#expensesDropdown">
                         <i class="fa-solid fa-chart-simple"></i>
                         Expenses
                     </a>
+                    <div class="collapse" id="expensesDropdown">
+                        <ul class="nav flex-column">
+                            <li class="nav-item mb-2">
+                                <a href="./expense.php" class="mx-3">
+                                    My Expenses
+                                </a>
+                            </li>
+                            <li class="nav-item mb-2">
+                                <a href="./shared_expense.php" class="mx-3">
+                                    Shared Expenses
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
                 <li class="nav-item mb-3">
-                    <a href="#" class="">
+                    <a href="#" class="btn-side">
                         <i class="fa-solid fa-credit-card"></i>
                         Methods
                     </a>
                 </li>
                 <li class="nav-item mb-2">
-                    <a href="./profile.php" class="">
+                    <a href="./profile.php" class="btn-side">
                         <i class="fa-solid fa-user"></i>
                         Profile
                     </a>
                 </li>
                 <li class="nav-item py-1 mask <?= $user['admin'] ? '' : 'd-none'; ?>">
-                    <a href="display-users.php" class="nav-link text-white">
+                    <a href="display-users.php" class="nav-link text-white btn-side">
                         <i class="fa-solid fa-users" title="Users"></i>
                         <span class="fs-6 ms-1 d-none d-sm-inline">Users</span>
                     </a>

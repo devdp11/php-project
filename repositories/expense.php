@@ -205,4 +205,59 @@ function softDeleteExpense($expenseId)
     return $updateSuccess;
 }
 
+function getAllSharedExpensesById($userId)
+{
+    try {
+        $query = 'SELECT expenses.*, categories.description AS category_description, methods.description AS payment_description, ';
+        $query .= 'shared_expenses.receiver_user_id, users.first_name AS sharer_first_name, users.last_name AS sharer_last_name ';
+        $query .= 'FROM expenses ';
+        $query .= 'INNER JOIN shared_expenses ON expenses.expense_id = shared_expenses.expense_id ';
+        $query .= 'LEFT JOIN categories ON expenses.category_id = categories.id ';
+        $query .= 'LEFT JOIN methods ON expenses.payment_id = methods.id ';
+        $query .= 'LEFT JOIN users ON shared_expenses.sharer_user_id = users.id ';
+        $query .= 'WHERE shared_expenses.receiver_user_id = :userId AND expenses.deleted_at IS NULL';
+
+        $PDOStatement = $GLOBALS['pdo']->prepare($query);
+        $PDOStatement->bindParam(':userId', $userId, PDO::PARAM_INT);
+        $PDOStatement->execute();
+
+        return $PDOStatement->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        echo 'Error: ' . $e->getMessage();
+        return [];
+    }
+}
+
+function createSharedExpense($sharedExpense)
+{
+    try {
+        $sqlCreate = "INSERT INTO shared_expenses (
+            receiver_user_id,
+            sharer_user_id,
+            expense_id,
+            created_at,
+            updated_at
+        ) VALUES (
+            :receiver_user_id,
+            :sharer_user_id,
+            :expense_id,
+            NOW(),
+            NOW()
+        )";
+
+        $PDOStatement = $GLOBALS['pdo']->prepare($sqlCreate);
+
+        $success = $PDOStatement->execute([
+            ':receiver_user_id' => $sharedExpense['receiver_user_id'],
+            ':sharer_user_id' => $sharedExpense['sharer_user_id'],
+            ':expense_id' => $sharedExpense['expense_id'],
+        ]);
+
+        return $success;
+    } catch (PDOException $e) {
+        echo 'Error: ' . $e->getMessage();
+        return false;
+    }
+}
+
 ?>
