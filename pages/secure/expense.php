@@ -56,9 +56,9 @@ $user = user();
         <?php $expenses = getAllExpensesById($user['id']); ?>
         <?php foreach ($expenses as $expense) : ?>
             <div class="col">
-                <div class="card style">
-                    <div class="card-body">
-                        <form action="../../controllers/expenses/expense.php" method="post" onsubmit="return confirmDelete()">
+                <div class="card style" id="expense-card-<?php echo $expense['expense_id']; ?>">
+                    <div class="card-body" data-bs-toggle="modal" data-bs-target="#edit-expense-modal">
+                        <form action="../../controllers/expenses/expense.php" method="post" onsubmit="return confirmDelete(event)">
                             <input type="hidden" name="expense_id" value="<?php echo $expense['expense_id']; ?>">
                             <button type="submit" name="user" value="delete" class='btn btn-danger btn-sm float-end'><i class="fas fa-trash-alt"></i></button>
                         </form>
@@ -70,7 +70,6 @@ $user = user();
                         <p class="card-text"><strong>Amount:</strong> <?php echo $expense['amount']; ?></p>
                         <p class="card-text"><strong>Payed:</strong> <?php echo ($expense['payed'] == 1) ? 'Yes' : 'No'; ?></p>
                         <p class="card-text"><strong>Date:</strong> <?php echo $expense['date']; ?></p>
-                        <button class='btn btn-blueviolet-reverse px-1' data-bs-toggle="modal" data-bs-target="#edit-expense">Update</button>
                     </div>
                 </div>
             </div>
@@ -143,7 +142,7 @@ $user = user();
     </div>
 
     <!-- MODAL EDIT -->
-    <div class="modal fade" id="edit-expense" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+    <div class="modal fade" id="edit-expense-modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
@@ -162,10 +161,13 @@ $user = user();
 </div>
 
 <script>
-    function confirmDelete() {
+    function confirmDelete(event) {
+        console.log("confirmDelete called");
+        event.stopPropagation();
         return confirm("Are you sure you want to delete this expense?");
     }
-    
+
+
     document.addEventListener('DOMContentLoaded', function() {
         const payedCheckbox = document.getElementById('payed');
         const paymentBox = document.getElementById('paymentBox');
@@ -176,4 +178,5 @@ $user = user();
             paymentBox.style.display = this.checked ? 'block' : 'none';
         });
     });
+
 </script>

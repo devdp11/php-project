@@ -18,7 +18,7 @@ foreach ($tablesToCheck as $table) {
 }
 
 if (!$tablesExist) {
-    $tablesToDrop = ['expenses', 'attachments', 'categories', 'methods', 'users'];
+    $tablesToDrop = ['shared_expenses', 'expenses','attachments', 'categories', 'methods', 'users'];
 
     foreach ($tablesToDrop as $table) {
         $pdo->exec("DROP TABLE IF EXISTS $table;");
@@ -58,7 +58,7 @@ if (!$tablesExist) {
             updated_at timestamp NULL DEFAULT NULL,
             deleted_at timestamp NULL DEFAULT NULL,
             PRIMARY KEY (id)
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;927719337
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
         CREATE TABLE expenses (
             expense_id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -100,7 +100,6 @@ if (!$tablesExist) {
             CONSTRAINT shared_expenses_expense_id_foreign FOREIGN KEY (expense_id) REFERENCES expenses (expense_id),
             CONSTRAINT unique_users CHECK (receiver_user_id <> sharer_user_id)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-    
     ');
         
     $usersToInsert = [
@@ -111,6 +110,7 @@ if (!$tablesExist) {
             'country' => 'Portugal',
             'birthdate' => '2003-08-19',
             'password' => 'rafael123',
+            'avatar' => null,
             'admin' => true,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
@@ -122,6 +122,7 @@ if (!$tablesExist) {
             'country' => 'Portugal',
             'birthdate' => '2003-12-11',
             'password' => 'pinheiro123',
+            'avatar' => null,
             'admin' => true,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
@@ -133,6 +134,7 @@ if (!$tablesExist) {
             'country' => 'Portugal',
             'birthdate' => '2003/08/19',
             'password' => 'root123',
+            'avatar' => null,
             'admin' => true,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
@@ -270,12 +272,6 @@ if (!$tablesExist) {
         $statement = $pdo->prepare($createQuery);
 
         $success = $statement->execute($expenseData);
-
-        if (!$success) {
-            echo "Error adding an expense: " . implode(" - ", $statement->errorInfo()) . PHP_EOL;
-        } else {
-            echo "Expense added successfully!" . PHP_EOL;
-        }
     }
 }
 ?>
