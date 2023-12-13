@@ -58,20 +58,41 @@ $user = user();
             <?php foreach ($expenses as $expense) : ?>
             <div class="col">
                 <div class="card style" id="expense-card-<?php echo $expense['expense_id']; ?>">
+                    <div class="row">
+                        <div class="col m-2">
+                            <h5 class="card-title"><?php echo $expense['description']; ?></h5>
+                        </div>
+                        <div class="col">
+                            <div class="justify-content-end align-items-center mt-2 mx-2"> 
+                                <form action="../../controllers/expenses/expense.php" method="post" class="float-end" onsubmit="return confirmDelete(event)">
+                                    <input type="hidden" name="expense_id" value="<?php echo $expense['expense_id']; ?>">
+                                    <button type="submit" name="user" value="delete" class='btn btn-danger btn-sm'><i class="fas fa-trash-alt"></i></button>
+                                </form>
+                                <button type="button" class='btn btn-blueviolet btn-sm float-end mx-1' onclick="prepareShareModal(<?php echo $expense['expense_id']; ?>)"><i class="fas fa-share"></i></button>
+                            </div>
+                        </div>
+                    </div>
                     <div class="card-body">
-                        <form action="../../controllers/expenses/expense.php" method="post" class="float-end" onsubmit="return confirmDelete(event)">
-                            <input type="hidden" name="expense_id" value="<?php echo $expense['expense_id']; ?>">
-                            <button type="submit" name="user" value="delete" class='btn btn-danger btn-sm'><i class="fas fa-trash-alt"></i></button>
-                        </form>
-                        <button type="button" class='btn btn-blueviolet btn-sm float-end mx-1' onclick="prepareShareModal(<?php echo $expense['expense_id']; ?>)"><i class="fas fa-share"></i></button>
-                        <h5 class="card-title"><?php echo $expense['description']; ?></h5>
-                        <p class="card-text"><strong>Category:</strong> <?php echo $expense['category_description']; ?></p>
-                        <?php if ($expense['payed'] == 1) : ?>
-                            <p class="card-text"><strong>Payment Method:</strong> <?php echo $expense['payment_description']; ?></p>
-                        <?php endif; ?>
-                        <p class="card-text"><strong>Amount:</strong> <?php echo $expense['amount']; ?></p>
-                        <p class="card-text"><strong>Payed:</strong> <?php echo ($expense['payed'] == 1) ? 'Yes' : 'No'; ?></p>
-                        <p class="card-text"><strong>Date:</strong> <?php echo $expense['date']; ?></p>
+                        <div class="row">
+                            <div class="col justify-content-center">
+                                <p class="card-text"><strong>Category:</strong> <?php echo $expense['category_description']; ?></p>
+                                <?php if ($expense['payed'] == 1) : ?>
+                                    <p class="card-text"><strong>Payment Method:</strong> <?php echo $expense['payment_description']; ?></p>
+                                <?php endif; ?>
+                                <p class="card-text"><strong>Amount:</strong> <?php echo $expense['amount']; ?></p>
+                                <p class="card-text"><strong>Payed:</strong> <?php echo ($expense['payed'] == 1) ? 'Yes' : 'No'; ?></p>
+                                <p class="card-text"><strong>Date:</strong> <?php echo $expense['date']; ?></p>
+                            </div>
+                            <div class="col" style="<?php echo empty($expense['receipt_img']) ? 'display: none;' : ''; ?>">
+                                <?php if (!empty($expense['receipt_img'])): ?>
+                                    <?php
+                                        $receipt_Data = base64_decode($expense['receipt_img']);
+                                        $receipt_Src = 'data:image/jpeg;base64,' . base64_encode($receipt_Data);
+                                    ?>
+                                    <img src="<?= $receipt_Src ?>" alt="receipt_img" class="d-block ui-w-80 mx-auto rounded" width="150px">
+                                <?php endif; ?>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -87,7 +108,7 @@ $user = user();
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body pt-0">
-                    <form action="../../controllers/expenses/expense.php" method="post">
+                    <form action="../../controllers/expenses/expense.php" method="post" enctype="multipart/form-data">
                         <div class="form-group mt-3">
                             <label>Description</label>
                             <input type="text" class="form-control" id="description" name="description" placeholder="Expense Description" value="<?= isset($_REQUEST['description']) ? $_REQUEST['description'] : '' ?>" required>
@@ -128,10 +149,12 @@ $user = user();
                                 ?>
                             </select>
                         </div>
+
                         <div class="form-group mt-3">
                             <label>Receipt Image</label>
                             <input type="file" class="form-control" id="receipt_img" name="receipt_img">
                         </div>
+
                         <div class="form-group mt-3">
                             <label>Note</label>
                             <textarea class="form-control" id="note" name="note" placeholder="Expense Note"><?= isset($_REQUEST['note']) ? $_REQUEST['note'] : '' ?></textarea>

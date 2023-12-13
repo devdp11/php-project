@@ -45,29 +45,37 @@ function eadd($postData)
         $user = [
             'id' => $_SESSION['id'],
         ];
-    
+
+        if (isset($_FILES['receipt_img']) && $_FILES['receipt_img']['error'] === UPLOAD_ERR_OK) {
+            $receiptImageData = file_get_contents($_FILES['receipt_img']['tmp_name']);
+            $receiptImageEncoded = base64_encode($receiptImageData);
+            $validationResult['receipt_img'] = $receiptImageEncoded;
+        } else {
+            $validationResult['receipt_img'] = null;
+        }
+
         $expenseData = [
             'category_id' => $validationResult['category'],
             'description' => $validationResult['description'],
             'amount' => $validationResult['amount'],
             'date' => $validationResult['date'],
-            'receipt_img' => null,
+            'receipt_img' => $validationResult['receipt_img'],
             'note' => $validationResult['note'],
             'user_id' => $user['id'],
         ];
-    
+
         $expenseData['payed'] = isset($validationResult['payed']) ? ($validationResult['payed'] ? 1 : 0) : 0;
-    
+
         $expenseData['payment_id'] = $expenseData['payed'] ? $validationResult['method'] : getMethodByDescription('None')['id'];
-    
+
         $result = createExpense($expenseData);
-    
+
         if ($result) {
             $_SESSION['success'] = 'Expense created successfully.';
         } else {
             error_log("Error creating expense: " . implode(" - ", $result->errorInfo()));
         }
-    
+
         $params = '?' . http_build_query($postData);
         header('location: /php-project/pages/secure/expense.php' . $params);
     }
