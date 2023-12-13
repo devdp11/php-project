@@ -249,5 +249,150 @@ if (!$tablesExist) {
             echo "Error adding a payment method: " . implode(" - ", $Statment->errorInfo()) . PHP_EOL;
         }
     }
+
+    $expensesToInsert = [];
+
+    // Example data for three expenses
+    $expenseDataList = [
+        [
+            'category_id' => 1,
+            'description' => 'Expense 1',
+            'payment_id' => 2,
+            'amount' => 50.00,
+            'date' => '2023-12-13',
+            'receipt_img' => null,
+            'payed' => false,
+            'note' => 'Note for expense 1',
+            'user_id' => 1,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+            'deleted_at' => null,
+        ],
+        [
+            'category_id' => 2,
+            'description' => 'Expense 2',
+            'payment_id' => 1,
+            'amount' => 75.50,
+            'date' => '2023-12-14',
+            'receipt_img' => null,
+            'payed' => true,
+            'note' => 'Note for expense 2',
+            'user_id' => 1,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+            'deleted_at' => null,
+        ],
+        [
+            'category_id' => 3,
+            'description' => 'Expense 3',
+            'payment_id' => 3,
+            'amount' => 30.25,
+            'date' => '2023-12-15',
+            'receipt_img' => null,
+            'payed' => false,
+            'note' => 'Note for expense 3',
+            'user_id' => 1,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+            'deleted_at' => null,
+        ],
+        [
+            'category_id' => 4,
+            'description' => 'Expense 4',
+            'payment_id' => 4,
+            'amount' => 40.25,
+            'date' => '2023-11-15',
+            'receipt_img' => null,
+            'payed' => false,
+            'note' => 'Note for expense 4',
+            'user_id' => 1,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+            'deleted_at' => null,
+        ],
+        [
+            'category_id' => 5,
+            'description' => 'Expense 5',
+            'payment_id' => 5,
+            'amount' => 50.25,
+            'date' => '2023-10-15',
+            'receipt_img' => null,
+            'payed' => false,
+            'note' => 'Note for expense 5',
+            'user_id' => 1,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+            'deleted_at' => null,
+        ],
+        [
+            'category_id' => 6,
+            'description' => 'Expense 6',
+            'payment_id' => 6,
+            'amount' => 60.25,
+            'date' => '2024-01-15',
+            'receipt_img' => null,
+            'payed' => false,
+            'note' => 'Note for expense 6',
+            'user_id' => 1,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+            'deleted_at' => null,
+        ]
+    ];
+
+    foreach ($expenseDataList as $expenseData) {
+        $expensesToInsert[] = $expenseData;
+    }
+
+    foreach ($expensesToInsert as $expenseData) {
+        $createQuery = "INSERT INTO expenses (
+                            category_id,
+                            description,
+                            payment_id,
+                            amount,
+                            date,
+                            receipt_img,
+                            payed,
+                            note,
+                            user_id,
+                            created_at,
+                            updated_at,
+                            deleted_at
+                        ) VALUES (
+                            :category_id,
+                            :description,
+                            :payment_id,
+                            :amount,
+                            :date,
+                            :receipt_img,
+                            :payed,
+                            :note,
+                            :user_id,
+                            :created_at,
+                            :updated_at,
+                            :deleted_at
+                        )";
+
+        $statement = $pdo->prepare($createQuery);
+
+        $success = $statement->execute([
+            ':category_id' => $expenseData['category_id'],
+            ':description' => $expenseData['description'],
+            ':payment_id' => $expenseData['payment_id'],
+            ':amount' => $expenseData['amount'],
+            ':date' => $expenseData['date'],
+            ':receipt_img' => $expenseData['receipt_img'],
+            ':payed' => $expenseData['payed'],
+            ':note' => $expenseData['note'],
+            ':user_id' => $expenseData['user_id'],
+            ':created_at' => $expenseData['created_at'],
+            ':updated_at' => $expenseData['updated_at'],
+            ':deleted_at' => $expenseData['deleted_at'],
+        ]);
+
+        if (!$success) {
+            echo "Error adding expense: " . implode(" - ", $statement->errorInfo()) . PHP_EOL;
+        }
+    }
 }
 ?>

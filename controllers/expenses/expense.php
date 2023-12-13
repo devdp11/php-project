@@ -9,7 +9,8 @@ if (isset($_POST['user'])) {
     if ($action == 'add') {
         eadd($_POST);
     } elseif ($action == 'edit') {
-        eedit($_POST);
+        $expenseId = $_POST['expense_id'];
+        eedit($expenseId, $_POST);
     } elseif ($action == 'delete') {
         $expenseId = $_POST['expense_id'];
         edelete($expenseId);
@@ -83,5 +84,54 @@ function edelete($expenseId)
 
     header('location: /php-project/pages/secure/expense.php');
     exit();
+}
+
+function eedit($expenseId, $postData)
+{   
+    if (!isset($_SESSION['id'])) {
+        $_SESSION['errors'][] = 'User ID not set in the session.';
+        header('location: /php-project/pages/secure/expense.php');
+        exit();
+    }
+
+    $existingExpense = getExpensesById($expenseId); 
+
+    // Combine existing data with the new data from the form
+    $expenseData = [
+        'category_id' => isset($postData['category_id']) ? $postData['category_id'] : $existingExpense['category_id'],
+        'description' => isset($postData['description']) ? $postData['description'] : $existingExpense['description'],
+        'payment_id' => isset($postData['payment_id']) ? $postData['payment_id'] : $existingExpense['payment_id'],
+        'amount' => isset($postData['amount']) ? $postData['amount'] : $existingExpense['amount'],
+        'date' => isset($postData['date']) ? $postData['date'] : $existingExpense['date'],
+        'receipt_img' => isset($postData['receipt_img']) ? $postData['receipt_img'] : $existingExpense['receipt_img'],
+        'payed' => isset($postData['payed']) ? $postData['payed'] : $existingExpense['payed'],
+        'note' => isset($postData['note']) ? $postData['note'] : $existingExpense['note'],
+        'user_id' => isset($postData['user_id']) ? $postData['user_id'] : $existingExpense['user_id'],
+    ];
+
+    $editSuccess = updateExpense(
+        $expenseId,
+        $expenseData['description'],
+        $expenseData['category_id'],
+        $expenseData['payment_id'],
+        $expenseData['amount'],
+        $expenseData['date'],
+        $expenseData['receipt_img'],
+        $expenseData['payed'],
+        $expenseData['note'],
+        $expenseData['user_id']
+    );
+
+    if ($editSuccess) {
+        $_SESSION['success'] = 'Expense updated successfully.';
+    } else {
+        $_SESSION['errors'][] = 'Error updating expense.';
+        error_log("Error updating expense with ID $expenseId: " . implode(" - ", $GLOBALS['pdo']->errorInfo()));
+    }
+
+    // Redirect or handle success/failure as needed
+    header('location: /php-project/pages/secure/expense.php');
+    exit();
+    
 }
 ?>

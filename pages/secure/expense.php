@@ -57,7 +57,7 @@ $user = user();
         <?php foreach ($expenses as $expense) : ?>
             <div class="col">
                 <div class="card style" id="expense-card-<?php echo $expense['expense_id']; ?>">
-                    <div class="card-body" data-bs-toggle="modal" data-bs-target="#edit-expense-modal" onclick="logExpenseId(<?php echo $expense['expense_id']; ?>)">
+                    <div class="card-body" onclick="openEditExpenseModal(<?php echo $expense['expense_id']; ?>)">
                         <form action="../../controllers/expenses/expense.php" method="post" onsubmit="return confirmDelete(event)">
                             <input type="hidden" name="expense_id" value="<?php echo $expense['expense_id']; ?>">
                             <button type="submit" name="user" value="delete" class='btn btn-danger btn-sm float-end'><i class="fas fa-trash-alt"></i></button>
@@ -146,12 +146,79 @@ $user = user();
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modal-title"> Edit expense </h5>
+                    <h5 class="modal-title" id="modal-title"> Edit Expense </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body pt-0">
-                    <form action="../../controllers/expenses/expense.php" method="post">
-                        <button type="submit" class="btn btn-blueviolet mt-3" name="user" value="add">Update</button>
+                    <form id="edit-expense-form" action="../../controllers/expenses/expense.php" method="post">
+                        <input type="hidden" name="expense_id" id="expense_id" value="<?php echo $existingExpense['expense_id']; ?>">
+                        
+                        <!-- Description -->
+                        <div class="form-group mt-3">
+                            <label>Description</label>
+                            <input type="text" class="form-control" id="description" name="description" placeholder="Expense Description" value="<?= isset($existingExpense['description']) ? $existingExpense['description'] : '' ?>" required>
+                        </div>
+
+                        <!-- Category -->
+                        <div class="form-group mt-3">
+                            <label>Category</label>
+                            <select class="form-control" id="category" name="category">
+                                <?php
+                                $categories = getAllCategories();
+                                foreach ($categories as $category) {
+                                    $selected = isset($existingExpense['category_id']) && $existingExpense['category_id'] == $category['id'] ? 'selected' : '';
+                                    echo "<option value='{$category['id']}' $selected>{$category['description']}</option>";
+                                }
+                                ?>
+                            </select>
+                        </div>
+
+                        <!-- Date -->
+                        <div class="form-group mt-3">
+                            <label>Date</label>
+                            <input type="date" class="form-control" id="date" name="date" value="<?= isset($existingExpense['date']) ? $existingExpense['date'] : '' ?>" required>
+                        </div>
+
+                        <!-- Amount -->
+                        <div class="form-group mt-3">
+                            <label>Amount</label>
+                            <input type="text" class="form-control" id="amount" name="amount" placeholder="Expense Amount" value="<?= isset($existingExpense['amount']) ? $existingExpense['amount'] : '' ?>" required>
+                        </div>
+
+                        <!-- Paid Checkbox -->
+                        <div class="form-check mt-3">
+                            <input class="form-check-input" type="checkbox" name="payed" id="payed" <?= isset($existingExpense['payed']) && $existingExpense['payed'] == 1 ? 'checked' : '' ?>>
+                            <label class="form-check-label">Paid?</label>
+                        </div>
+
+                        <!-- Payment Method -->
+                        <div class="form-group mt-3" id="paymentBox">
+                            <label>Payment Method</label>
+                            <select class="form-control" id="method" name="method">
+                                <?php
+                                $methods = getAllMethods();
+                                foreach ($methods as $method) {
+                                    $selectedMethod = isset($existingExpense['payment_id']) && $existingExpense['payment_id'] == $method['id'] ? 'selected' : '';
+                                    echo "<option value='{$method['id']}' $selectedMethod>{$method['description']}</option>";
+                                }
+                                ?>
+                            </select>
+                        </div>
+
+                        <!-- Receipt Image -->
+                        <div class="form-group mt-3">
+                            <label>Receipt Image</label>
+                            <input type="file" class="form-control" id="receipt_img" name="receipt_img">
+                        </div>
+
+                        <!-- Note -->
+                        <div class="form-group mt-3">
+                            <label>Note</label>
+                            <textarea class="form-control" id="note" name="note" placeholder="Expense Note"><?= isset($existingExpense['note']) ? $existingExpense['note'] : '' ?></textarea>
+                        </div>
+
+                        <!-- Update Button -->
+                        <button type="submit" class="btn btn-blueviolet mt-3" name="user" value="edit">Update</button>
                     </form>
                 </div>
             </div>
@@ -163,6 +230,7 @@ $user = user();
 <script>
     function logExpenseId(expenseId) {
         console.log("Expense ID:", expenseId);
+        window.location.href = "../../controllers/expenses/expense.php?id=" + expenseId;
     }
     
     function confirmDelete(event) {
@@ -181,5 +249,17 @@ $user = user();
             paymentBox.style.display = this.checked ? 'block' : 'none';
         });
     });
+
+    function openEditExpenseModal(expenseId) {
+        console.log(expenseId);
+        const editExpenseModal = new bootstrap.Modal(document.getElementById('edit-expense-modal'));
+        const editExpenseForm = document.getElementById('edit-expense-form');
+
+        // Set the expenseId in the form action
+        editExpenseForm.action = "../../controllers/expenses/expense.php?expenseId=" + expenseId;
+
+        // Open the modal
+        editExpenseModal.show();
+    }
 
 </script>

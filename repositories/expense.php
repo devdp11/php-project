@@ -162,7 +162,7 @@ function createExpense($expense)
     }
 }
 
-function updateExpense($expenseId, $description, $category, $paymentId, $amount, $date, $receiptImg, $payed, $note, $userId)
+function updateExpense($expenseId, $expenseData)
 {
     try {
         $sqlUpdate = "UPDATE expenses SET
@@ -182,15 +182,15 @@ function updateExpense($expenseId, $description, $category, $paymentId, $amount,
         $PDOStatement = $GLOBALS['pdo']->prepare($sqlUpdate);
 
         return $PDOStatement->execute([
-            ':category_id' => $category,
-            ':description' => $description,
-            ':payment_id' => $paymentId,
-            ':amount' => $amount,
-            ':date' => $date,
-            ':receipt_img' => $receiptImg,
-            ':payed' => $payed,
-            ':note' => $note,
-            ':user_id' => $userId,
+            ':category_id' => $expenseData['category_id'],
+            ':description' => $expenseData['description'],
+            ':payment_id' => $expenseData['payment_id'],
+            ':amount' => $expenseData['amount'],
+            ':date' => $expenseData['date'],
+            ':receipt_img' => $expenseData['receipt_img'],
+            ':payed' => $expenseData['payed'],
+            ':note' => $expenseData['note'],
+            ':user_id' => $expenseData['user_id'],
             ':expense_id' => $expenseId,
         ]);
     } catch (PDOException $e) {
