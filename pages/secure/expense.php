@@ -54,7 +54,7 @@ $user = user();
     </section>
     
     <div class="row row-cols-1 row-cols-md-3 g-3">
-        <?php $expenses = getAllExpensesById($user['id']); ?>
+        <?php $expenses = getAllExpensesByUserId($user['id']); ?>
             <?php foreach ($expenses as $expense) : ?>
             <div class="col">
                 <div class="card style" id="expense-card-<?php echo $expense['expense_id']; ?>">
