@@ -278,4 +278,20 @@ function isExpenseShared($expenseId, $sharerUserId, $receiverUserId)
     }
 }
 
+/* function getMostUsedExpenseCategory() {
+    $stmt = $GLOBALS['pdo']->prepare('
+        SELECT c.description as category_description, COUNT(e.category_id) as category_count
+        FROM expenses e
+        LEFT JOIN categories c ON e.category_id = c.id
+        WHERE e.deleted_at IS NULL
+        GROUP BY e.category_id
+        ORDER BY category_count DESC
+        LIMIT 1;
+    ');
+
+    $stmt->execute();
+
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+} */
+
 ?>
