@@ -17,13 +17,13 @@ date_default_timezone_set('Europe/Lisbon');
 function createUser($user)
 {
     $user['password'] = password_hash($user['password'], PASSWORD_DEFAULT);
+
     $sqlCreate = "INSERT INTO 
     users (
         first_name,
         last_name, 
         password, 
         email,
-        avatar, 
         admin,
         created_at, 
         updated_at
@@ -33,7 +33,6 @@ function createUser($user)
         :last_name, 
         :password, 
         :email,
-        :avatar,
         :admin,
         NOW(), 
         NOW()
@@ -52,6 +51,7 @@ function createUser($user)
     if ($success) {
         $user['id'] = $GLOBALS['pdo']->lastInsertId();
     }
+
     return $success;
 }
 

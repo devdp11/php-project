@@ -51,23 +51,34 @@ if (isset($_GET['user'])) {
     }
 }
 
-function create($req)
+function create($postData)
 {
-    $data = validatedUser($req);
+    $validationResult = validatedUser($postData);
 
-    if (isset($data['invalid'])) {
-        $_SESSION['errors'] = $data['invalid'];
-        $params = '?' . http_build_query($req);
-        header('location: /php-project/pages/secure/admin/user.php' . $params);
-        return false;
+    if (isset($validationResult['invalid'])) {
+        $_SESSION['errors'] = $validationResult['invalid'];
+        header('location: /php-project/pages/secure/admin-users.php');
+        exit;
     }
 
-    $success = createUser($data);
+    $user = [
+        'first_name' => $validationResult['first_name'],
+        'last_name' => $validationResult['last_name'],
+        'password' => $validationResult['password'],
+        'email' => $validationResult['email'],
+        'admin' => isset($validationResult['admin']) && $validationResult['admin'] ? 1 : 0,
+    ];
 
-    if ($success) {
-        $_SESSION['success'] = 'User created successfully!';
-        header('location: /php-project/pages/secure/admin/');
+    $result = createUser($user);
+
+    if ($result) {
+        $_SESSION['success'] = 'User created successfully.';
+    } else {
+        error_log("Error creating user: " . implode(" - ", $GLOBALS['pdo']->errorInfo()));
     }
+
+    header('location: /php-project/pages/secure/admin-users.php'); // Corrija o caminho conforme necessário
+    exit;
 }
 
 function update($req)

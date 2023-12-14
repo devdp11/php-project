@@ -6,6 +6,7 @@
 ?>
 
 <?php include __DIR__ . '/sidebar.php'; ?>
+<link rel="stylesheet" href="../resources/styles/global.css">
 
     <style>
         .style {
@@ -22,11 +23,29 @@
         }
 
         .style:focus {
-            box-shadow: 0 0 0 0.2rem rgba(138, 43, 226, 0.25); /* Adiciona uma sombra sutil ao focar */
+            box-shadow: 0 0 0 0.2rem rgba(138, 43, 226, 0.25);
         }
     </style>
 
-    <link rel="stylesheet" href="../resources/styles/global.css">
+    <section class="py-4 px-5">
+        <?php
+        if (isset($_SESSION['success'])) {
+            echo '<div class="alert alert-success alert-dismissible fade show" role="alert">';
+            echo $_SESSION['success'] . '<br>';
+            echo '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+            unset($_SESSION['success']);
+        }
+        if (isset($_SESSION['errors'])) {
+            echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">';
+            foreach ($_SESSION['errors'] as $error) {
+                echo $error . '<br>';
+            }
+            echo '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
+            unset($_SESSION['errors']);
+        }
+        ?>
+    </section>
+
     <div class="p-4 overflow-auto h-100">
         <nav style="--bs-breadcrumb-divider:'>';font-size:14px">
             <ol class="breadcrumb">
@@ -38,8 +57,8 @@
         </nav>
 
         <div class="container">
-            <button class="btn btn-blueviolet mt-5 mb-2">
-                <a href="add-user.php" class="text-decoration-none">Add User</a>
+            <button class="btn btn-blueviolet mt-5 mb-2" data-bs-toggle="modal" data-bs-target="#add-user">
+                Add User
             </button>
 
 
@@ -50,6 +69,7 @@
                 echo '</div>';
             }
             ?>
+
             <div class="row row-cols-1 row-cols-md-3 g-2">
                 <?php
                 $users = getAll();
@@ -72,8 +92,45 @@
         </div>
     </div>
 
+    <!-- MODAL ADD USER -->
+    <div class="modal fade" id="add-user" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-title"> Add a User </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body pt-0">
+                    <form action="../../controllers/admin/user.php" method="post">
+                        <div class="form-group mt-3">
+                            <label>First Name</label>
+                            <input autocomplete="off" type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name">
+                        </div>
+                        <div class="form-group mt-3">
+                            <label>Last Name</label>
+                            <input autocomplete="off" type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name">
+                        </div>
+                        <div class="form-group mt-3">
+                            <label>Email</label>
+                            <input autocomplete="off" type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="Enter email">
+                        </div>
+                        <div class="form-group mt-3">
+                            <label>Password</label>
+                            <input autocomplete="off" type="password" class="form-control" id="password" name="password" placeholder="Password">
+                        </div>
+                        <div class="form-check mt-3">
+                            <input autocomplete="off" class="form-check-input" type="checkbox" name="admin" id="admin">
+                            <label class="form-check-label">Admin?</label>
+                        </div>
+                        <button type="submit" class="btn btn-blueviolet mt-3" name="user" value="create">Create</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <script>
-        
         setTimeout(function() {
             var successAlert = document.getElementById('success-alert');
             if (successAlert) {
@@ -88,7 +145,6 @@
         function deleteUser(userId, event) {
             event.stopPropagation();    
             if (confirm("Are you sure you want to delete this user?")) {
-                // Redirecionar para user.php com o ID do usuário na URL
                 window.location.href = "/php-project/repositories/user.php?action=softDeleteUser&id=" + userId;
             }
         }
