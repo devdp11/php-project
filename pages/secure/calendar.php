@@ -40,10 +40,11 @@ foreach ($expenses as $expense) {
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        var currentDate = new Date(); // Obtém a data atual
         var calendarEl = document.getElementById('calendar');
 
         var calendar = new FullCalendar.Calendar(calendarEl, {
-            initialDate: '2023-01-12',
+            initialDate: currentDate.toISOString().slice(0, 10), // Converte a data para o formato YYYY-MM-DD
             editable: true,
             selectable: true,
             businessHours: true,
@@ -53,4 +54,5 @@ foreach ($expenses as $expense) {
 
         calendar.render();
     });
+
 </script>
