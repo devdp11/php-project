@@ -1,15 +1,6 @@
 <?php
 require_once __DIR__ . '../../db/connection.php';
 
-if (isset($_GET['action']) && $_GET['action'] === 'softDeleteUser' && isset($_GET['id'])) {
-    $userId = $_GET['id'];
-    $userData = softDeleteUser($userId);
-    
-    header("Location: /php-project/pages/secure/admin-users.php");
-    
-    exit;
-}
-
 date_default_timezone_set('Europe/Lisbon');
 
 /* ADMIN QUERY / SETUP QUERY  */

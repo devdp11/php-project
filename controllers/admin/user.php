@@ -10,7 +10,7 @@ if (isset($_POST['user'])) {
         create($_POST);
     }
 
-    if ($_POST['user'] == 'update') {
+    /* if ($_POST['user'] == 'update') {
         update($_POST);
     }
 
@@ -20,9 +20,11 @@ if (isset($_POST['user'])) {
 
     if ($_POST['user'] == 'password') {
         changePassword($_POST);
-    }
-    if ($_POST['admin'] == 'delete') {
-        softdelete($_POST);
+    } */
+
+    if ($_POST['user'] == 'delete') {
+        $userToDelete = $_POST['user_id'];
+        softdelete($userToDelete);
     }
 }
 
@@ -81,7 +83,7 @@ function create($postData)
     exit;
 }
 
-function update($req)
+/* function update($req)
 {
     $data = validatedUser($req);
 
@@ -143,33 +145,27 @@ function changePassword($req)
             header('location: /php-project/pages/secure//user/password.php');
         }
     }
-}
+} */
 
-function softdelete()
+function softdelete($userId)
 {
-    if (!isset($_SESSION['id'])) {
-        echo 'User ID not set in the session.';
-        exit();
-    }
-
-    $user = [
-        'id' => $_SESSION['id'],
-    ];
-
-    $deleteSuccess = softDeleteUser($user['id']);
+    $deleteSuccess = softDeleteUser($userId);
 
     if ($deleteSuccess) {
-        session_unset();
-        session_destroy();
+        if ($_SESSION['id'] == $userId) {
+            session_unset();
+            session_destroy();
+    
+            setcookie(session_name(), '', time() - 3600);
+            setcookie('id', '', time() - 3600, "/");
+            setcookie('first_name', '', time() - 3600, "/");
+        }
 
-        setcookie(session_name(), '', time() - 3600);
-        setcookie('id', '', time() - 3600, "/");
-        setcookie('first_name', '', time() - 3600, "/");
-
-        $home_url = 'http://' . $_SERVER['HTTP_HOST'] . '/php-project';
+        $_SESSION['success'] = 'User deleted successfully.';
+        $home_url = 'http://' . $_SERVER['HTTP_HOST'] . '/php-project/pages/secure/admin-users.php';
         header('Location: ' . $home_url);
         exit();
     } else {
-        echo 'Error deleting user account.';
+        $_SESSION['errors'][] = 'Error deleting user.';
     }
 }
