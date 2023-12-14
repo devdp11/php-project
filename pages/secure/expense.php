@@ -89,7 +89,7 @@ $user = user();
                                         $receipt_Data = base64_decode($expense['receipt_img']);
                                         $receipt_Src = 'data:image/jpeg;base64,' . base64_encode($receipt_Data);
                                     ?>
-                                    <img src="<?= $receipt_Src ?>" alt="receipt_img" class="d-block ui-w-80 mx-auto rounded" width="150px">
+                                    <img src="<?= $receipt_Src ?>" alt="receipt_img" class="d-block ui-w-80 mx-auto rounded mt-2" width="150px">
                                 <?php endif; ?>
                             </div>
                         </div>
