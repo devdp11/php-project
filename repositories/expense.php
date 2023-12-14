@@ -1,6 +1,8 @@
 <?php
 require_once __DIR__ . '../../db/connection.php';
 
+/* QUERIES FOR DATA FILTER */
+
 function getExpensesByCategory($categoryId)
 {
     $query = "SELECT * FROM expenses WHERE category_id = :categoryId AND deleted_at IS NULL;";
@@ -26,6 +28,8 @@ function getExpensesByPaymentMethod($paymentMethodId)
     }
     return $expenses;
 }
+
+/* EXPENSES COMBO BOX */
 
 function getAllCategories()
 {
@@ -55,6 +59,8 @@ function getMethodByDescription($description)
 
     return $result;
 }
+
+/* EXPENSES */
 
 function createExpense($expense)
 {
@@ -205,6 +211,8 @@ function softDeleteExpense($expenseId)
     return $updateSuccess;
 }
 
+/* SHARED EXPENSES */
+
 function createSharedExpense($sharedExpense)
 {
     try {
@@ -298,5 +306,19 @@ function removeSharedExpense($expenseId, $UserId)
         return false;
     }
 }
+
+/* CALENDAR */
+
+function getExpensesToCalendar($userId) {
+    global $pdo;
+
+    $stmt = $pdo->prepare("SELECT expense_id, description, date FROM expenses WHERE user_id = :user_id AND deleted_at IS NULL");
+    $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+    $stmt->execute();
+    
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+/* DASHBOARD */
 
 ?>

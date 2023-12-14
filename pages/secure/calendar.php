@@ -1,14 +1,10 @@
 <?php
 require_once __DIR__ . '../../../middlewares/middleware-user.php';
 @require_once __DIR__ . '/../../validations/session.php';
-require_once __DIR__ . '../../../db/connection.php'; // Certifique-se de que este arquivo contenha a lógica de conexão PDO
-$user = user();
+require_once __DIR__ . '/../../controllers/expenses/expense.php';
 
-// Consulta ao banco de dados para obter despesas do usuário autenticado
-$stmt = $pdo->prepare("SELECT expense_id, description, date FROM expenses WHERE user_id = :user_id AND deleted_at IS NULL");
-$stmt->bindParam(':user_id', $user['id'], PDO::PARAM_INT);
-$stmt->execute();
-$expenses = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$user = user();
+$expenses = getExpensesToCalendar($user['id']);
 
 $events = [];
 foreach ($expenses as $expense) {

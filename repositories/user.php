@@ -12,6 +12,8 @@ if (isset($_GET['action']) && $_GET['action'] === 'softDeleteUser' && isset($_GE
 
 date_default_timezone_set('Europe/Lisbon');
 
+/* ADMIN QUERY / SETUP QUERY  */
+
 function createUser($user)
 {
     $user['password'] = password_hash($user['password'], PASSWORD_DEFAULT);
@@ -75,6 +77,8 @@ function getById($id)
     }
 }
 
+/* ACHO QUE AQUI PODEMOS APAGAR O getIdByEmail PORQUE O GETBYEMAIL JA TRAZ TUDO E NÃO APENAS O ID */
+
 function getByEmail($email)
 {
     $PDOStatement = $GLOBALS['pdo']->prepare('SELECT * FROM users WHERE email = ? LIMIT 1;');
@@ -102,22 +106,70 @@ function getIdByEmail($email)
     }
 }
 
-function getHashedPasswordById($id)
+/* USER QUERIES */
+
+function registerUser($user)
 {
-    
-    $PDOStatement = $GLOBALS['pdo']->prepare('SELECT password FROM users WHERE id = ?;');
-        
-    $PDOStatement->bindValue(1, $id, PDO::PARAM_INT);
-        
-    $PDOStatement->execute();
-        
-    $userData = $PDOStatement->fetch(PDO::FETCH_ASSOC);
-   
-    if (!$userData) {
-        return false;
+    $user['password'] = password_hash($user['password'], PASSWORD_DEFAULT);
+    $user['admin'] = false;
+
+    $sqlCreate = "INSERT INTO 
+    users (
+        first_name,
+        last_name, 
+        email, 
+        password,
+        admin,
+        created_at,
+        updated_at
+    ) 
+    VALUES (
+        :first_name,
+        :last_name, 
+        :email, 
+        :password,
+        :admin,
+        NOW(), 
+        NOW()
+    )";
+
+    $PDOStatement = $GLOBALS['pdo']->prepare($sqlCreate);
+    $success = $PDOStatement->execute([
+        ':first_name' => $user['first_name'],
+        ':last_name' => $user['last_name'],
+        ':email' => $user['email'],
+        ':password' => $user['password'],
+        ':admin' => $user['admin'],
+    ]);
+
+    if ($success) {
+        $user['id'] = $GLOBALS['pdo']->lastInsertId();
+        return $user;
     }
 
-    return $userData['password'];
+    return false;
+}
+
+function updateAvatar($userId, $avatar)
+{
+    $user['updated_at'] = date('Y-m-d H:i:s');
+
+    $sqlUpdate = "UPDATE users SET
+        avatar = :avatar,
+        updated_at = :updated_at
+        WHERE id = :id";
+
+    $PDOStatement = $GLOBALS['pdo']->prepare($sqlUpdate);
+
+    $bindParams = [
+        ':id' => $userId,
+        ':avatar' => $avatar,
+        ':updated_at' => $user['updated_at'],
+    ];
+
+    $success = $PDOStatement->execute($bindParams);
+
+    return $success;
 }
 
 function updateUser($user)
@@ -180,6 +232,24 @@ function updateUser($user)
     return $success;
 }
 
+function getHashedPasswordById($id)
+{
+    
+    $PDOStatement = $GLOBALS['pdo']->prepare('SELECT password FROM users WHERE id = ?;');
+        
+    $PDOStatement->bindValue(1, $id, PDO::PARAM_INT);
+        
+    $PDOStatement->execute();
+        
+    $userData = $PDOStatement->fetch(PDO::FETCH_ASSOC);
+   
+    if (!$userData) {
+        return false;
+    }
+
+    return $userData['password'];
+}
+
 function updatePassword($id, $hashedPassword)
 {
     $sqlUpdatePassword = "UPDATE users SET
@@ -222,69 +292,7 @@ function softDeleteUser($id)
     return $userEmail;
 }
 
-function updateAvatar($userId, $avatar)
-{
-    $user['updated_at'] = date('Y-m-d H:i:s');
-
-    $sqlUpdate = "UPDATE users SET
-        avatar = :avatar,
-        updated_at = :updated_at
-        WHERE id = :id";
-
-    $PDOStatement = $GLOBALS['pdo']->prepare($sqlUpdate);
-
-    $bindParams = [
-        ':id' => $userId,
-        ':avatar' => $avatar,
-        ':updated_at' => $user['updated_at'],
-    ];
-
-    $success = $PDOStatement->execute($bindParams);
-
-    return $success;
-}
-
-function registerUser($user)
-{
-    $user['password'] = password_hash($user['password'], PASSWORD_DEFAULT);
-    $user['admin'] = false;
-
-    $sqlCreate = "INSERT INTO 
-    users (
-        first_name,
-        last_name, 
-        email, 
-        password,
-        admin,
-        created_at,
-        updated_at
-    ) 
-    VALUES (
-        :first_name,
-        :last_name, 
-        :email, 
-        :password,
-        :admin,
-        NOW(), 
-        NOW()
-    )";
-
-    $PDOStatement = $GLOBALS['pdo']->prepare($sqlCreate);
-    $success = $PDOStatement->execute([
-        ':first_name' => $user['first_name'],
-        ':last_name' => $user['last_name'],
-        ':email' => $user['email'],
-        ':password' => $user['password'],
-        ':admin' => $user['admin'],
-    ]);
-
-    if ($success) {
-        $user['id'] = $GLOBALS['pdo']->lastInsertId();
-        return $user;
-    }
-
-    return false;
-}
+/* ADMIN DASHBOARD QUERIES */
 
 function getDeletedUsersCount() {
     $stmt = $GLOBALS['pdo']->prepare('SELECT COUNT(*) as deleted_count FROM users WHERE deleted_at IS NOT NULL;');
@@ -321,17 +329,5 @@ function getUsersWithExpensesCount() {
     $stmt->execute();
     return $stmt->fetch(PDO::FETCH_ASSOC)['users_with_expenses_count'];
 }
-
-function searchUsersByName($searchTerm) {
-    $escapedSearchTerm = htmlspecialchars($searchTerm, ENT_QUOTES, 'UTF-8');
-
-    $stmt = $GLOBALS['pdo']->prepare('SELECT * FROM users 
-                                      WHERE (first_name LIKE :searchTerm OR last_name LIKE :searchTerm) 
-                                      AND deleted_at IS NULL');
-    
-    $stmt->execute([':searchTerm' => "%$escapedSearchTerm%"]);
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
-
 
 ?>
