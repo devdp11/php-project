@@ -66,9 +66,9 @@ $user = user();
                             <div class="justify-content-end align-items-center mt-2 mx-2"> 
                                 <form action="../../controllers/expenses/expense.php" method="post" class="float-end" onsubmit="return confirmDelete(event)">
                                     <input type="hidden" name="expense_id" value="<?php echo $expense['expense_id']; ?>">
-                                    <button type="submit" name="user" value="delete" class='btn btn-danger btn-sm'><i class="fas fa-trash-alt"></i></button>
+                                    <button type="submit" name="user" value="delete" class='btn btn-danger btn-sm m-1'><i class="fas fa-trash-alt"></i></button>
                                 </form>
-                                <button type="button" class='btn btn-blueviolet btn-sm float-end mx-1' onclick="prepareShareModal(<?php echo $expense['expense_id']; ?>)"><i class="fas fa-share"></i></button>
+                                <button type="button" class='btn btn-blueviolet btn-sm float-end m-1' onclick="prepareShareModal(<?php echo $expense['expense_id']; ?>)"><i class="fas fa-share"></i></button>
                             </div>
                         </div>
                     </div>
@@ -83,13 +83,15 @@ $user = user();
                                 <p class="card-text"><strong>Payed:</strong> <?php echo ($expense['payed'] == 1) ? 'Yes' : 'No'; ?></p>
                                 <p class="card-text"><strong>Date:</strong> <?php echo $expense['date']; ?></p>
                             </div>
-                            <div class="col" style="<?php echo empty($expense['receipt_img']) ? 'display: none;' : ''; ?>">
+                            <div class="my-3" style="<?php echo empty($expense['receipt_img']) ? 'display: none;' : ''; ?>">
                                 <?php if (!empty($expense['receipt_img'])): ?>
                                     <?php
                                         $receipt_Data = base64_decode($expense['receipt_img']);
                                         $receipt_Src = 'data:image/jpeg;base64,' . base64_encode($receipt_Data);
                                     ?>
-                                    <img src="<?= $receipt_Src ?>" alt="receipt_img" class="d-block ui-w-80 mx-auto rounded mt-2" width="150px">
+                                    <div class="h-auto w-100">
+                                        <img src="<?= $receipt_Src ?>" alt="receipt_img" class="object-fit-cover w-100 img-fluid d-block ui-w-80 mx-auto rounded" style="max-width: 150px;">
+                                    </div>
                                 <?php endif; ?>
                             </div>
                         </div>

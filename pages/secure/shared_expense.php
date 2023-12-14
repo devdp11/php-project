@@ -54,20 +54,43 @@ $user = user();
         <?php foreach ($expenses as $expense) : ?>
             <div class="col">
                 <div class="card style" id="expense-card-<?php echo $expense['expense_id']; ?>">
+                    <div class="row">
+                        <div class="col m-2">
+                            <h5 class="card-title"><?php echo $expense['description']; ?></h5>
+                        </div>
+                        <div class="col">
+                            <div class="justify-content-end align-items-center mt-2 mx-2"> 
+                                <form action="../../controllers/expenses/expense.php" method="post" class="float-end" onsubmit="return confirmRemoval(event)">
+                                    <input type="hidden" name="expense_id" value="<?php echo $expense['expense_id']; ?>">
+                                    <button type="submit" name="user" value="remove-shared" class='btn btn-danger btn-sm'><i class="fas fa-trash-alt"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                     <div class="card-body">
-                        <form action="../../controllers/expenses/expense.php" method="post" class="float-end" onsubmit="return confirmRemoval(event)">
-                            <input type="hidden" name="expense_id" value="<?php echo $expense['expense_id']; ?>">
-                            <button type="submit" name="user" value="remove-shared" class='btn btn-danger btn-sm'><i class="fas fa-trash-alt"></i></button>
-                        </form>
-                        <h5 class="card-title"><?php echo $expense['description']; ?></h5>
-                        <p class="card-text"><strong>Category:</strong> <?php echo $expense['category_description']; ?></p>
-                        <?php if ($expense['payed'] == 1) : ?>
-                            <p class="card-text"><strong>Payment Method:</strong> <?php echo $expense['payment_description']; ?></p>
-                        <?php endif; ?>
-                        <p class="card-text"><strong>Amount:</strong> <?php echo $expense['amount']; ?></p>
-                        <p class="card-text"><strong>Payed:</strong> <?php echo ($expense['payed'] == 1) ? 'Yes' : 'No'; ?></p>
-                        <p class="card-text"><strong>Date:</strong> <?php echo $expense['date']; ?></p>
-                        <p class="card-text"><strong>Expense shared by:</strong> <?php echo $expense['sharer_first_name'] . ' ' . $expense['sharer_last_name']; ?></p>
+                        <div class="row">
+                            <div class="col justify-content-center">
+                                <p class="card-text"><strong>Category:</strong> <?php echo $expense['category_description']; ?></p>
+                                <?php if ($expense['payed'] == 1) : ?>
+                                    <p class="card-text"><strong>Payment Method:</strong> <?php echo $expense['payment_description']; ?></p>
+                                <?php endif; ?>
+                                <p class="card-text"><strong>Amount:</strong> <?php echo $expense['amount']; ?></p>
+                                <p class="card-text"><strong>Payed:</strong> <?php echo ($expense['payed'] == 1) ? 'Yes' : 'No'; ?></p>
+                                <p class="card-text"><strong>Date:</strong> <?php echo $expense['date']; ?></p>
+                            </div>
+                            <div class="my-3" style="<?php echo empty($expense['receipt_img']) ? 'display: none;' : ''; ?>">
+                                <?php if (!empty($expense['receipt_img'])): ?>
+                                    <?php
+                                        $receipt_Data = base64_decode($expense['receipt_img']);
+                                        $receipt_Src = 'data:image/jpeg;base64,' . base64_encode($receipt_Data);
+                                    ?>
+                                    <div class="h-auto w-100">
+                                        <img src="<?= $receipt_Src ?>" alt="receipt_img" class="object-fit-cover w-100 img-fluid d-block ui-w-80 mx-auto rounded" style="max-width: 150px;">
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                        <p class="card-text mt-1" style="color: blueviolet"><strong>Expense shared by:</strong> <?php echo $expense['sharer_first_name'] . ' ' . $expense['sharer_last_name']; ?></p>
                     </div>
                 </div>
             </div>
