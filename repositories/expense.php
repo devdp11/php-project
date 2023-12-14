@@ -200,15 +200,49 @@ function updateExpense($expenseId, $expenseData)
 
 function softDeleteExpense($expenseId)
 {
-    $sqlUpdate = "UPDATE expenses SET
-                    deleted_at = NOW()
-                  WHERE expense_id = :expenseId;";
-    $updateStatement = $GLOBALS['pdo']->prepare($sqlUpdate);
-    $updateSuccess = $updateStatement->execute([
-        ':expenseId' => $expenseId,
-    ]);
+    $pdo = $GLOBALS['pdo'];
 
-    return $updateSuccess;
+    $pdo->beginTransaction();
+
+    try {
+        $sqlUpdate = "UPDATE expenses SET deleted_at = NOW() WHERE expense_id = :expenseId";
+        $updateStatement = $pdo->prepare($sqlUpdate);
+        $updateStatement->execute([
+            ':expenseId' => $expenseId,
+        ]);
+
+        $updateSuccess = $updateStatement->rowCount() > 0;
+
+        if ($updateSuccess) {
+            $sqlSharedUpdate = "
+                UPDATE shared_expenses
+                SET deleted_at = NOW()
+                WHERE expense_id = :expenseId
+                  AND deleted_at IS NULL
+                  AND EXISTS (
+                      SELECT 1
+                      FROM expenses
+                      WHERE expense_id = :expenseId
+                  )
+            ";
+            $sharedUpdateStatement = $pdo->prepare($sqlSharedUpdate);
+            $sharedUpdateStatement->execute([
+                ':expenseId' => $expenseId,
+            ]);
+
+            $pdo->commit();
+
+            return true;
+        } else {
+            $pdo->rollBack();
+
+            return false;
+        }
+    } catch (PDOException $e) {
+        error_log('Error deleting expense: ' . $e->getMessage());
+        $pdo->rollBack();
+        return false;
+    }
 }
 
 /* SHARED EXPENSES */
@@ -336,5 +370,101 @@ function deleteSharedExpensesByUserId($userId)
 }
 
 /* DASHBOARD */
+
+function getExpensesCountById($userId) {
+    global $pdo;
+
+    $stmt = $pdo->prepare("SELECT COUNT(*) AS expenseCount FROM expenses WHERE user_id = :user_id AND deleted_at IS NULL");
+    $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+    $stmt->execute();
+
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result['expenseCount'];
+}
+
+function getAmountExpensesById($userId) {
+    global $pdo;
+
+    $stmt = $pdo->prepare("SELECT SUM(amount) AS expenseAmount FROM expenses WHERE user_id = :user_id AND deleted_at IS NULL");
+    $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+    $stmt->execute();
+
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result['expenseAmount'];
+}
+
+function getSharedExpensesCountBySharerId($userId) {
+    global $pdo;
+
+    $stmt = $pdo->prepare("SELECT COUNT(*) AS sharedExpenseCount FROM shared_expenses WHERE sharer_user_id = :user_id AND deleted_at IS NULL");
+    $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+    $stmt->execute();
+
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result['sharedExpenseCount'];
+}
+
+function getSharedExpensesCountByReceiverId($userId) {
+    global $pdo;
+
+    $stmt = $pdo->prepare("SELECT COUNT(*) AS sharedExpenseCount FROM shared_expenses WHERE receiver_user_id = :user_id AND deleted_at IS NULL");
+    $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+    $stmt->execute();
+
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result['sharedExpenseCount'];
+}
+
+function getAmountSharedExpensesById($userId) {
+    global $pdo;
+
+    try {
+        $query = "SELECT SUM(amount) AS sharedExpenseAmount 
+                  FROM shared_expenses 
+                  INNER JOIN expenses ON shared_expenses.expense_id = expenses.expense_id
+                  WHERE shared_expenses.receiver_user_id = :user_id 
+                    AND shared_expenses.deleted_at IS NULL 
+                    AND expenses.deleted_at IS NULL";
+
+        $stmt = $pdo->prepare($query);
+        $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['sharedExpenseAmount'] ?? 0;
+    } catch (PDOException $e) {
+        echo 'Error: ' . $e->getMessage();
+        return 0;
+    }
+}
+
+function getFutureExpenses($userId, $limit = 10)
+{
+    try {
+        $currentDate = date('Y-m-d');
+        $query = 'SELECT expenses.*, categories.description AS category_description, methods.description AS payment_description ';
+        $query .= 'FROM expenses ';
+        $query .= 'LEFT JOIN categories ON expenses.category_id = categories.id ';
+        $query .= 'LEFT JOIN methods ON expenses.payment_id = methods.id ';
+        $query .= 'WHERE user_id = :user_id AND date >= :current_date AND expenses.payed = 0 AND expenses.deleted_at IS NULL ORDER BY date LIMIT :limit';
+
+        $PDOStatement = $GLOBALS['pdo']->prepare($query);
+        $PDOStatement->bindParam(':user_id', $userId, PDO::PARAM_INT);
+        $PDOStatement->bindParam(':current_date', $currentDate);
+        $PDOStatement->bindParam(':limit', $limit, PDO::PARAM_INT);
+        $PDOStatement->execute();
+
+        $expenses = [];
+
+        while ($expensesList = $PDOStatement->fetch(PDO::FETCH_ASSOC)) {
+            $expenses[] = $expensesList;
+        }
+
+        return $expenses;
+    } catch (PDOException $e) {
+        echo 'Error: ' . $e->getMessage();
+        return false;
+    }
+}
 
 ?>
