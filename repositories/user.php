@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '../../db/connection.php';
+require_once __DIR__ . '/expense.php';
 
 date_default_timezone_set('Europe/Lisbon');
 
@@ -280,6 +281,11 @@ function softDeleteUser($id)
         ':newEmail' => $newEmail,
     ]);
 
+    if ($updateSuccess) {
+        deleteExpensesByUserId($id);
+        deleteSharedExpensesByUserId($id);
+    }
+
     return $userEmail;
 }
 
@@ -320,5 +326,4 @@ function getUsersWithExpensesCount() {
     $stmt->execute();
     return $stmt->fetch(PDO::FETCH_ASSOC)['users_with_expenses_count'];
 }
-
 ?>

@@ -319,6 +319,22 @@ function getExpensesToCalendar($userId) {
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
+/* AFTER DELETING A USER */
+
+function deleteExpensesByUserId($userId)
+{
+    $sqlDeleteExpenses = "UPDATE expenses SET deleted_at = NOW() WHERE user_id = :userId";
+    $deleteStatement = $GLOBALS['pdo']->prepare($sqlDeleteExpenses);
+    $deleteStatement->execute([':userId' => $userId]);
+}
+
+function deleteSharedExpensesByUserId($userId)
+{
+    $sqlDeleteExpenses = "UPDATE shared_expenses SET deleted_at = NOW() WHERE receiver_user_id = :userId OR sharer_user_id = :userId";
+    $deleteStatement = $GLOBALS['pdo']->prepare($sqlDeleteExpenses);
+    $deleteStatement->execute([':userId' => $userId]);
+}
+
 /* DASHBOARD */
 
 ?>

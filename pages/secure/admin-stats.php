@@ -23,7 +23,6 @@ $usersByCountryCount = getUsersByCountryCount();
             <li class="breadcrumb-item"><i class="fa-solid fa-house"></i></li>
             <li class="breadcrumb-item">Dashboard</li>
             <li class="breadcrumb-item">Admin</li>
-            <li class="breadcrumb-item">Dashboard</li>
         </ol>
     </nav>
 

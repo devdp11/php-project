@@ -97,7 +97,7 @@
                 <li class="nav-item py-1 mask <?= $user['admin'] ? '' : 'd-none'; ?>">
                     <a href="#" class="nav-link text-white btn-side" data-bs-toggle="collapse" data-bs-target="#adminDropdown" aria-expanded="false">
                         <i class="fa-solid fa-users" title="Admin"></i>
-                        <span class="fs-6 ms-1 d-none d-sm-inline">Admin</span>
+                        Admin
                     </a>
                     <div class="collapse" id="adminDropdown">
                         <ul class="nav flex-column">
