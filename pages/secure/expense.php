@@ -4,6 +4,14 @@ require_once __DIR__ . '/../../repositories/expense.php';
 require_once __DIR__ . '/../../controllers/expenses/expense.php';
 @require_once __DIR__ . '/../../validations/session.php';
 $user = user();
+
+$filterCategory = isset($_POST['filterCategory']) ? $_POST['filterCategory'] : '';
+
+if (!empty($filterCategory)) {
+    $expenses = getExpensesByCategoryFromUserId($user['id'], $filterCategory);
+} else {
+    $expenses = getAllExpensesByUserId($user['id']);
+}
 ?>
 
 <?php include __DIR__ . '/sidebar.php'; ?>
@@ -19,6 +27,21 @@ $user = user();
             <li class="breadcrumb-item">Own</li>
         </ol>
     </nav>
+    
+    <form method="post" action="">
+        <div class="form-group mt-3">
+            <select class="form-select w-auto" id="filterCategory" name="filterCategory" onchange="this.form.submit()">
+                <option value="">All Categories</option>
+                <?php
+                $categories = getAllCategories();
+                foreach ($categories as $category) {
+                    $selected = ($filterCategory == $category['id']) ? 'selected' : '';
+                    echo "<option value='{$category['id']}' $selected>{$category['description']} (ID: {$category['id']})</option>";
+                }
+                ?>
+            </select>
+        </div>
+    </form>
 
     <button class="btn btn-blueviolet my-2" data-bs-toggle="modal" data-bs-target="#add-expense">
         Add Expense
@@ -44,7 +67,6 @@ $user = user();
     </section>
 
     <div class="row row-cols-1 row-cols-md-3 g-3">
-        <?php $expenses = getAllExpensesByUserId($user['id']); ?>
         <?php foreach ($expenses as $expense) : ?>
         <div class="col">
             <div class="card style" id="expense-card-<?php echo $expense['expense_id']; ?>">

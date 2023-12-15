@@ -142,6 +142,33 @@ function getAllExpensesByUserId($userId)
     }
 }
 
+function getExpensesByCategoryFromUserId($userId, $categoryId)
+{
+    try {
+        $query = 'SELECT expenses.*, categories.description AS category_description, methods.description AS payment_description ';
+        $query .= 'FROM expenses ';
+        $query .= 'LEFT JOIN categories ON expenses.category_id = categories.id ';
+        $query .= 'LEFT JOIN methods ON expenses.payment_id = methods.id ';
+        $query .= 'WHERE expenses.user_id = :userId AND expenses.category_id = :categoryId AND expenses.deleted_at IS NULL';
+
+        $PDOStatement = $GLOBALS['pdo']->prepare($query);
+        $PDOStatement->bindParam(':userId', $userId, PDO::PARAM_INT);
+        $PDOStatement->bindParam(':categoryId', $categoryId, PDO::PARAM_INT);
+        $PDOStatement->execute();
+
+        $expenses = [];
+
+        while ($expensesList = $PDOStatement->fetch(PDO::FETCH_ASSOC)) {
+            $expenses[] = $expensesList;
+        }
+
+        return $expenses;
+    } catch (PDOException $e) {
+        echo 'Error: ' . $e->getMessage();
+        return false;
+    }
+}
+
 function getExpenseById($expenseId)
 {
     global $pdo;
