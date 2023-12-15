@@ -1,0 +1,10 @@
+.style {
+    background-color: white;
+    border-color: darkviolet;
+    transition: transform 0.5s ease;
+}
+
+.style:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+}

@@ -8,17 +8,7 @@ $user = user();
 
 <?php include __DIR__ . '/sidebar.php'; ?>
 
-<style>
-    .style {
-        background-color: white;
-        border-color: darkviolet;
-        transition: transform 0.5s ease;
-    }
-
-    .style:hover {
-        transform: scale(1.05);
-    }
-</style>
+<link rel="stylesheet" href="../resources/styles/card.css">
 
 <div class="p-4 overflow-auto h-100">
     <nav style="--bs-breadcrumb-divider:'>';font-size:14px">

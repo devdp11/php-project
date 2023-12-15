@@ -52,6 +52,7 @@
         </div>
 
         <div class="row mt-5">
+            
             <div class="col-md-4 d-flex align-items-center justify-content-center">
                 <div class="text-center">
                     <?php if (!empty($user['avatar'])): ?>
@@ -59,7 +60,9 @@
                             $avatarData = base64_decode($user['avatar']);
                             $avatarSrc = 'data:image/jpeg;base64,' . base64_encode($avatarData);
                         ?>
-                        <img src="<?= $avatarSrc ?>" alt="avatar" class="d-block ui-w-80 mx-auto rounded" width="150px">
+                        <div class="h-auto w-100">
+                            <img src="<?= $avatarSrc ?>" alt="avatar" class="object-fit-cover w-100 img-fluid d-block ui-w-80 mx-auto rounded" style="max-width: 100px;">
+                        </div>
                     <?php else: ?>
                     <?php endif; ?>   
                     <form action="../../controllers/user/avatar.php" method="post" enctype="multipart/form-data">

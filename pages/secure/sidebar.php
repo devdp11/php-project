@@ -50,7 +50,7 @@
 
 <body>
     <div class="container-fluid p-0 d-flex h-100">
-        <div id="bdSidebar" class="d-flex flex-column flex-shrink-0 p-3 bg-black text-white offcanvas-md offcanvas-start" style="width: 280px;">
+        <div id="bdSidebar" class="d-flex flex-column flex-shrink-0 p-3 bg-black text-white offcanvas-md offcanvas-start" style="width: 270px;">
             <a href="#" class="navbar-brand">
                 <h5 class="h6" style="color:blueviolet"><i class="fa-solid fa-wallet me-2" style="font-size: 18px;"></i>EXPENSE FLOW</h5>
             </a>
