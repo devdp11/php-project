@@ -103,61 +103,66 @@ function edelete($expenseId)
 }
 
 function eedit($expenseId, $postData)
-{   
+{
     if (!isset($_SESSION['id'])) {
         $_SESSION['errors'][] = 'User ID not set in the session.';
-        header('location: /php-project/pages/secure/expense.php');
-        exit();
+        $params = '?' . http_build_query($postData);
+        header('location: /php-project/pages/secure/expense.php' . $params);
     }
-    
+
     $validationResult = isExpenseValid($postData);
 
     if (isset($validationResult['invalid'])) {
         $_SESSION['errors'] = $validationResult['invalid'];
-        
-        header('Location: ../../pages/secure/expense.php');
-        exit();
+        $params = '?' . http_build_query($postData);
+        header('location: /php-project/pages/secure/expense.php' . $params);
     }
 
-    $existingExpense = getExpenseById($expenseId); 
+    if (is_array($validationResult)) {
+        $user = [
+            'id' => $_SESSION['id'],
+        ];
 
-    $expenseData = [
-        'category_id' => $validationResult['category'],
-        'description' => $validationResult['description'],
-        'amount' => $validationResult['amount'],
-        'date' => $validationResult['date'],
-        'receipt_img' => $validationResult['receipt_img'],
-        'note' => $validationResult['note'],
-        'user_id' => $user['id'],
-    ];
+        if (isset($_FILES['receipt_img']) && $_FILES['receipt_img']['error'] === UPLOAD_ERR_OK) {
+            $receiptImageData = file_get_contents($_FILES['receipt_img']['tmp_name']);
+            $receiptImageEncoded = base64_encode($receiptImageData);
+            $validationResult['receipt_img'] = $receiptImageEncoded;
+        } else {
+            $validationResult['receipt_img'] = null;
+        }
 
-    $expenseData = updateExpense(
-        $expenseId,
-        $expenseData['description'],
-        $expenseData['category_id'],
-        $expenseData['payment_id'],
-        $expenseData['amount'],
-        $expenseData['date'],
-        $expenseData['receipt_img'],
-        $expenseData['payed'],
-        $expenseData['note'],
-        $expenseData['user_id']
-    );
+        $expenseData = [
+            'category_id' => $validationResult['category'],
+            'description' => $validationResult['description'],
+            'amount' => $validationResult['amount'],
+            'date' => $validationResult['date'],
+            'receipt_img' => $validationResult['receipt_img'],
+            'note' => $validationResult['note'],
+            'user_id' => $user['id'],
+        ];
 
-    $result = updateExpense($expenseId, $expenseData);
+        $expenseData['payed'] = isset($validationResult['payed']) ? ($validationResult['payed'] ? 1 : 0) : 0;
 
+        if ($expenseData['payed']) {
+            $expenseData['payment_id'] = $validationResult['method'];
+        } else {
+            $noneMethod = getMethodByDescription('None');
+            $expenseData['payment_id'] = $noneMethod['id'];
+        }
 
-    if ($editSuccess) {
-        $_SESSION['success'] = 'Expense updated successfully.';
-    } else {
-        $_SESSION['errors'][] = 'Error updating expense.';
-        error_log("Error updating expense with ID $expenseId: " . implode(" - ", $GLOBALS['pdo']->errorInfo()));
+        /* echo '<pre>';
+        var_dump($expenseData);
+        echo '</pre>'; */
+
+        if (empty($_SESSION['errors']) && updateExpense($expenseId, $expenseData)) {
+            $_SESSION['success'] = 'Expense updated successfully.';
+        } else {
+            $_SESSION['errors'][] = 'Error updating expense. Please try again.';
+        }
+
+        $params = '?' . http_build_query($postData);
+        header('location: /php-project/pages/secure/expense.php' . $params);
     }
-
-    // Redirect or handle success/failure as needed
-    header('location: /php-project/pages/secure/expense.php');
-    exit();
-    
 }
 
 function eshare($expenseId, $email) 

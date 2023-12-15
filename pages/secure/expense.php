@@ -176,7 +176,7 @@ $user = user();
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body pt-0">
-                            <form action="../../controllers/expenses/expense.php" method="post">
+                            <form action="../../controllers/expenses/expense.php" method="post" enctype="multipart/form-data">
                                 <input type="hidden" name="expense_id" id="expense_id" value="<?php echo $expense['expense_id']; ?>">
                             
                                 <!-- Description -->

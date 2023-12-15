@@ -171,48 +171,66 @@ function updateExpense($expenseId, $expenseData)
             payment_id = :payment_id,
             amount = :amount,
             date = :date,
-            receipt_img = :receipt_img,
             payed = :payed,
             note = :note,
             user_id = :user_id,
-            updated_at = NOW()
+            updated_at = CURRENT_TIMESTAMP
         WHERE
-            id = :expense_id";
+            expense_id = :expense_id";
 
         $PDOStatement = $GLOBALS['pdo']->prepare($sqlUpdate);
 
+       $receiptImg = !empty($expenseData['receipt_img']) ? $expenseData['receipt_img'] : null;
+
         if (!empty($expenseData['receipt_img'])) {
-            $receiptImg = $expenseData['receipt_img'];
-        } else {
-            $receiptImg = $expenseData['receipt_img'];
+            updateRcptImg($expenseId, $receiptImg);
         }
 
-        // Prepare an array of parameters to bind
         $params = [
             ':category_id' => $expenseData['category_id'],
             ':description' => $expenseData['description'],
             ':payment_id' => $expenseData['payment_id'],
             ':amount' => $expenseData['amount'],
             ':date' => $expenseData['date'],
-            ':receipt_img' => $receiptImg,
             ':payed' => $expenseData['payed'],
             ':note' => $expenseData['note'],
             ':user_id' => $expenseData['user_id'],
             ':expense_id' => $expenseId,
         ];
 
-        // Remove empty values from the array
         $params = array_filter($params, function ($value) {
             return $value !== '';
         });
 
-        // Execute the statement with the filtered parameters
         return $PDOStatement->execute($params);
     } catch (PDOException $e) {
         echo 'Error: ' . $e->getMessage();
         return false;
     }
 }
+
+function updateRcptImg($expenseId, $rcpImg)
+{
+    $expenses['updated_at'] = date('Y-m-d H:i:s');
+
+    $sqlUpdate = "UPDATE expenses SET
+        receipt_img = :receipt_img,
+        updated_at = :updated_at
+        WHERE expense_id = :id";
+
+    $PDOStatement = $GLOBALS['pdo']->prepare($sqlUpdate);
+
+    $bindParams = [
+        ':id' => $expenseId,
+        ':receipt_img' => $rcpImg,
+        ':updated_at' => $expenses['updated_at'],
+    ];
+
+    $success = $PDOStatement->execute($bindParams);
+
+    return $success;
+}
+
 
 function softDeleteExpense($expenseId)
 {
