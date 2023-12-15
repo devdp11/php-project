@@ -270,7 +270,7 @@ if (!$tablesExist) {
         [
             'category_id' => 2,
             'description' => 'Expense 2',
-            'payment_id' => 1,
+            'payment_id' => 2,
             'amount' => 75.50,
             'date' => '2023-12-14',
             'receipt_img' => null,
@@ -395,8 +395,8 @@ if (!$tablesExist) {
     }
 
     $sharedExpensesToInsert = [
-        ['receiver_user_id' => 1, 'sharer_user_id' => 2, 'expense_id' => 1],
-        ['receiver_user_id' => 3, 'sharer_user_id' => 2, 'expense_id' => 2],
+        ['receiver_user_id' => 1, 'sharer_user_id' => 1, 'expense_id' => 1],
+        ['receiver_user_id' => 3, 'sharer_user_id' => 1, 'expense_id' => 2],
     ];
     
     foreach ($sharedExpensesToInsert as $sharedExpenseData) {

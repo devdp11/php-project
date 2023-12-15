@@ -75,20 +75,5 @@ $usersByCountryCount = getUsersByCountryCount();
                 </div>
             </div>
         </div>
-
-        <!-- <div class="col-md-6 col-lg-6 mb-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Most used category</h5>
-                    <?php
-                    if ($mostUsedCategory) {
-                        echo '<p class="card-text">The most used category is: ' . $mostUsedCategory['category_description'] . ' with ' . $mostUsedCategory['category_count'] . ' expenses.</p>';
-                    } else {
-                        echo '<p class="card-text">Nenhuma despesa encontrada.</p>';
-                    }
-                    ?>
-                </div>
-            </div>
-        </div> -->
     </div>
 </div>

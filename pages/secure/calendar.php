@@ -40,16 +40,16 @@ foreach ($expenses as $expense) {
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        var currentDate = new Date(); // Obtém a data atual
+        var currentDate = new Date();
         var calendarEl = document.getElementById('calendar');
 
         var calendar = new FullCalendar.Calendar(calendarEl, {
-            initialDate: currentDate.toISOString().slice(0, 10), // Converte a data para o formato YYYY-MM-DD
-            editable: true,
+            initialDate: currentDate.toISOString().slice(0, 10),
+            editable: false,
             selectable: true,
             businessHours: true,
             dayMaxEvents: true,
-            events: <?php echo json_encode($events); ?> // Adiciona os eventos formatados ao calendário
+            events: <?php echo json_encode($events); ?>
         });
 
         calendar.render();
