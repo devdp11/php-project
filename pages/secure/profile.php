@@ -138,7 +138,8 @@
             </div>
         </div>
     </div>
-
+    
+    <!-- MODAL DELETE -->
     <div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">

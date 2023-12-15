@@ -472,33 +472,38 @@ function getAmountSharedExpensesById($userId) {
     }
 }
 
-function getFutureExpenses($userId, $limit = 10)
+function getFutureExpensesCountById($userId)
 {
-    try {
-        $currentDate = date('Y-m-d');
-        $query = 'SELECT expenses.*, categories.description AS category_description, methods.description AS payment_description ';
-        $query .= 'FROM expenses ';
-        $query .= 'LEFT JOIN categories ON expenses.category_id = categories.id ';
-        $query .= 'LEFT JOIN methods ON expenses.payment_id = methods.id ';
-        $query .= 'WHERE user_id = :user_id AND date >= :current_date AND expenses.payed = 0 AND expenses.deleted_at IS NULL ORDER BY date LIMIT :limit';
+    global $pdo; // Assuming $pdo is your database connection
 
-        $PDOStatement = $GLOBALS['pdo']->prepare($query);
-        $PDOStatement->bindParam(':user_id', $userId, PDO::PARAM_INT);
-        $PDOStatement->bindParam(':current_date', $currentDate);
-        $PDOStatement->bindParam(':limit', $limit, PDO::PARAM_INT);
-        $PDOStatement->execute();
+    $stmt = $pdo->prepare("SELECT COUNT(*) AS futureExpenseCount FROM expenses WHERE user_id = :user_id AND date > NOW() AND payed = 0 AND deleted_at IS NULL");
+    $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+    $stmt->execute();
 
-        $expenses = [];
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        while ($expensesList = $PDOStatement->fetch(PDO::FETCH_ASSOC)) {
-            $expenses[] = $expensesList;
-        }
+    return $result['futureExpenseCount'];
+}
 
-        return $expenses;
-    } catch (PDOException $e) {
-        echo 'Error: ' . $e->getMessage();
-        return false;
-    }
+function getFutureExpensesDetailsById($userId)
+{
+    global $pdo;
+
+    $query = "SELECT e.*, c.description as category_description
+              FROM expenses e
+              JOIN categories c ON e.category_id = c.id
+              WHERE e.user_id = :user_id
+                AND e.date > NOW()
+                AND e.deleted_at IS NULL
+                AND e.payed = 0";
+
+    $stmt = $pdo->prepare($query);
+    $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+    $stmt->execute();
+
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    return $result;
 }
 
 ?>
