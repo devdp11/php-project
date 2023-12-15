@@ -181,7 +181,8 @@ if (!$tablesExist) {
         ['description' => 'Personal'],        
         ['description' => 'Miscellaneous'],        
         ['description' => 'Communication'],      
-        ['description' => 'Housing'],      
+        ['description' => 'Housing'], 
+        ['description' => 'Other'],     
     ];
 
     foreach ($categoriesToInsert as $categoryData) {
@@ -208,6 +209,7 @@ if (!$tablesExist) {
         ['description' => 'MB WAY'],
         ['description' => 'Cash APP'],
         ['description' => 'Skrill'],
+        ['description' => 'Other'],
     ];
 
     foreach ($methodsToInsert as $methodData) {
