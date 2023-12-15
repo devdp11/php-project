@@ -7,11 +7,14 @@ $user = user();
 
 $filterCategory = isset($_POST['filterCategory']) ? $_POST['filterCategory'] : '';
 $filterMethods = isset($_POST['filterMethods']) ? $_POST['filterMethods'] : '';
+$filterDescription = isset($_POST['filterDescription']) ? $_POST['filterDescription'] : '';
 
 if (!empty($filterCategory)) {
     $expenses = getExpensesByCategoryFromUserId($user['id'], $filterCategory);
 } elseif (!empty($filterMethods)) {
     $expenses = getExpensesByPaymentMethodFromUserId($user['id'], $filterMethods);
+} elseif (!empty($filterDescription)) {
+    $expenses = getExpensesByDescription($user['id'], $filterDescription);
 } else {
     $expenses = getAllExpensesByUserId($user['id']);
 }
@@ -60,6 +63,14 @@ if (!empty($filterCategory)) {
             </select>
         </div>
     </form>
+
+    <form method="post" action="">
+        <div class="form-group my-3">
+            <input type="text" class="form-control w-auto" id="filterDescription" name="filterDescription" placeholder="Search by description" value="<?php echo $filterDescription; ?>">
+            <button type="submit" class="btn btn-primary mt-2"><i class="fas fa-search"></i></button>
+        </div>
+    </form>
+
 
 
     <button class="btn btn-blueviolet mb-2" data-bs-toggle="modal" data-bs-target="#add-expense">

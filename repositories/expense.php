@@ -196,6 +196,35 @@ function getExpensesByPaymentMethodFromUserId($userId, $paymentMethodId)
     }
 }
 
+function getExpensesByDescription($userId, $description)
+{
+    try {
+        $query = 'SELECT expenses.*, categories.description AS category_description, methods.description AS payment_description ';
+        $query .= 'FROM expenses ';
+        $query .= 'LEFT JOIN categories ON expenses.category_id = categories.id ';
+        $query .= 'LEFT JOIN methods ON expenses.payment_id = methods.id ';
+        $query .= 'WHERE expenses.user_id = :userId AND expenses.description LIKE :description AND expenses.deleted_at IS NULL';
+
+        $PDOStatement = $GLOBALS['pdo']->prepare($query);
+        $descriptionParam = "%{$description}%"; // Adding '%' to perform a partial search
+        $PDOStatement->bindParam(':userId', $userId, PDO::PARAM_INT);
+        $PDOStatement->bindParam(':description', $descriptionParam, PDO::PARAM_STR);
+        $PDOStatement->execute();
+
+        $expenses = [];
+
+        while ($expensesList = $PDOStatement->fetch(PDO::FETCH_ASSOC)) {
+            $expenses[] = $expensesList;
+        }
+
+        return $expenses;
+    } catch (PDOException $e) {
+        echo 'Error: ' . $e->getMessage();
+        return false;
+    }
+}
+
+
 function getExpenseById($expenseId)
 {
     global $pdo;
