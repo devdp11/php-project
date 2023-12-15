@@ -109,23 +109,29 @@ function eedit($expenseId, $postData)
         header('location: /php-project/pages/secure/expense.php');
         exit();
     }
+    
+    $validationResult = isExpenseValid($postData);
 
-    $existingExpense = getExpensesById($expenseId); 
+    if (isset($validationResult['invalid'])) {
+        $_SESSION['errors'] = $validationResult['invalid'];
+        
+        header('Location: ../../pages/secure/expense.php');
+        exit();
+    }
 
-    // Combine existing data with the new data from the form
+    $existingExpense = getExpenseById($expenseId); 
+
     $expenseData = [
-        'category_id' => isset($postData['category_id']) ? $postData['category_id'] : $existingExpense['category_id'],
-        'description' => isset($postData['description']) ? $postData['description'] : $existingExpense['description'],
-        'payment_id' => isset($postData['payment_id']) ? $postData['payment_id'] : $existingExpense['payment_id'],
-        'amount' => isset($postData['amount']) ? $postData['amount'] : $existingExpense['amount'],
-        'date' => isset($postData['date']) ? $postData['date'] : $existingExpense['date'],
-        'receipt_img' => isset($postData['receipt_img']) ? $postData['receipt_img'] : $existingExpense['receipt_img'],
-        'payed' => isset($postData['payed']) ? $postData['payed'] : $existingExpense['payed'],
-        'note' => isset($postData['note']) ? $postData['note'] : $existingExpense['note'],
-        'user_id' => isset($postData['user_id']) ? $postData['user_id'] : $existingExpense['user_id'],
+        'category_id' => $validationResult['category'],
+        'description' => $validationResult['description'],
+        'amount' => $validationResult['amount'],
+        'date' => $validationResult['date'],
+        'receipt_img' => $validationResult['receipt_img'],
+        'note' => $validationResult['note'],
+        'user_id' => $user['id'],
     ];
 
-    $editSuccess = updateExpense(
+    $expenseData = updateExpense(
         $expenseId,
         $expenseData['description'],
         $expenseData['category_id'],
@@ -137,6 +143,9 @@ function eedit($expenseId, $postData)
         $expenseData['note'],
         $expenseData['user_id']
     );
+
+    $result = updateExpense($expenseId, $expenseData);
+
 
     if ($editSuccess) {
         $_SESSION['success'] = 'Expense updated successfully.';

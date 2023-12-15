@@ -54,10 +54,8 @@ $user = user();
     </section>
     
     <div class="row row-cols-1 row-cols-md-3 g-3">
-        <?php 
-            $expenses = getAllExpensesByUserId($user['id']);
-        ?>
-        <?php foreach ($expenses as $expense) : ?>
+        <?php $expenses = getAllExpensesByUserId($user['id']); ?>
+            <?php foreach ($expenses as $expense) : ?>
             <div class="col">
                 <div class="card style" id="expense-card-<?php echo $expense['expense_id']; ?>">
                     <div class="row">
@@ -97,6 +95,73 @@ $user = user();
                                     </div>
                                 <?php endif; ?>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MODAL ADD -->
+            <div class="modal fade" id="add-expense" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modal-title"> Add an expense </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body pt-0">
+                            <form action="../../controllers/expenses/expense.php" method="post" enctype="multipart/form-data">
+                                <div class="form-group mt-3">
+                                    <label>Description</label>
+                                    <input type="text" class="form-control" id="description" name="description" placeholder="Expense Description" value="<?= isset($_REQUEST['description']) ? $_REQUEST['description'] : '' ?>" required>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <label>Category</label>
+                                    <select class="form-control" id="category" name="category">
+                                        <?php
+                                            $categories = getAllCategories();
+                                            foreach ($categories as $category) {
+                                                $selected = isset($_REQUEST['category']) && $_REQUEST['category'] == $category['id'] ? 'selected' : '';
+                                                echo "<option value='{$category['id']}' $selected>{$category['description']}</option>";
+                                            }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <label>Date</label>
+                                    <input type="date" class="form-control" id="date" name="date" value="<?= isset($_REQUEST['date']) ? $_REQUEST['date'] : '' ?>" required>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <label>Amount</label>
+                                    <input type="text" class="form-control" id="amount" name="amount" placeholder="Expense Amount" value="<?= isset($_REQUEST['amount']) ? $_REQUEST['amount'] : '' ?>" required>
+                                </div>
+                                <div class="form-check mt-3">
+                                    <input class="form-check-input" type="checkbox" name="payed" id="payed" <?= isset($_REQUEST['payed']) && $_REQUEST['payed'] == 'on' ? 'checked' : '' ?>>
+                                    <label class="form-check-label">Paid?</label>
+                                </div>
+                                <div class="form-group mt-3" id="paymentBox">
+                                    <label>Payment Method</label>
+                                    <select class="form-control" id="method" name="method">
+                                        <?php
+                                            $methods = getAllMethods();
+                                            foreach ($methods as $method) {
+                                                $selectedMethod = isset($_REQUEST['method']) && $_REQUEST['method'] == $method['id'] ? 'selected' : '';
+                                                echo "<option value='{$method['id']}' $selectedMethod>{$method['description']}</option>";
+                                            }
+                                        ?>
+                                    </select>
+                                </div>
+
+                                <div class="form-group mt-3">
+                                    <label>Receipt Image</label>
+                                    <input type="file" class="form-control" id="receipt_img" name="receipt_img">
+                                </div>
+
+                                <div class="form-group mt-3">
+                                    <label>Note</label>
+                                    <textarea class="form-control" id="note" name="note" placeholder="Expense Note"><?= isset($_REQUEST['note']) ? $_REQUEST['note'] : '' ?></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-blueviolet mt-3" name="user" value="add">Create</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -160,15 +225,24 @@ $user = user();
                                         ?>
                                     </select>
                                 </div>
-                                <!-- Receipt Image -->
-                                <div class="form-group mt-3">
-                                    <label>Receipt Image</label>
-                                    <input type="file" class="form-control" id="receipt_img" name="receipt_img">
-                                </div>
                                 <!-- Note -->
                                 <div class="form-group mt-3">
                                     <label>Note</label>
                                     <textarea class="form-control" id="note" name="note" placeholder="Expense Note"><?= isset($expense['note']) ? $expense['note'] : '' ?></textarea>
+                                </div>
+                                <!-- Receipt Image -->
+                                <div class="form-group mt-3">
+                                    <label>Receipt Image</label>
+                                    <?php if (!empty($expense['receipt_img'])): ?>
+                                        <?php
+                                            $receiptData = base64_decode($expense['receipt_img']);
+                                            $receiptSrc = 'data:image/jpeg;base64,' . base64_encode($receiptData);
+                                        ?>
+                                        <div class="h-auto w-100">
+                                            <img src="<?= $receiptSrc ?>" alt="receipt_img" class="object-fit-cover w-100 img-fluid d-block ui-w-80 mx-auto rounded my-3" style="max-width: 150px;">
+                                        </div>
+                                    <?php endif; ?>
+                                    <input type="file" class="form-control" id="receipt_img" name="receipt_img">
                                 </div>
                                 <!-- Update Button -->
                                 <button type="submit" class="btn btn-blueviolet mt-3" name="user" value="edit">Update</button>
@@ -180,74 +254,6 @@ $user = user();
         <?php endforeach; ?>
     </div>
 
-    <!-- MODAL ADD -->
-    <div class="modal fade" id="add-expense" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modal-title"> Add an expense </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body pt-0">
-                    <form action="../../controllers/expenses/expense.php" method="post" enctype="multipart/form-data">
-                        <div class="form-group mt-3">
-                            <label>Description</label>
-                            <input type="text" class="form-control" id="description" name="description" placeholder="Expense Description" value="<?= isset($_REQUEST['description']) ? $_REQUEST['description'] : '' ?>" required>
-                        </div>
-                        <div class="form-group mt-3">
-                            <label>Category</label>
-                            <select class="form-control" id="category" name="category">
-                                <?php
-                                    $categories = getAllCategories();
-                                    foreach ($categories as $category) {
-                                        $selected = isset($_REQUEST['category']) && $_REQUEST['category'] == $category['id'] ? 'selected' : '';
-                                        echo "<option value='{$category['id']}' $selected>{$category['description']}</option>";
-                                    }
-                                ?>
-                            </select>
-                        </div>
-                        <div class="form-group mt-3">
-                            <label>Date</label>
-                            <input type="date" class="form-control" id="date" name="date" value="<?= isset($_REQUEST['date']) ? $_REQUEST['date'] : '' ?>" required>
-                        </div>
-                        <div class="form-group mt-3">
-                            <label>Amount</label>
-                            <input type="text" class="form-control" id="amount" name="amount" placeholder="Expense Amount" value="<?= isset($_REQUEST['amount']) ? $_REQUEST['amount'] : '' ?>" required>
-                        </div>
-                        <div class="form-check mt-3">
-                            <input class="form-check-input" type="checkbox" name="payed" id="payed" <?= isset($_REQUEST['payed']) && $_REQUEST['payed'] == 'on' ? 'checked' : '' ?>>
-                            <label class="form-check-label">Paid?</label>
-                        </div>
-                        <div class="form-group mt-3" id="paymentBox">
-                            <label>Payment Method</label>
-                            <select class="form-control" id="method" name="method">
-                                <?php
-                                    $methods = getAllMethods();
-                                    foreach ($methods as $method) {
-                                        $selectedMethod = isset($_REQUEST['method']) && $_REQUEST['method'] == $method['id'] ? 'selected' : '';
-                                        echo "<option value='{$method['id']}' $selectedMethod>{$method['description']}</option>";
-                                    }
-                                ?>
-                            </select>
-                        </div>
-
-                        <div class="form-group mt-3">
-                            <label>Receipt Image</label>
-                            <input type="file" class="form-control" id="receipt_img" name="receipt_img">
-                        </div>
-
-                        <div class="form-group mt-3">
-                            <label>Note</label>
-                            <textarea class="form-control" id="note" name="note" placeholder="Expense Note"><?= isset($_REQUEST['note']) ? $_REQUEST['note'] : '' ?></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-blueviolet mt-3" name="user" value="add">Create</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-   
     <!-- MODAL SHARE -->
     <div class="modal fade" id="shareExpenseModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -273,7 +279,6 @@ $user = user();
 </div>
 
 <script>
-
     function prepareShareModal(expenseId) {
         console.log("Expense ID:", expenseId);
 
@@ -301,5 +306,3 @@ $user = user();
     });
 
 </script>
-
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>

@@ -142,14 +142,15 @@ function getAllExpensesByUserId($userId)
     }
 }
 
-function getExpenseById($expenseId, $pdo)
+function getExpenseById($expenseId)
 {
+    global $pdo;
     try {
         $query = 'SELECT expenses.*, categories.description AS category_description, methods.description AS payment_description ';
         $query .= 'FROM expenses ';
         $query .= 'LEFT JOIN categories ON expenses.category_id = categories.id ';
         $query .= 'LEFT JOIN methods ON expenses.payment_id = methods.id ';
-        $query .= 'WHERE expenses.id = :expenseId';
+        $query .= 'WHERE expenses.expense_id = :expenseId';
 
         $PDOStatement = $pdo->prepare($query);
         $PDOStatement->bindParam(':expenseId', $expenseId, PDO::PARAM_INT);
@@ -180,18 +181,33 @@ function updateExpense($expenseId, $expenseData)
 
         $PDOStatement = $GLOBALS['pdo']->prepare($sqlUpdate);
 
-        return $PDOStatement->execute([
+        if (!empty($expenseData['receipt_img'])) {
+            $receiptImg = $expenseData['receipt_img'];
+        } else {
+            $receiptImg = $expenseData['receipt_img'];
+        }
+
+        // Prepare an array of parameters to bind
+        $params = [
             ':category_id' => $expenseData['category_id'],
             ':description' => $expenseData['description'],
             ':payment_id' => $expenseData['payment_id'],
             ':amount' => $expenseData['amount'],
             ':date' => $expenseData['date'],
-            ':receipt_img' => $expenseData['receipt_img'],
+            ':receipt_img' => $receiptImg,
             ':payed' => $expenseData['payed'],
             ':note' => $expenseData['note'],
             ':user_id' => $expenseData['user_id'],
             ':expense_id' => $expenseId,
-        ]);
+        ];
+
+        // Remove empty values from the array
+        $params = array_filter($params, function ($value) {
+            return $value !== '';
+        });
+
+        // Execute the statement with the filtered parameters
+        return $PDOStatement->execute($params);
     } catch (PDOException $e) {
         echo 'Error: ' . $e->getMessage();
         return false;
