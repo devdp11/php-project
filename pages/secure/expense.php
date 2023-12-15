@@ -6,9 +6,12 @@ require_once __DIR__ . '/../../controllers/expenses/expense.php';
 $user = user();
 
 $filterCategory = isset($_POST['filterCategory']) ? $_POST['filterCategory'] : '';
+$filterMethods = isset($_POST['filterMethods']) ? $_POST['filterMethods'] : '';
 
 if (!empty($filterCategory)) {
     $expenses = getExpensesByCategoryFromUserId($user['id'], $filterCategory);
+} elseif (!empty($filterMethods)) {
+    $expenses = getExpensesByPaymentMethodFromUserId($user['id'], $filterMethods);
 } else {
     $expenses = getAllExpensesByUserId($user['id']);
 }
@@ -43,7 +46,23 @@ if (!empty($filterCategory)) {
         </div>
     </form>
 
-    <button class="btn btn-blueviolet my-2" data-bs-toggle="modal" data-bs-target="#add-expense">
+    <form method="post" action="">
+        <div class="form-group my-3">
+            <select class="form-select w-auto" id="filterMethods" name="filterMethods" onchange="this.form.submit()">
+                <option value="">All Methods</option>
+                <?php
+                $methods = getAllMethods();
+                foreach ($methods as $method) {
+                    $selected = ($filterMethods == $method['id']) ? 'selected' : '';
+                    echo "<option value='{$method['id']}' $selected>{$method['description']} (ID: {$method['id']})</option>";
+                }
+                ?>
+            </select>
+        </div>
+    </form>
+
+
+    <button class="btn btn-blueviolet mb-2" data-bs-toggle="modal" data-bs-target="#add-expense">
         Add Expense
     </button>
 
