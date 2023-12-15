@@ -54,7 +54,7 @@
                         </div>
                         <div class="col">
                             <div class="justify-content-end align-items-center mt-2 mx-2"> 
-                                <button type="button" class='btn btn-danger btn-sm float-end m-1' onclick="prepareDeleteModal(<?php echo $user['id']; ?>)"><i class="fas fa-trash-alt"></i></button>
+                                <button type="button" class='btn btn-danger btn-sm float-end m-1' data-bs-toggle="modal" data-bs-target="#delete-user<?= $user['id']; ?>"><i class="fas fa-trash-alt"></i></button>
                                 <button type="button" class='btn btn-blueviolet btn-sm float-end m-1' data-bs-toggle="modal" data-bs-target="#edit-user<?= $user['id']; ?>"><i class="fas fa-pencil-alt"></i></button>
                             </div>
                         </div>
@@ -137,6 +137,28 @@
                 </div>
             </div>
 
+            <!-- MODAL DELETE USER -->
+            <div class="modal fade" id="delete-user<?= $user['id']; ?>" tabindex="-1" aria-labelledby="delete-user<?= $user['id']; ?>"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Delete Expense</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="../../controllers/admin/user.php" method="post">
+                                <input type="hidden" name="user_id" value="<?= $user['id']; ?>">
+                                <div class="mb-3">
+                                    Do you want to proceed deleting the expense?
+                                </div>
+                                <button type="submit" name="user" value="delete" class="btn btn-danger">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         <?php endforeach; ?>
     </div>
 
@@ -176,38 +198,3 @@
             </div>
         </div>
     </div>
-
-    <!-- MODAL DELETE -->
-    <div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Delete Expense</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="../../controllers/admin/user.php" method="post">
-                        <input type="hidden" name="user_id" id="modalDeleteUserId" value="">
-                        <div class="mb-3">
-                            Do you want to proceed deleting the expense?
-                        </div>
-                        <button type="submit" name="user" value="delete" class="btn btn-danger">Delete</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</div>
-
-    <script>
-        function prepareDeleteModal(userId) {
-            console.log("User ID:", userId);
-
-            document.getElementById('modalDeleteUserId').value = userId;
-
-            var myModal = new bootstrap.Modal(document.getElementById('deleteUserModal'));
-            myModal.show();
-        }
-    </script>

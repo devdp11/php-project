@@ -14,12 +14,7 @@ if (isset($_POST['user'])) {
         $userToEdit = $_POST['user_id'];
         update($userToEdit, $_POST);
     }
-
-    /* if ($_POST['user'] == 'profile') {
-        updateProfile($_POST);
-    }
-
-    if ($_POST['user'] == 'password') {
+    /* if ($_POST['user'] == 'password') {
         changePassword($_POST);
     } */
 
@@ -119,31 +114,7 @@ function update($userId, $postData)
     }
 }
 
-/* function updateProfile($req)
-{
-    $data = validatedUser($req);
-
-    if (isset($data['invalid'])) {
-        $_SESSION['errors'] = $data['invalid'];
-        $params = '?' . http_build_query($req);
-        header('location: /php-project/pages/secure/user/profile.php' . $params);
-        } else {
-        $user = user(); 
-        $data['id'] = $user['id'];
-        $data['administrator'] = $user['administrator'];
-
-        $success = updateUser($data);
-
-        if ($success) {
-            $_SESSION['success'] = 'User successfully changed!';
-            $_SESSION['action'] = 'update';
-            $params = '?' . http_build_query($data);
-            header('location: /php-project/pages/secure/user/profile.php' . $params);
-        }
-    }
-}
-
-function changePassword($req)
+/* function changePassword($req)
 {
     $data = passwordIsValid($req);
     if (isset($data['invalid'])) {

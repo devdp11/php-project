@@ -54,11 +54,11 @@ $user = user();
                     </div>
                     <div class="col">
                         <div class="justify-content-end align-items-center mt-2 mx-2">
-                            <button type="button" class='btn btn-danger btn-sm float-end m-1'
-                                onclick="prepareDeleteModal(<?php echo $expense['expense_id']; ?>)"><i
-                                    class="fas fa-trash-alt"></i></button>
-                            <button type="button" class='btn btn-blueviolet btn-sm float-end m-1'
-                                onclick="prepareShareModal(<?php echo $expense['expense_id']; ?>)"><i
+                            <button type="button" class='btn btn-danger btn-sm float-end m-1' data-bs-toggle="modal" 
+                                data-bs-target="#delete-expense<?= $expense['expense_id']; ?>"><i
+                                class="fas fa-trash-alt"></i></button>
+                            <button type="button" class='btn btn-blueviolet btn-sm float-end m-1' data-bs-toggle="modal" 
+                                data-bs-target="#share-expense<?= $expense['expense_id']; ?>"><i
                                     class="fas fa-share"></i></button>
                             <button type="button" class='btn btn-blueviolet btn-sm float-end m-1' data-bs-toggle="modal"
                                 data-bs-target="#edit-expense<?= $expense['expense_id']; ?>"><i
@@ -196,9 +196,55 @@ $user = user();
                 </div>
             </div>
         </div>
+
+        <!-- MODAL SHARE -->
+        <div class="modal fade" id="share-expense<?= $expense['expense_id']; ?>" tabindex="-1" aria-labelledby="share-expense<?= $expense['expense_id']; ?>" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Share Expense</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="../../controllers/expenses/expense.php" method="post">
+                            <input type="hidden" name="expense_id" id="expense_id"
+                                value="<?php echo $expense['expense_id']; ?>">
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email of the User to Share With:</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+                            <button type="submit" name="user" value="share" class="btn btn-primary">Share</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODAL DELETE -->
+        <div class="modal fade" id="delete-expense<?= $expense['expense_id']; ?>" tabindex="-1" aria-labelledby="delete-expense<?= $expense['expense_id']; ?>"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Delete Expense</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="../../controllers/expenses/expense.php" method="post">
+                        <input type="hidden" name="expense_id" id="expense_id"
+                                value="<?php echo $expense['expense_id']; ?>">
+                            <div class="mb-3">
+                                Do you want to proceed deleting the expense?
+                            </div>
+                            <button type="submit" name="user" value="delete" class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <?php endforeach; ?>
     </div>
-
 
     <!-- MODAL ADD -->
     <div class="modal fade" id="add-expense" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
@@ -273,79 +319,17 @@ $user = user();
             </div>
         </div>
     </div>
-
-    <!-- MODAL SHARE -->
-    <div class="modal fade" id="shareExpenseModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Share Expense</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="../../controllers/expenses/expense.php" method="post">
-                        <input type="hidden" name="expense_id" id="modalExpenseId" value="">
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email of the User to Share With:</label>
-                            <input type="email" class="form-control" id="email" name="email" required>
-                        </div>
-                        <button type="submit" name="user" value="share" class="btn btn-primary">Share</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL DELETE -->
-    <div class="modal fade" id="deleteExpenseModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Delete Expense</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="../../controllers/expenses/expense.php" method="post">
-                        <input type="hidden" name="expense_id" id="modalDeleteExpenseId" value="">
-                        <div class="mb-3">
-                            Do you want to proceed deleting the expense?
-                        </div>
-                        <button type="submit" name="user" value="delete" class="btn btn-danger">Delete</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 
 <script>
-function prepareShareModal(expenseId) {
-    console.log("Expense ID:", expenseId);
+    document.addEventListener('DOMContentLoaded', function() {
+        const payedCheckbox = document.getElementById('payed');
+        const paymentBox = document.getElementById('paymentBox');
 
-    document.getElementById('modalExpenseId').value = expenseId;
+        paymentBox.style.display = payedCheckbox.checked ? 'block' : 'none';
 
-    var myModal = new bootstrap.Modal(document.getElementById('shareExpenseModal'));
-    myModal.show();
-}
-
-function prepareDeleteModal(expenseId) {
-    console.log("Expense ID:", expenseId);
-
-    document.getElementById('modalDeleteExpenseId').value = expenseId;
-
-    var myModal = new bootstrap.Modal(document.getElementById('deleteExpenseModal'));
-    myModal.show();
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    const payedCheckbox = document.getElementById('payed');
-    const paymentBox = document.getElementById('paymentBox');
-
-    paymentBox.style.display = payedCheckbox.checked ? 'block' : 'none';
-
-    payedCheckbox.addEventListener('change', function() {
-        paymentBox.style.display = this.checked ? 'block' : 'none';
+        payedCheckbox.addEventListener('change', function() {
+            paymentBox.style.display = this.checked ? 'block' : 'none';
+        });
     });
-});
 </script>
