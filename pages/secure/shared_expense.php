@@ -59,11 +59,8 @@ $user = user();
                             <h5 class="card-title"><?php echo $expense['description']; ?></h5>
                         </div>
                         <div class="col">
-                            <div class="justify-content-end align-items-center mt-2 mx-2"> 
-                                <form action="../../controllers/expenses/expense.php" method="post" class="float-end" onsubmit="return confirmRemoval(event)">
-                                    <input type="hidden" name="expense_id" value="<?php echo $expense['expense_id']; ?>">
-                                    <button type="submit" name="user" value="remove-shared" class='btn btn-danger btn-sm'><i class="fas fa-trash-alt"></i></button>
-                                </form>
+                            <div class="justify-content-end align-items-center mt-2 mx-2">
+                                <button type="button" class='btn btn-danger btn-sm m-1 float-end' onclick="prepareRemovalModal(<?php echo $expense['expense_id'];?>)"><i class="fas fa-trash-alt"></i></button>
                             </div>
                         </div>
                     </div>
@@ -96,11 +93,35 @@ $user = user();
             </div>
         <?php endforeach; ?>
     </div>
+    
+    <!-- MODAL DELETE -->
+    <div class="modal fade" id="deleteSharedExpenseModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete Shared Expense</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="../../controllers/expenses/expense.php" method="post">
+                        <input type="hidden" name="expense_id" id="modalDeleteSharedExpenseId" value="">
+                        <div class="mb-3">
+                            Do you want to proceed removing the shared expense?
+                        </div>
+                        <button type="submit" name="user" value="remove-shared" class="btn btn-danger">Remove</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
-    function confirmRemoval(event) {
-        console.log("confirmRemoval called");
-        event.stopPropagation();
-        return confirm("Are you sure you want to remove this shared expense?");
-    }
-</script>
+        function prepareRemovalModal(expenseId) {
+            console.log("Expense ID:", expenseId);
+
+            document.getElementById('modalDeleteSharedExpenseId').value = expenseId;
+
+            var myModal = new bootstrap.Modal(document.getElementById('deleteSharedExpenseModal'));
+            myModal.show();
+        }
+    </script>

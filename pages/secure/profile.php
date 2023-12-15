@@ -48,9 +48,7 @@
         <div class="d-flex justify-content-center">
             <button class="btn btn-blueviolet-reverse mx-2 my-0" onclick="showProfile()">Profile</button>
             <button class="btn btn-blueviolet mx-2 my-0" onclick="showChangePassword()">Password</button>
-            <form action="../../controllers/auth/signin.php" method="post" onsubmit="return deleteCf()" class="mx-2 my-0">
-                <button class="btn btn-danger" type="submit" name="user" value="delete">Delete</button>
-            </form>
+            <button class="btn btn-danger" type="submit" name="user" value="delete" onclick="prepareDeleteModal(<?php echo $user['id']; ?>)">Delete</button>
         </div>
 
         <div class="row mt-5">
@@ -138,16 +136,31 @@
         </div>
     </div>
 
+    <div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete User</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="../../controllers/auth/signin.php" method="post">
+                        <input type="hidden" name="id" id="modalDeleteUserId" value="">
+                        <div class="mb-3">
+                            Do you want to delete your account?
+                        </div>
+                        <button type="submit" name="user" value="delete" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 <!-- Bootstrap JS and jQuery -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-    function deleteCf() {
-        var result = confirm("Are you sure about the account removal?");
-        return result;
-    }
-
     function showChangePassword() {
         document.getElementById('profileSection').style.display = 'none';
         document.getElementById('passwordSection').style.display = 'block';
@@ -159,6 +172,15 @@
     }
     function refreshPage() {
         location.reload(true);
+    }
+
+    function prepareDeleteModal(userId) {
+        console.log("User ID:", userId);
+
+        document.getElementById('modalDeleteUserId').value = userId;
+
+        var myModal = new bootstrap.Modal(document.getElementById('deleteUserModal'));
+        myModal.show();
     }
 
 </script>

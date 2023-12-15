@@ -82,14 +82,14 @@ function getByEmail($email)
 function getIdByEmail($email)
 {
     try {
-        $sql = 'SELECT id FROM users WHERE email = :email';
+        $sql = 'SELECT id FROM users WHERE email = :email AND deleted_at IS NULL';
         $PDOStatement = $GLOBALS['pdo']->prepare($sql);
         $PDOStatement->bindParam(':email', $email, PDO::PARAM_STR);
         $PDOStatement->execute();
 
         $result = $PDOStatement->fetch(PDO::FETCH_ASSOC);
 
-        echo 'console.log($result);';
+        echo '<script>console.log(' . json_encode($result) . ')</script>';
 
         return ($result) ? $result['id'] : null;
     } catch (PDOException $e) {
@@ -97,6 +97,7 @@ function getIdByEmail($email)
         return null;
     }
 }
+
 
 /* USER QUERIES */
 

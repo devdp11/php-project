@@ -74,23 +74,14 @@ require_once __DIR__ . '/../../middlewares/middleware-not-authenticated.php';
                 </div>
 
                 <!-- Submit button -->
-                <div class="d-flex justify-content-center mb-4">
-                  <button class="w-50 btn btn-lg btn-blueviolet mb-2" type="submit" name="user" value="login">Sign In</button>
+                <div class="d-flex justify-content-center">
+                  <button class="w-50 btn btn-lg btn-blueviolet mb-4" type="submit" name="user" value="login">Sign In</button>
                 </div>
-
-                <div class="text-center">
-                  <p>or sign in using:</p>
-                  <button type="button" class="btn btn-link btn-floating mx-1 btn-blueviolet">
-                    <i class="fab fa-facebook-f"></i>
-                  </button>
-
-                  <button type="button" class="btn btn-link btn-floating mx-1 btn-blueviolet">
-                    <i class="fab fa-google"></i>
-                  </button>
-
-                  <button type="button" class="btn btn-link btn-floating mx-1 btn-blueviolet">
-                    <i class="fab fa-twitter"></i>
-                  </button>
+                <div class="d-flex justify-content-center mb-2">
+                  Create an account 
+                  <a href="./signup.php" class="text-decoration-none mx-1" style="color:blueviolet;">
+                      here
+                  </a>
                 </div>
               </form>
             </div>
