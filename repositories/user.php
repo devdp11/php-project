@@ -47,6 +47,53 @@ function createUser($user)
     return $success;
 }
 
+function updateAdminUser($userId, $userData)
+{
+    try {
+        $sqlUpdate = "UPDATE users SET
+            first_name = :first_name,
+            last_name = :last_name,
+            email = :email,
+            country = :country,
+            birthdate = :birthdate,
+            admin = :admin,
+            updated_at = CURRENT_TIMESTAMP";
+
+        if (!empty($userData['password'])) {
+            $sqlUpdate .= ', password = :password';
+            $userData['password'] = password_hash($userData['password'], PASSWORD_DEFAULT);
+        }
+
+        $sqlUpdate .= " WHERE id = :user_id";
+
+        $PDOStatement = $GLOBALS['pdo']->prepare($sqlUpdate);
+
+        $params = [
+            ':first_name' => $userData['first_name'],
+            ':last_name' => $userData['last_name'],
+            ':email' => $userData['email'],
+            ':country' => $userData['country'],
+            ':birthdate' => $userData['birthdate'],
+            ':admin' => $userData['admin'],
+            ':user_id' => $userId,
+        ];
+
+        // Adicionar a senha aos parâmetros se ela estiver presente
+        if (!empty($userData['password'])) {
+            $params[':password'] = $userData['password'];
+        }
+
+        $params = array_filter($params, function ($value) {
+            return $value !== '';
+        });
+
+        return $PDOStatement->execute($params);
+    } catch (PDOException $e) {
+        echo 'Error: ' . $e->getMessage();
+        return false;
+    }
+}
+
 function getAll()
 {
     $stmt = $GLOBALS['pdo']->prepare('SELECT * FROM users WHERE deleted_at IS NULL;');

@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/../../repositories/user.php';
 require_once __DIR__ . '/../../validations/admin/validate-user.php';
-require_once __DIR__ . '/../../validations/admin/validate-password.php';
+require_once __DIR__ . '/../../validations/admin/validate-update.php';
 require_once __DIR__ . '/../../validations/session.php';
 
 if (isset($_POST['user'])) {
@@ -10,11 +10,12 @@ if (isset($_POST['user'])) {
         create($_POST);
     }
 
-    /* if ($_POST['user'] == 'update') {
-        update($_POST);
+    if ($_POST['user'] == 'update') {
+        $userToEdit = $_POST['user_id'];
+        update($userToEdit, $_POST);
     }
 
-    if ($_POST['user'] == 'profile') {
+    /* if ($_POST['user'] == 'profile') {
         updateProfile($_POST);
     }
 
@@ -83,30 +84,42 @@ function create($postData)
     exit;
 }
 
-/* function update($req)
+function update($userId, $postData)
 {
-    $data = validatedUser($req);
-
-    if (isset($data['invalid'])) {
-        $_SESSION['errors'] = $data['invalid'];
-        $_SESSION['action'] = 'update';
-        $params = '?' . http_build_query($req);
-        header('location: /php-project/pages/secure/admin/user.php' . $params);
-
-        return false;
+    if (!isset($_SESSION['id'])) {
+        $_SESSION['errors'][] = 'User ID not set in the session.';
+        $params = '?' . http_build_query($postData);
+        header('location: /php-project/pages/secure/admin-users.php' . $params);
+        return;
     }
 
-    $success = updateUser($data);
+    $userData = validatedUpdate($postData);
+
+    if (isset($userData['invalid'])) {
+        $_SESSION['errors'] = $userData['invalid'];
+        $_SESSION['action'] = 'update';
+        $params = '?' . http_build_query($postData);
+        header('location: /php-project/pages/secure/admin-users.php' . $params);
+        return;
+    }
+
+    $userId = $postData['user_id'];
+
+    $success = updateAdminUser($userId, $userData);
+    var_dump($userId, $userData);
 
     if ($success) {
-        $_SESSION['success'] = 'User successfully changed!';
+        $_SESSION['success'] = 'User successfully updated!';
         $data['action'] = 'update';
         $params = '?' . http_build_query($data);
-        header('location: /php-project/pages/secure/admin/user.php' . $params);
+        header('location: /php-project/pages/secure/admin-users.php');
+    } else {
+        $_SESSION['errors'][] = 'Failed to update user. Please try again.';
+        header('location: /php-project/pages/secure/admin-users.php');
     }
 }
 
-function updateProfile($req)
+/* function updateProfile($req)
 {
     $data = validatedUser($req);
 
