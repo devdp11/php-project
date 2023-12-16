@@ -62,13 +62,33 @@ if ($orderAmount == 'asc') {
         </ol>
     </nav>
 
-    <div class="row">
-        <div class="col-md-2">
+    <section class="py-4 px-5">
+        <?php
+        if (isset($_SESSION['success'])) {
+            echo '<div class="alert alert-success alert-dismissible fade show" role="alert">';
+            echo $_SESSION['success'] . '<br>';
+            echo '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+            unset($_SESSION['success']);
+        }
+        if (isset($_SESSION['errors'])) {
+            echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">';
+            foreach ($_SESSION['errors'] as $error) {
+                echo $error . '<br>';
+            }
+            echo '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
+            unset($_SESSION['errors']);
+        }
+        ?>
+    </section>
+
+    <div class="row mb-3">
+        <div class="col-12 col-md-2 mb-2">
             <button class="btn btn-blueviolet mb-2" data-bs-toggle="modal" data-bs-target="#add-expense">
                 Add Expense
             </button>
         </div>
-        <div class="col-md-9">
+        <div class="w-100"></div>
+        <div class="col-12 col-md-9 my-2">
             <form id="searchForm" class="d-flex" method="post" action="">
                 <div class="form-group me-2 flex-grow-1">
                     <input type="text" class="form-control" id="filterDescription" name="filterDescription"
@@ -79,7 +99,7 @@ if ($orderAmount == 'asc') {
             <p class="mt-3 justify-content-center text-center">No expenses found.</p>
             <?php endif; ?>
         </div>
-        <div class="col-md-1">
+        <div class="col-12 col-md-1 my-2">
             <div class="dropdown">
                 <button class="btn btn btn-blueviolet-reverse dropdown-toggle" type="button" id="filterDropdownButton"
                     data-bs-toggle="dropdown" aria-expanded="false">
@@ -164,225 +184,205 @@ if ($orderAmount == 'asc') {
         </div>
     </div>
 
-
-    <section class="py-4 px-5">
-        <?php
-        if (isset($_SESSION['success'])) {
-            echo '<div class="alert alert-success alert-dismissible fade show" role="alert">';
-            echo $_SESSION['success'] . '<br>';
-            echo '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
-            unset($_SESSION['success']);
-        }
-        if (isset($_SESSION['errors'])) {
-            echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">';
-            foreach ($_SESSION['errors'] as $error) {
-                echo $error . '<br>';
-            }
-            echo '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
-            unset($_SESSION['errors']);
-        }
-        ?>
-    </section>
-
     <div class="row row-cols-1 row-cols-md-3 g-3">
         <?php foreach ($expenses as $expense) : ?>
-        <div class="col">
-            <div class="card style" id="expense-card-<?php echo $expense['expense_id']; ?>">
-                <div class="row">
-                    <div class="col m-2">
-                        <h5 class="card-title"><?php echo $expense['description']; ?></h5>
-                    </div>
-                    <div class="col">
-                        <div class="justify-content-end align-items-center mt-2 mx-2">
-                            <button type="button" class='btn btn-danger btn-sm float-end m-1' data-bs-toggle="modal"
-                                data-bs-target="#delete-expense<?= $expense['expense_id']; ?>"><i
-                                    class="fas fa-trash-alt"></i></button>
-                            <button type="button" class='btn btn-blueviolet btn-sm float-end m-1' data-bs-toggle="modal"
-                                data-bs-target="#share-expense<?= $expense['expense_id']; ?>"><i
-                                    class="fas fa-share"></i></button>
-                            <button type="button" class='btn btn-blueviolet btn-sm float-end m-1' data-bs-toggle="modal"
-                                data-bs-target="#edit-expense<?= $expense['expense_id']; ?>"><i
-                                    class="fas fa-pencil-alt"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
+            <div class="col">
+                <div class="card style" id="expense-card-<?php echo $expense['expense_id']; ?>">
                     <div class="row">
-                        <div class="col justify-content-center">
-                            <p class="card-text"><strong>Category:</strong>
-                                <?php echo $expense['category_description']; ?></p>
-                            <?php if ($expense['payed'] == 1) : ?>
-                            <p class="card-text"><strong>Payment Method:</strong>
-                                <?php echo $expense['payment_description']; ?></p>
-                            <?php endif; ?>
-                            <p class="card-text"><strong>Amount:</strong> <?php echo $expense['amount']; ?></p>
-                            <p class="card-text"><strong>Payed:</strong>
-                                <?php echo ($expense['payed'] == 1) ? 'Yes' : 'No'; ?></p>
-                            <p class="card-text"><strong>Date:</strong> <?php echo $expense['date']; ?></p>
+                        <div class="col m-2">
+                            <h5 class="card-title"><?php echo $expense['description']; ?></h5>
                         </div>
-                        <div class="my-3" style="<?php echo empty($expense['receipt_img']) ? 'display: none;' : ''; ?>">
-                            <?php if (!empty($expense['receipt_img'])): ?>
-                            <?php
-                                        $receipt_Data = base64_decode($expense['receipt_img']);
-                                        $receipt_Src = 'data:image/jpeg;base64,' . base64_encode($receipt_Data);
-                                    ?>
-                            <div class="h-auto w-100">
-                                <img src="<?= $receipt_Src ?>" alt="receipt_img"
-                                    class="object-fit-cover w-100 img-fluid d-block ui-w-80 mx-auto rounded"
-                                    style="max-width: 150px;">
+                        <div class="col">
+                            <div class="justify-content-end align-items-center mt-2 mx-2">
+                                <button type="button" class='btn btn-danger btn-sm float-end m-1' data-bs-toggle="modal"
+                                    data-bs-target="#delete-expense<?= $expense['expense_id']; ?>"><i
+                                        class="fas fa-trash-alt"></i></button>
+                                <button type="button" class='btn btn-blueviolet btn-sm float-end m-1' data-bs-toggle="modal"
+                                    data-bs-target="#share-expense<?= $expense['expense_id']; ?>"><i
+                                        class="fas fa-share"></i></button>
+                                <button type="button" class='btn btn-blueviolet btn-sm float-end m-1' data-bs-toggle="modal"
+                                    data-bs-target="#edit-expense<?= $expense['expense_id']; ?>"><i
+                                        class="fas fa-pencil-alt"></i></button>
                             </div>
-                            <?php endif; ?>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- MODAL EDIT -->
-        <div class="modal fade" id="edit-expense<?= $expense['expense_id']; ?>" tabindex="-1"
-            aria-labelledby="edit-expense<?= $expense['expense_id']; ?>" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modal-title"> Edit Expense </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body pt-0">
-                        <form action="../../controllers/expenses/expense.php" method="post"
-                            enctype="multipart/form-data">
-                            <input type="hidden" name="expense_id" id="expense_id"
-                                value="<?php echo $expense['expense_id']; ?>">
-
-                            <!-- Description -->
-                            <div class="form-group mt-3">
-                                <label>Description</label>
-                                <input type="text" class="form-control" id="description" name="description"
-                                    placeholder="Expense Description"
-                                    value="<?= isset($expense['description']) ? $expense['description'] : '' ?>"
-                                    required>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col justify-content-center">
+                                <p class="card-text"><strong>Category:</strong>
+                                    <?php echo $expense['category_description']; ?></p>
+                                <?php if ($expense['payed'] == 1) : ?>
+                                <p class="card-text"><strong>Payment Method:</strong>
+                                    <?php echo $expense['payment_description']; ?></p>
+                                <?php endif; ?>
+                                <p class="card-text"><strong>Amount:</strong> <?php echo $expense['amount']; ?></p>
+                                <p class="card-text"><strong>Payed:</strong>
+                                    <?php echo ($expense['payed'] == 1) ? 'Yes' : 'No'; ?></p>
+                                <p class="card-text"><strong>Date:</strong> <?php echo $expense['date']; ?></p>
                             </div>
-                            <!-- Category -->
-                            <div class="form-group mt-3">
-                                <label>Category</label>
-                                <select class="form-control" id="category" name="category">
-                                    <?php
-                                        $categories = getAllCategories();
-                                        foreach ($categories as $category) {
-                                            $selected = isset($expense['category_id']) && $expense['category_id'] == $category['id'] ? 'selected' : '';
-                                            echo "<option value='{$category['id']}' $selected>{$category['description']}</option>";
-                                        }
-                                        ?>
-                                </select>
-                            </div>
-                            <!-- Date -->
-                            <div class="form-group mt-3">
-                                <label>Date</label>
-                                <input type="date" class="form-control" id="date" name="date"
-                                    value="<?= isset($expense['date']) ? $expense['date'] : '' ?>" required>
-                            </div>
-                            <!-- Amount -->
-                            <div class="form-group mt-3">
-                                <label>Amount</label>
-                                <input type="text" class="form-control" id="amount" name="amount"
-                                    placeholder="Expense Amount"
-                                    value="<?= isset($expense['amount']) ? $expense['amount'] : '' ?>" required>
-                            </div>
-                            <!-- Paid Checkbox -->
-                            <div class="form-check mt-3">
-                                <input class="form-check-input" type="checkbox" name="payed" id="payed"
-                                    <?= isset($expense['payed']) && $expense['payed'] == 1 ? 'checked' : '' ?>>
-                                <label class="form-check-label">Paid?</label>
-                            </div>
-                            <!-- Payment Method -->
-                            <div class="form-group mt-3" id="paymentBox">
-                                <label>Payment Method</label>
-                                <select class="form-control" id="method" name="method">
-                                    <?php
-                                        $methods = getAllMethods();
-                                        foreach ($methods as $method) {
-                                            $selectedMethod = isset($expense['payment_id']) && $expense['payment_id'] == $method['id'] ? 'selected' : '';
-                                            echo "<option value='{$method['id']}' $selectedMethod>{$method['description']}</option>";
-                                        }
-                                        ?>
-                                </select>
-                            </div>
-                            <!-- Note -->
-                            <div class="form-group mt-3">
-                                <label>Note</label>
-                                <textarea class="form-control" id="note" name="note"
-                                    placeholder="Expense Note"><?= isset($expense['note']) ? $expense['note'] : '' ?></textarea>
-                            </div>
-                            <!-- Receipt Image -->
-                            <div class="form-group mt-3">
-                                <label>Receipt Image</label>
+                            <div class="my-3" style="<?php echo empty($expense['receipt_img']) ? 'display: none;' : ''; ?>">
                                 <?php if (!empty($expense['receipt_img'])): ?>
                                 <?php
-                                            $receiptData = base64_decode($expense['receipt_img']);
-                                            $receiptSrc = 'data:image/jpeg;base64,' . base64_encode($receiptData);
+                                            $receipt_Data = base64_decode($expense['receipt_img']);
+                                            $receipt_Src = 'data:image/jpeg;base64,' . base64_encode($receipt_Data);
                                         ?>
                                 <div class="h-auto w-100">
-                                    <img src="<?= $receiptSrc ?>" alt="receipt_img"
-                                        class="object-fit-cover w-100 img-fluid d-block ui-w-80 mx-auto rounded my-3"
+                                    <img src="<?= $receipt_Src ?>" alt="receipt_img"
+                                        class="object-fit-cover w-100 img-fluid d-block ui-w-80 mx-auto rounded"
                                         style="max-width: 150px;">
                                 </div>
                                 <?php endif; ?>
-                                <input type="file" class="form-control" id="receipt_img" name="receipt_img">
                             </div>
-                            <!-- Update Button -->
-                            <button type="submit" class="btn btn-blueviolet mt-3" name="user"
-                                value="edit">Update</button>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- MODAL SHARE -->
-        <div class="modal fade" id="share-expense<?= $expense['expense_id']; ?>" tabindex="-1"
-            aria-labelledby="share-expense<?= $expense['expense_id']; ?>" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Share Expense</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="../../controllers/expenses/expense.php" method="post">
-                            <input type="hidden" name="expense_id" id="expense_id"
-                                value="<?php echo $expense['expense_id']; ?>">
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Email of the User to Share With:</label>
-                                <input type="email" class="form-control" id="email" name="email" required>
-                            </div>
-                            <button type="submit" name="user" value="share" class="btn btn-primary">Share</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+            <!-- MODAL EDIT -->
+            <div class="modal fade" id="edit-expense<?= $expense['expense_id']; ?>" tabindex="-1"
+                aria-labelledby="edit-expense<?= $expense['expense_id']; ?>" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modal-title"> Edit Expense </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body pt-0">
+                            <form action="../../controllers/expenses/expense.php" method="post"
+                                enctype="multipart/form-data">
+                                <input type="hidden" name="expense_id" id="expense_id"
+                                    value="<?php echo $expense['expense_id']; ?>">
 
-        <!-- MODAL DELETE -->
-        <div class="modal fade" id="delete-expense<?= $expense['expense_id']; ?>" tabindex="-1"
-            aria-labelledby="delete-expense<?= $expense['expense_id']; ?>" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Delete Expense</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="../../controllers/expenses/expense.php" method="post">
-                            <input type="hidden" name="expense_id" id="expense_id"
-                                value="<?php echo $expense['expense_id']; ?>">
-                            <div class="mb-3">
-                                Do you want to proceed deleting the expense?
-                            </div>
-                            <button type="submit" name="user" value="delete" class="btn btn-danger">Delete</button>
-                        </form>
+                                <!-- Description -->
+                                <div class="form-group mt-3">
+                                    <label>Description</label>
+                                    <input type="text" class="form-control" id="description" name="description"
+                                        placeholder="Expense Description"
+                                        value="<?= isset($expense['description']) ? $expense['description'] : '' ?>"
+                                        required>
+                                </div>
+                                <!-- Category -->
+                                <div class="form-group mt-3">
+                                    <label>Category</label>
+                                    <select class="form-control" id="category" name="category">
+                                        <?php
+                                            $categories = getAllCategories();
+                                            foreach ($categories as $category) {
+                                                $selected = isset($expense['category_id']) && $expense['category_id'] == $category['id'] ? 'selected' : '';
+                                                echo "<option value='{$category['id']}' $selected>{$category['description']}</option>";
+                                            }
+                                            ?>
+                                    </select>
+                                </div>
+                                <!-- Date -->
+                                <div class="form-group mt-3">
+                                    <label>Date</label>
+                                    <input type="date" class="form-control" id="date" name="date"
+                                        value="<?= isset($expense['date']) ? $expense['date'] : '' ?>" required>
+                                </div>
+                                <!-- Amount -->
+                                <div class="form-group mt-3">
+                                    <label>Amount</label>
+                                    <input type="text" class="form-control" id="amount" name="amount"
+                                        placeholder="Expense Amount"
+                                        value="<?= isset($expense['amount']) ? $expense['amount'] : '' ?>" required>
+                                </div>
+                                <!-- Paid Checkbox -->
+                                <div class="form-check mt-3">
+                                    <input class="form-check-input" type="checkbox" name="payed" id="payed"
+                                        <?= isset($expense['payed']) && $expense['payed'] == 1 ? 'checked' : '' ?>>
+                                    <label class="form-check-label">Paid?</label>
+                                </div>
+                                <!-- Payment Method -->
+                                <div class="form-group mt-3" id="paymentBox">
+                                    <label>Payment Method</label>
+                                    <select class="form-control" id="method" name="method">
+                                        <?php
+                                            $methods = getAllMethods();
+                                            foreach ($methods as $method) {
+                                                $selectedMethod = isset($expense['payment_id']) && $expense['payment_id'] == $method['id'] ? 'selected' : '';
+                                                echo "<option value='{$method['id']}' $selectedMethod>{$method['description']}</option>";
+                                            }
+                                            ?>
+                                    </select>
+                                </div>
+                                <!-- Note -->
+                                <div class="form-group mt-3">
+                                    <label>Note</label>
+                                    <textarea class="form-control" id="note" name="note"
+                                        placeholder="Expense Note"><?= isset($expense['note']) ? $expense['note'] : '' ?></textarea>
+                                </div>
+                                <!-- Receipt Image -->
+                                <div class="form-group mt-3">
+                                    <label>Receipt Image</label>
+                                    <?php if (!empty($expense['receipt_img'])): ?>
+                                    <?php
+                                                $receiptData = base64_decode($expense['receipt_img']);
+                                                $receiptSrc = 'data:image/jpeg;base64,' . base64_encode($receiptData);
+                                            ?>
+                                    <div class="h-auto w-100">
+                                        <img src="<?= $receiptSrc ?>" alt="receipt_img"
+                                            class="object-fit-cover w-100 img-fluid d-block ui-w-80 mx-auto rounded my-3"
+                                            style="max-width: 150px;">
+                                    </div>
+                                    <?php endif; ?>
+                                    <input type="file" class="form-control" id="receipt_img" name="receipt_img">
+                                </div>
+                                <!-- Update Button -->
+                                <button type="submit" class="btn btn-blueviolet mt-3" name="user"
+                                    value="edit">Update</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+
+            <!-- MODAL SHARE -->
+            <div class="modal fade" id="share-expense<?= $expense['expense_id']; ?>" tabindex="-1"
+                aria-labelledby="share-expense<?= $expense['expense_id']; ?>" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Share Expense</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="../../controllers/expenses/expense.php" method="post">
+                                <input type="hidden" name="expense_id" id="expense_id"
+                                    value="<?php echo $expense['expense_id']; ?>">
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email of the User to Share With:</label>
+                                    <input type="email" class="form-control" id="email" name="email" required>
+                                </div>
+                                <button type="submit" name="user" value="share" class="btn btn-primary">Share</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MODAL DELETE -->
+            <div class="modal fade" id="delete-expense<?= $expense['expense_id']; ?>" tabindex="-1"
+                aria-labelledby="delete-expense<?= $expense['expense_id']; ?>" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Delete Expense</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="../../controllers/expenses/expense.php" method="post">
+                                <input type="hidden" name="expense_id" id="expense_id"
+                                    value="<?php echo $expense['expense_id']; ?>">
+                                <div class="mb-3">
+                                    Do you want to proceed deleting the expense?
+                                </div>
+                                <button type="submit" name="user" value="delete" class="btn btn-danger">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         <?php endforeach; ?>
     </div>
@@ -463,39 +463,36 @@ if ($orderAmount == 'asc') {
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const payedCheckbox = document.getElementById('payed');
-    const paymentBox = document.getElementById('paymentBox');
+    document.addEventListener('DOMContentLoaded', function() {
+        const payedCheckbox = document.getElementById('payed');
+        const paymentBox = document.getElementById('paymentBox');
 
-    paymentBox.style.display = payedCheckbox.checked ? 'block' : 'none';
+        paymentBox.style.display = payedCheckbox.checked ? 'block' : 'none';
 
-    payedCheckbox.addEventListener('change', function() {
-        paymentBox.style.display = this.checked ? 'block' : 'none';
+        payedCheckbox.addEventListener('change', function() {
+            paymentBox.style.display = this.checked ? 'block' : 'none';
+        });
     });
-});
 
-function debounce(func, delay) {
-    let timeout;
-    return function() {
-        const context = this;
-        const args = arguments;
-        clearTimeout(timeout);
-        timeout = setTimeout(function() {
-            func.apply(context, args);
-        }, delay);
-    };
-}
+    function debounce(func, delay) {
+        let timeout;
+        return function() {
+            const context = this;
+            const args = arguments;
+            clearTimeout(timeout);
+            timeout = setTimeout(function() {
+                func.apply(context, args);
+            }, delay);
+        };
+    }
 
-function submitFormOnType() {
-    // Seleciona o formulário pelo ID
-    var form = document.getElementById("searchForm");
+    function submitFormOnType() {
+        var form = document.getElementById("searchForm");
 
-    // Adiciona um ouvinte de evento para a mudança no campo de texto com debounce de 500ms
-    document.getElementById("filterDescription").addEventListener("input", debounce(function() {
-        // Submete o formulário quando houver uma mudança no campo de texto
-        form.submit();
-    }, 350));
-}
+        document.getElementById("filterDescription").addEventListener("input", debounce(function() {
+            form.submit();
+        }, 550));
+    }
 
-document.addEventListener("DOMContentLoaded", submitFormOnType);
+    document.addEventListener("DOMContentLoaded", submitFormOnType);
 </script>

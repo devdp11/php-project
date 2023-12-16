@@ -205,6 +205,11 @@
                                 aria-describedby="emailHelp" placeholder="Enter email">
                         </div>
                         <div class="form-group mt-3">
+                            <label>Birth Date</label>
+                            <input autocomplete="off" type="date" class="form-control" id="birthdate"
+                                    name="birthdate" aria-describedby="birthDateHelp" placeholder="Enter birth date">
+                        </div>
+                        <div class="form-group mt-3">
                             <label>Password</label>
                             <input autocomplete="off" type="password" class="form-control" id="password" name="password"
                                 placeholder="Password">

@@ -13,7 +13,8 @@ function createUser($user)
     $sqlCreate = "INSERT INTO 
     users (
         first_name,
-        last_name, 
+        last_name,
+        birthdate, 
         password, 
         email,
         admin,
@@ -23,6 +24,7 @@ function createUser($user)
     VALUES (
         :first_name,
         :last_name, 
+        :birthdate, 
         :password, 
         :email,
         :admin,
@@ -35,6 +37,7 @@ function createUser($user)
     $success = $PDOStatement->execute([
         ':first_name' => $user['first_name'],
         ':last_name' => $user['last_name'],
+        ':birthdate' => $user['birthdate'],
         ':password' => $user['password'],
         ':email' => $user['email'],
         ':admin' => $user['admin'],

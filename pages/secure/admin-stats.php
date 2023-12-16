@@ -69,7 +69,10 @@ $usersByCountryCount = getUsersByCountryCount();
                     <h5 class="card-title">Users by country</h5>
                     <ul class="list-group">
                         <?php foreach ($usersByCountryCount as $countryCount) : ?>
-                            <li class="list-group-item"><?php echo $countryCount['country'] . ': ' . $countryCount['user_count']; ?></li>
+                            <?php
+                            $country = ($countryCount['country'] !== null) ? $countryCount['country'] : 'No country detected';
+                            ?>
+                            <li class="list-group-item"><?php echo $country . ': ' . $countryCount['user_count']; ?></li>
                         <?php endforeach; ?>
                     </ul>
                 </div>

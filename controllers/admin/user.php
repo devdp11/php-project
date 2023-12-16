@@ -62,6 +62,7 @@ function create($postData)
     $user = [
         'first_name' => $validationResult['first_name'],
         'last_name' => $validationResult['last_name'],
+        'birthdate' => $validationResult['birthdate'],
         'password' => $validationResult['password'],
         'email' => $validationResult['email'],
         'admin' => isset($validationResult['admin']) && $validationResult['admin'] ? 1 : 0,
@@ -75,7 +76,7 @@ function create($postData)
         error_log("Error creating user: " . implode(" - ", $GLOBALS['pdo']->errorInfo()));
     }
 
-    header('location: /php-project/pages/secure/admin-users.php'); // Corrija o caminho conforme necessário
+    header('location: /php-project/pages/secure/admin-users.php');
     exit;
 }
 
