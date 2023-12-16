@@ -8,6 +8,10 @@ $user = user();
 $filterCategory = isset($_POST['filterCategory']) ? $_POST['filterCategory'] : '';
 $filterMethods = isset($_POST['filterMethods']) ? $_POST['filterMethods'] : '';
 $filterDescription = isset($_POST['filterDescription']) ? $_POST['filterDescription'] : '';
+$filterDate = isset($_POST['filterDate']) ? $_POST['filterDate'] : '';
+$filterAmount = isset($_POST['filterAmount']) ? $_POST['filterAmount'] : '';
+$orderDate = isset($_POST['orderDate']) ? $_POST['orderDate'] : '';
+$orderAmount = isset($_POST['orderAmount']) ? $_POST['orderAmount'] : '';
 
 if (!empty($filterCategory)) {
     $expenses = getExpensesByCategoryFromUserId($user['id'], $filterCategory);
@@ -15,8 +19,32 @@ if (!empty($filterCategory)) {
     $expenses = getExpensesByPaymentMethodFromUserId($user['id'], $filterMethods);
 } elseif (!empty($filterDescription)) {
     $expenses = getExpensesByDescription($user['id'], $filterDescription);
+} elseif (!empty($filterDate)) {
+    $expenses = getExpensesByDate($user['id'], $filterDate);
+} elseif (!empty($filterAmount)) {
+    $expenses = getExpensesByAmount($user['id'], $filterAmount);
 } else {
     $expenses = getAllExpensesByUserId($user['id']);
+}
+
+if ($orderDate == 'asc') {
+    usort($expenses, function ($a, $b) {
+        $dateA = new DateTime($a['date']);
+        $dateB = new DateTime($b['date']);
+        return $dateA <=> $dateB;
+    });
+} elseif ($orderDate == 'desc') {
+    usort($expenses, function ($a, $b) {
+        $dateA = new DateTime($a['date']);
+        $dateB = new DateTime($b['date']);
+        return $dateB <=> $dateA;
+    });
+}
+
+if ($orderAmount == 'asc') {
+    array_multisort(array_column($expenses, 'amount'), SORT_ASC, $expenses);
+} elseif ($orderAmount == 'desc') {
+    array_multisort(array_column($expenses, 'amount'), SORT_DESC, $expenses);
 }
 ?>
 
@@ -33,49 +61,109 @@ if (!empty($filterCategory)) {
             <li class="breadcrumb-item">Own</li>
         </ol>
     </nav>
-    
-    <form method="post" action="">
-        <div class="form-group mt-3">
-            <select class="form-select w-auto" id="filterCategory" name="filterCategory" onchange="this.form.submit()">
-                <option value="">All Categories</option>
-                <?php
-                $categories = getAllCategories();
-                foreach ($categories as $category) {
-                    $selected = ($filterCategory == $category['id']) ? 'selected' : '';
-                    echo "<option value='{$category['id']}' $selected>{$category['description']} (ID: {$category['id']})</option>";
-                }
-                ?>
-            </select>
+
+    <div class="row">
+        <div class="col-md-2">
+            <button class="btn btn-blueviolet mb-2" data-bs-toggle="modal" data-bs-target="#add-expense">
+                Add Expense
+            </button>
         </div>
-    </form>
-
-    <form method="post" action="">
-        <div class="form-group my-3">
-            <select class="form-select w-auto" id="filterMethods" name="filterMethods" onchange="this.form.submit()">
-                <option value="">All Methods</option>
-                <?php
-                $methods = getAllMethods();
-                foreach ($methods as $method) {
-                    $selected = ($filterMethods == $method['id']) ? 'selected' : '';
-                    echo "<option value='{$method['id']}' $selected>{$method['description']} (ID: {$method['id']})</option>";
-                }
-                ?>
-            </select>
+        <div class="col-md-9">
+            <form id="searchForm" class="d-flex" method="post" action="">
+                <div class="form-group me-2 flex-grow-1">
+                    <input type="text" class="form-control" id="filterDescription" name="filterDescription"
+                        placeholder="Search by description" value="<?php echo $filterDescription; ?>">
+                </div>
+            </form>
+            <?php if (empty($expenses)) : ?>
+            <p class="mt-3 justify-content-center text-center">No expenses found.</p>
+            <?php endif; ?>
         </div>
-    </form>
-
-    <form method="post" action="">
-        <div class="form-group my-3">
-            <input type="text" class="form-control w-auto" id="filterDescription" name="filterDescription" placeholder="Search by description" value="<?php echo $filterDescription; ?>">
-            <button type="submit" class="btn btn-primary mt-2"><i class="fas fa-search"></i></button>
+        <div class="col-md-1">
+            <div class="dropdown">
+                <button class="btn btn btn-blueviolet-reverse dropdown-toggle" type="button" id="filterDropdownButton"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-list"></i>
+                </button>
+                <ul class="dropdown-menu ps-1" aria-labelledby="filterDropdownButton">
+                    <li class="mx-2">
+                        <form method="post" action="">
+                            <div class="form-group">
+                                Categories:
+                                <select class="form-select" id="filterCategory" name="filterCategory"
+                                    onchange="this.form.submit()">
+                                    <option value="">None</option>
+                                    <?php
+                            $categories = getAllCategories();
+                            foreach ($categories as $category) {
+                                $selected = ($filterCategory == $category['id']) ? 'selected' : '';
+                                echo "<option value='{$category['id']}' $selected>{$category['description']} (ID: {$category['id']})</option>";
+                            }
+                            ?>
+                                </select>
+                            </div>
+                        </form>
+                    </li>
+                    <li class="mx-2">
+                        <form method="post" action="">
+                            <div class="form-group">
+                                Methods:
+                                <select class="form-select" id="filterMethods" name="filterMethods"
+                                    onchange="this.form.submit()">
+                                    <option value="">None</option>
+                                    <?php
+                            $methods = getAllMethods();
+                            foreach ($methods as $method) {
+                                $selected = ($filterMethods == $method['id']) ? 'selected' : '';
+                                echo "<option value='{$method['id']}' $selected>{$method['description']} (ID: {$method['id']})</option>";
+                            }
+                            ?>
+                                </select>
+                            </div>
+                        </form>
+                    </li>
+                    <li class="mx-2">
+                        <form method="post" action="">
+                            <div class="form-group">
+                                <input type="hidden" class="form-control" id="filterDate" name="filterDate"
+                                    value="<?php echo $filterDate; ?>">
+                            </div>
+                            <div class="form-group">
+                                Date:
+                                <select class="form-select" id="orderDate" name="orderDate"
+                                    onchange="this.form.submit()">
+                                    <option value="desc" <?php echo ($orderDate == 'desc') ? 'selected' : ''; ?>>Most
+                                        Recent
+                                    </option>
+                                    <option value="asc" <?php echo ($orderDate == 'asc') ? 'selected' : ''; ?>>Oldest
+                                    </option>
+                                </select>
+                            </div>
+                        </form>
+                    </li>
+                    <li class="mx-2">
+                        <form method="post" action="">
+                            <div class="form-group">
+                                <input type="hidden" class="form-control" id="filterAmount" name="filterAmount"
+                                    value="<?php echo $filterAmount; ?>">
+                            </div>
+                            <div class="form-group">
+                                Amount:
+                                <select class="form-select" id="orderAmount" name="orderAmount"
+                                    onchange="this.form.submit()">
+                                    <option value=" asc" <?php echo ($orderAmount == 'asc') ? 'selected' : ''; ?>>ASC
+                                    </option>
+                                    <option value="desc" <?php echo ($orderAmount == 'desc') ? 'selected' : ''; ?>>DESC
+                                    </option>
+                                </select>
+                            </div>
+                        </form>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </form>
+    </div>
 
-
-
-    <button class="btn btn-blueviolet mb-2" data-bs-toggle="modal" data-bs-target="#add-expense">
-        Add Expense
-    </button>
 
     <section class="py-4 px-5">
         <?php
@@ -106,10 +194,10 @@ if (!empty($filterCategory)) {
                     </div>
                     <div class="col">
                         <div class="justify-content-end align-items-center mt-2 mx-2">
-                            <button type="button" class='btn btn-danger btn-sm float-end m-1' data-bs-toggle="modal" 
+                            <button type="button" class='btn btn-danger btn-sm float-end m-1' data-bs-toggle="modal"
                                 data-bs-target="#delete-expense<?= $expense['expense_id']; ?>"><i
-                                class="fas fa-trash-alt"></i></button>
-                            <button type="button" class='btn btn-blueviolet btn-sm float-end m-1' data-bs-toggle="modal" 
+                                    class="fas fa-trash-alt"></i></button>
+                            <button type="button" class='btn btn-blueviolet btn-sm float-end m-1' data-bs-toggle="modal"
                                 data-bs-target="#share-expense<?= $expense['expense_id']; ?>"><i
                                     class="fas fa-share"></i></button>
                             <button type="button" class='btn btn-blueviolet btn-sm float-end m-1' data-bs-toggle="modal"
@@ -250,7 +338,8 @@ if (!empty($filterCategory)) {
         </div>
 
         <!-- MODAL SHARE -->
-        <div class="modal fade" id="share-expense<?= $expense['expense_id']; ?>" tabindex="-1" aria-labelledby="share-expense<?= $expense['expense_id']; ?>" aria-hidden="true">
+        <div class="modal fade" id="share-expense<?= $expense['expense_id']; ?>" tabindex="-1"
+            aria-labelledby="share-expense<?= $expense['expense_id']; ?>" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -273,8 +362,8 @@ if (!empty($filterCategory)) {
         </div>
 
         <!-- MODAL DELETE -->
-        <div class="modal fade" id="delete-expense<?= $expense['expense_id']; ?>" tabindex="-1" aria-labelledby="delete-expense<?= $expense['expense_id']; ?>"
-            aria-hidden="true">
+        <div class="modal fade" id="delete-expense<?= $expense['expense_id']; ?>" tabindex="-1"
+            aria-labelledby="delete-expense<?= $expense['expense_id']; ?>" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -283,7 +372,7 @@ if (!empty($filterCategory)) {
                     </div>
                     <div class="modal-body">
                         <form action="../../controllers/expenses/expense.php" method="post">
-                        <input type="hidden" name="expense_id" id="expense_id"
+                            <input type="hidden" name="expense_id" id="expense_id"
                                 value="<?php echo $expense['expense_id']; ?>">
                             <div class="mb-3">
                                 Do you want to proceed deleting the expense?
@@ -374,14 +463,39 @@ if (!empty($filterCategory)) {
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const payedCheckbox = document.getElementById('payed');
-        const paymentBox = document.getElementById('paymentBox');
+document.addEventListener('DOMContentLoaded', function() {
+    const payedCheckbox = document.getElementById('payed');
+    const paymentBox = document.getElementById('paymentBox');
 
-        paymentBox.style.display = payedCheckbox.checked ? 'block' : 'none';
+    paymentBox.style.display = payedCheckbox.checked ? 'block' : 'none';
 
-        payedCheckbox.addEventListener('change', function() {
-            paymentBox.style.display = this.checked ? 'block' : 'none';
-        });
+    payedCheckbox.addEventListener('change', function() {
+        paymentBox.style.display = this.checked ? 'block' : 'none';
     });
+});
+
+function debounce(func, delay) {
+    let timeout;
+    return function() {
+        const context = this;
+        const args = arguments;
+        clearTimeout(timeout);
+        timeout = setTimeout(function() {
+            func.apply(context, args);
+        }, delay);
+    };
+}
+
+function submitFormOnType() {
+    // Seleciona o formulário pelo ID
+    var form = document.getElementById("searchForm");
+
+    // Adiciona um ouvinte de evento para a mudança no campo de texto com debounce de 500ms
+    document.getElementById("filterDescription").addEventListener("input", debounce(function() {
+        // Submete o formulário quando houver uma mudança no campo de texto
+        form.submit();
+    }, 350));
+}
+
+document.addEventListener("DOMContentLoaded", submitFormOnType);
 </script>
