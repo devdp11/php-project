@@ -1,14 +1,22 @@
 <?php
     require_once __DIR__ . '../../../middlewares/middleware-user.php';
     @require_once __DIR__ . '/../../validations/session.php';
-    require_once __DIR__ . '/../../db/connection.php';
+    require_once __DIR__ . '/../../repositories/user.php';
     $countriesJson = file_get_contents('../templates/countries.json');
     $countries = json_decode($countriesJson, true);
+
+    $filterUserName = isset($_POST['filterUserName']) ? $_POST['filterUserName'] : '';
+
+    if (!empty($filterUserName)) {
+        $users = getUsersByName($filterUserName);
+    } else {
+        $users = getAll();
+    }
 ?>
 
 <?php include __DIR__ . '/sidebar.php'; ?>
-<link rel="stylesheet" href="../resources/styles/global.css">
 
+<link rel="stylesheet" href="../resources/styles/global.css">
 <link rel="stylesheet" href="../resources/styles/card.css">
 
 <div class="p-4 overflow-auto h-100">
@@ -40,12 +48,31 @@
         ?>
     </section>
 
-    <button class="btn btn-blueviolet mb-4" data-bs-toggle="modal" data-bs-target="#add-user">
-        Add User
-    </button>
+    
+
+    <div class="row mb-3">
+        <div class="col-12 col-md-2 mb-2">
+            <button class="btn btn-blueviolet mb-4" data-bs-toggle="modal" data-bs-target="#add-user">
+                Add User
+            </button>
+        </div>
+        <div class="w-100"></div>
+        <div class="col-12 col-md-9 my-2">
+            <form id="searchForm" class="d-flex" method="post" action="">
+                <div class="form-group me-2 flex-grow-1">
+                    <input type="text" class="form-control" id="filterUserName" name="filterUserName"
+                        placeholder="Search by First or Last Name" value="">
+                </div>
+            </form>
+        </div>
+    </div>
 
     <div class="row row-cols-1 row-cols-md-3 g-4">
-        <?php $users = getAll(); ?>
+        <div class="d-flex justify-content-center w-100">
+            <?php if (empty($users)) : ?>
+                <p class="mt-3 justify-content-center text-center" style="color: red">No users found.</p>
+            <?php endif; ?>
+        </div>
         <?php foreach ($users as $user) : ?>
         <div class="col">
             <div class="card style" id="user-card-<?php echo $user['id']; ?>">

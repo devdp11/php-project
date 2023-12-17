@@ -104,6 +104,29 @@ function getAll()
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
+function getUsersByName($name)
+{
+    try {
+        $query = 'SELECT * FROM users WHERE first_name LIKE :name OR last_name LIKE :name';
+        $nameParam = "%{$name}%";
+
+        $PDOStatement = $GLOBALS['pdo']->prepare($query);
+        $PDOStatement->bindParam(':name', $nameParam, PDO::PARAM_STR);
+        $PDOStatement->execute();
+
+        $users = [];
+
+        while ($user = $PDOStatement->fetch(PDO::FETCH_ASSOC)) {
+            $users[] = $user;
+        }
+
+        return $users;
+    } catch (PDOException $e) {
+        echo 'Error: ' . $e->getMessage();
+        return false;
+    }
+}
+
 function getById($id)
 {
     try {

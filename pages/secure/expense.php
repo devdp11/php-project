@@ -98,9 +98,6 @@ if ($orderAmount == 'asc') {
                         placeholder="Search by description" value="<?php echo $filterDescription; ?>">
                 </div>
             </form>
-            <?php if (empty($expenses)) : ?>
-            <p class="mt-3 justify-content-center text-center">No expenses found.</p>
-            <?php endif; ?>
         </div>
         <div class="col-12 col-md-1 my-2">
             <div class="dropdown">
@@ -200,6 +197,11 @@ if ($orderAmount == 'asc') {
     </div>
 
     <div class="row row-cols-1 row-cols-md-3 g-3">
+        <div class="d-flex justify-content-center w-100">
+            <?php if (empty($expenses)) : ?>
+                <p class="mt-3 justify-content-center text-center" style="color: red">No expenses found.</p>
+            <?php endif; ?>
+        </div>
         <?php foreach ($expenses as $expense) : ?>
             <div class="col">
                 <div class="card style" id="expense-card-<?php echo $expense['expense_id']; ?>">
