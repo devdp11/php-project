@@ -15,7 +15,7 @@
 </style>
 
 <?php include __DIR__ . '/sidebar.php'; ?>
-    <div class="p-4">
+    <div class="p-4 overflow-auto h-100">
         <nav style="--bs-breadcrumb-divider:'>';font-size:14px">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><i class="fa-solid fa-house"></i></li>
@@ -24,8 +24,6 @@
             </ol>
         </nav>
     
-    <div class="container">
-
         <section class="py-4 px-5">
             <?php
                 if (isset($_SESSION['success'])) {
@@ -52,7 +50,6 @@
         </div>
 
         <div class="row mt-5">
-            
             <div class="col-md-4 d-flex align-items-center justify-content-center">
                 <div class="text-center">
                     <?php if (!empty($user['avatar'])): ?>
@@ -138,7 +135,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- MODAL DELETE -->
     <div class="modal fade" id="delete-user-modal-<?= $user['id']; ?>" tabindex="-1" aria-labelledby="delete-user-modal-<?= $user['id']; ?>" aria-hidden="true">
         <div class="modal-dialog">
@@ -159,7 +156,6 @@
             </div>
         </div>
     </div>
-
 
 <script>
     function showChangePassword() {

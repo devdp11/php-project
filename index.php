@@ -54,8 +54,8 @@ require_once __DIR__ . '../setupdatabase.php';
             onclick="untoggleMenu()">About Us</a>
         <a class="h5 d-block mx-3 my-2 p-3 text-decoration-none" style="color: black;" href="#contacts"
             onclick="untoggleMenu()">Contacts</a>
-        <a class="h5 d-block mx-3 my-2 p-3 text-decoration-none" style="color: blueviolet;" href="#">Login</a>
-        <a class="h5 d-block mx-3 my-2 p-3 text-decoration-none" style="color: blueviolet;" href="#">Sign Up</a>
+        <a class="h5 d-block mx-3 my-2 p-3 text-decoration-none" style="color: blueviolet;" href="./pages/public/signin.php">Login</a>
+        <a class="h5 d-block mx-3 my-2 p-3 text-decoration-none" style="color: blueviolet;" href="./pages/public/signup.php">Sign Up</a>
     </div>
 
     <main>
