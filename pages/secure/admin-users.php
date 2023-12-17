@@ -70,7 +70,7 @@
     <div class="row row-cols-1 row-cols-md-3 g-4">
         <div class="d-flex justify-content-center w-100">
             <?php if (empty($users)) : ?>
-                <p class="mt-3 justify-content-center text-center" style="color: red">No users found.</p>
+                <strong><p class="mt-3 justify-content-center text-center" style="color: red">No users found.</p></strong>
             <?php endif; ?>
         </div>
         <?php foreach ($users as $user) : ?>

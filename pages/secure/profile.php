@@ -48,7 +48,7 @@
         <div class="d-flex justify-content-center">
             <button class="btn btn-blueviolet-reverse mx-2 my-0" onclick="showProfile()">Profile</button>
             <button class="btn btn-blueviolet mx-2 my-0" onclick="showChangePassword()">Password</button>
-            <button class="btn btn-danger" type="submit" name="user" value="delete" onclick="prepareDeleteModal(<?php echo $user['id']; ?>)">Delete</button>
+            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-user-modal-<?= $user['id']; ?>">Delete</button>
         </div>
 
         <div class="row mt-5">
@@ -75,8 +75,8 @@
                 </div>
             </div>
 
-            <div class="col-md-8">
-                <div class="mt-4" id="profileSection">
+            <div class="col-md-8 mb-5">
+                <div class="mb-5" id="profileSection">
                     <form action="../../controllers/user/user.php" method="post">
                         <div class="row">
                             <div class="col-auto form-group">
@@ -88,11 +88,15 @@
                                 <input type="text" class="form-control mb-1" name="last_name" value="<?= $user['last_name'] ?>">
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mt-2">
                             <label class="form-label">Email</label>
                             <input type="text" class="form-control mb-1" name="email" value="<?= $user['email'] ?>" style="max-width: 495px;">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mt-2">
+                            <label class="form-label">Birth Date</label>
+                            <input type="date" class="form-control mb-1" name="birthdate" value="<?= $user['birthdate'] ?>" style="max-width: 495px;">
+                        </div>
+                        <div class="form-group mt-2">
                             <label class="form-label">Country</label>
                             <select class="form-select mb-1" name="country" style="max-width: 495px;">
                                 <?php foreach ($countries as $country): ?>
@@ -102,12 +106,8 @@
                                 <?php endforeach; ?>
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label class="form-label">Birth Date</label>
-                            <input type="date" class="form-control mb-1" name="birthdate" value="<?= $user['birthdate'] ?>" style="max-width: 495px;">
-                        </div>
 
-                        <div class="text-right my-3">
+                        <div class="text-right mt-2 mb-5">
                             <button type="submit" class="btn btn-blueviolet">Save changes</button>&nbsp;
                             <button type="button" class="btn btn-danger" onclick="refreshPage()">Cancel</button>
                         </div>
@@ -140,7 +140,7 @@
     </div>
     
     <!-- MODAL DELETE -->
-    <div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="delete-user-modal-<?= $user['id']; ?>" tabindex="-1" aria-labelledby="delete-user-modal-<?= $user['id']; ?>" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -149,7 +149,7 @@
                 </div>
                 <div class="modal-body">
                     <form action="../../controllers/auth/signin.php" method="post">
-                        <input type="hidden" name="id" id="modalDeleteUserId" value="">
+                        <input type="hidden" name="id" value="<?= $user['id']; ?>">
                         <div class="mb-3">
                             Do you want to delete your account?
                         </div>
@@ -160,9 +160,6 @@
         </div>
     </div>
 
-<!-- Bootstrap JS and jQuery -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
     function showChangePassword() {
@@ -177,14 +174,4 @@
     function refreshPage() {
         location.reload(true);
     }
-
-    function prepareDeleteModal(userId) {
-        console.log("User ID:", userId);
-
-        document.getElementById('modalDeleteUserId').value = userId;
-
-        var myModal = new bootstrap.Modal(document.getElementById('deleteUserModal'));
-        myModal.show();
-    }
-
 </script>
