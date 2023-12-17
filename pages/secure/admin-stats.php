@@ -37,12 +37,15 @@ $usersByCountryCount = getUsersByCountryCount();
         </div>
 
         <div class="col-md-6 col-lg-6 mb-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Active Users</h5>
-                    <p class="card-text"><?php echo $activeCount; ?></p>
+            <a class="text-decoration-none" href="./admin-users.php">
+                <div class="card" style="cursor:pointer">
+                    <div class="card-body">
+                        <h5 class="card-title">Active Users</h5>
+                        <p class="card-text"><?php echo $activeCount; ?></p>
+                    </div>
                 </div>
-            </div>
+            </a>
+            
         </div>
 
         <div class="col-md-6 col-lg-6 mb-4">

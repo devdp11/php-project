@@ -582,6 +582,17 @@ function getExpensesCountById($userId) {
     return $result['expenseCount'];
 }
 
+function getPaidExpensesCountById($userId) {
+    global $pdo;
+
+    $stmt = $pdo->prepare("SELECT COUNT(*) AS paidExpenseCount FROM expenses WHERE user_id = :user_id AND payed = 1 AND deleted_at IS NULL");
+    $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+    $stmt->execute();
+
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result['paidExpenseCount'];
+}
+
 function getAmountExpensesById($userId) {
     global $pdo;
 

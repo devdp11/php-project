@@ -3,8 +3,9 @@
     @require_once __DIR__ . '/../../validations/session.php';
     @require_once __DIR__ . '/../../repositories/expense.php';
     $user = user();
-    
+
     $expensesCount = getExpensesCountById($user['id']);
+    $paidExpensesCount = getPaidExpensesCountById($user['id']);
     $sharedExpensesCountByMe = getSharedExpensesCountBySharerId($user['id']);
     $sharedExpensesCountToMe = getSharedExpensesCountByReceiverId($user['id']);
     $sumExpensesAmount = getAmountExpensesById($user['id']);
@@ -12,9 +13,7 @@
 
     $futureExpenses = getFutureExpensesCountById($user['id']);
     $futureExpensesDetails = getFutureExpensesDetailsById($user['id']);
-
 ?>
-
 
 <?php include __DIR__ . '/sidebar.php'; ?>
 
@@ -72,7 +71,15 @@
             </div>
             <div class="col">
                 <div class="card bg-success text-white">
-                    <div class="card-body" data-bs-toggle="modal" data-bs-target="#futureDetails">
+                    <div class="card-body">
+                        <h6 class="card-title">Number of your paid expenses</h6>
+                        <p class="card-text mt-3">Number of Expenses: <?php echo $paidExpensesCount; ?></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card bg-success text-white">
+                    <div class="card-body" <?php if ($futureExpenses > 0) echo 'data-bs-toggle="modal" data-bs-target="#futureDetails" style="cursor:pointer"'; ?>>
                         <h6 class="card-title">Future Expenses</h6>
                         <?php if ($futureExpenses > 0): ?>
                             <p class="my-2">
@@ -116,9 +123,3 @@
                 </div>
             </div>
         </div>
-
-
-
-
-
-        
