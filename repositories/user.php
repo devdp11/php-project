@@ -81,7 +81,6 @@ function updateAdminUser($userId, $userData)
             ':user_id' => $userId,
         ];
 
-        // Adicionar a senha aos parâmetros se ela estiver presente
         if (!empty($userData['password'])) {
             $params[':password'] = $userData['password'];
         }

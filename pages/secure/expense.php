@@ -12,6 +12,7 @@ $filterDate = isset($_POST['filterDate']) ? $_POST['filterDate'] : '';
 $filterAmount = isset($_POST['filterAmount']) ? $_POST['filterAmount'] : '';
 $orderDate = isset($_POST['orderDate']) ? $_POST['orderDate'] : '';
 $orderAmount = isset($_POST['orderAmount']) ? $_POST['orderAmount'] : '';
+$filterPaymentStatus = isset($_POST['filterPaymentStatus']) ? $_POST['filterPaymentStatus'] : '';
 
 if (!empty($filterCategory)) {
     $expenses = getExpensesByCategoryFromUserId($user['id'], $filterCategory);
@@ -23,6 +24,8 @@ if (!empty($filterCategory)) {
     $expenses = getExpensesByDate($user['id'], $filterDate);
 } elseif (!empty($filterAmount)) {
     $expenses = getExpensesByAmount($user['id'], $filterAmount);
+} elseif (!empty($filterPaymentStatus)) {
+    $expenses = getExpensesByPaymentStatus($user['id'], $filterPaymentStatus);
 } else {
     $expenses = getAllExpensesByUserId($user['id']);
 }
@@ -152,10 +155,10 @@ if ($orderAmount == 'asc') {
                                 Date:
                                 <select class="form-select" id="orderDate" name="orderDate"
                                     onchange="this.form.submit()">
-                                    <option value="desc" <?php echo ($orderDate == 'desc') ? 'selected' : ''; ?>>Most
+                                    <option value="asc" <?php echo ($orderDate == 'asc') ? 'selected' : ''; ?>>Most
                                         Recent
                                     </option>
-                                    <option value="asc" <?php echo ($orderDate == 'asc') ? 'selected' : ''; ?>>Oldest
+                                    <option value="desc" <?php echo ($orderDate == 'desc') ? 'selected' : ''; ?>>Oldest
                                     </option>
                                 </select>
                             </div>
@@ -171,10 +174,22 @@ if ($orderAmount == 'asc') {
                                 Amount:
                                 <select class="form-select" id="orderAmount" name="orderAmount"
                                     onchange="this.form.submit()">
-                                    <option value=" asc" <?php echo ($orderAmount == 'asc') ? 'selected' : ''; ?>>ASC
+                                    <option value="asc" <?php echo ($orderAmount == 'asc') ? 'selected' : ''; ?>>ASC
                                     </option>
                                     <option value="desc" <?php echo ($orderAmount == 'desc') ? 'selected' : ''; ?>>DESC
                                     </option>
+                                </select>
+                            </div>
+                        </form>
+                    </li>
+                    <li class="mx-2">
+                        <form method="post" action="">
+                            <div class="form-group">
+                                Payment Status:
+                                <select class="form-select" id="filterPaymentStatus" name="filterPaymentStatus" onchange="this.form.submit()">
+                                    <option value="">All</option>
+                                    <option value="Paid" <?php echo ($filterPaymentStatus == 'Paid') ? 'selected' : ''; ?>>Paid</option>
+                                    <option value="Unpaid" <?php echo ($filterPaymentStatus == 'Unpaid') ? 'selected' : ''; ?>>Unpaid</option>
                                 </select>
                             </div>
                         </form>

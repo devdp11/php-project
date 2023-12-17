@@ -26,10 +26,6 @@
             </ol>
         </nav>
 
-        <button type="button" class="btn btn-sucess ms-auto" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            About US
-        </button>
-
         <div class="row row-cols-1 row-cols-md-3 g-2">
             <div class="col">
                 <div class="card bg-warning">
