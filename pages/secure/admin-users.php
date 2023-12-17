@@ -127,7 +127,7 @@
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="modal-title"> Add a User </h5>
+                        <h5 class="modal-title" id="modal-title"> Edit User </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body pt-0">
@@ -187,14 +187,14 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Delete Expense</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Delete User</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <form action="../../controllers/admin/user.php" method="post">
                             <input type="hidden" name="user_id" value="<?= $user['id']; ?>">
                             <div class="mb-3">
-                                Do you want to proceed deleting the expense?
+                                Do you want to proceed deleting the user?
                             </div>
                             <button type="submit" name="user" value="delete" class="btn btn-danger">Delete</button>
                         </form>
