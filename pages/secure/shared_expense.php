@@ -41,6 +41,11 @@ $user = user();
     
     <div class="row row-cols-1 row-cols-md-3 g-3">
         <?php $expenses = getAllSharedExpensesById($user['id']); ?>
+        <div class="d-flex justify-content-center w-100">
+            <?php if (empty($expenses)) : ?>
+                <strong><p class="mt-3" style="color: red">No shared expenses found.</p></strong>
+            <?php endif; ?>
+        </div>
         <?php foreach ($expenses as $expense) : ?>
             <div class="col">
                 <div class="card style" id="expense-card-<?php echo $expense['expense_id']; ?>">

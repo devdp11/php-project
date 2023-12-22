@@ -4,7 +4,7 @@ require_once __DIR__ . '../../db/connection.php';
 function getExpensesCountById($userId) {
     global $pdo;
 
-    $stmt = $pdo->prepare("SELECT COUNT(*) AS expenseCount FROM expenses WHERE user_id = :user_id AND deleted_at IS NULL");
+    $stmt = $pdo->prepare("SELECT COUNT(*) AS expenseCount FROM expenses WHERE user_id = :user_id AND payed = 0 AND deleted_at IS NULL");
     $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
     $stmt->execute();
 
