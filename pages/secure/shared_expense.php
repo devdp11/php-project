@@ -51,7 +51,7 @@ $filterSharerName = isset($_POST['$filterSharerName']) ? $_POST['$filterSharerNa
         <form id="searchForm" class="d-flex" method="post" action="">
             <div class="form-group me-2 flex-grow-1">
                 <input type="text" class="form-control" id="$filterSharerName" name="$filterSharerName"
-                    placeholder="Search by sharer name" value="">
+                    placeholder="Search by sharer name" value="<?php echo $filterSharerName; ?>">
             </div>
         </form>
     </div>
