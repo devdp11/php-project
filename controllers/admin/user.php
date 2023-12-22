@@ -25,7 +25,7 @@ if (isset($_POST['user'])) {
     }
 }
 
-if (isset($_GET['user'])) {
+/* if (isset($_GET['user'])) {
     if ($_GET['user'] == 'update') {
         $user = getById($_GET['id']);
         $user['action'] = 'update';
@@ -48,7 +48,7 @@ if (isset($_GET['user'])) {
             header('location: /php-project/pages/secure/admin/');
         }
     }
-}
+} */
 
 function create($postData)
 {
