@@ -8,6 +8,10 @@
     $filterUserName = isset($_POST['filterUserName']) ? $_POST['filterUserName'] : '';
     $searchAdmin = isset($_POST['filterAdmin']) && $_POST['filterAdmin'] === 'true';
 
+    if (!isset($_SESSION['showAdmins'])) {
+        $_SESSION['showAdmins'] = false;
+    }
+
     if ($searchAdmin) {
         $_SESSION['showAdmins'] = !isset($_SESSION['showAdmins']) || !$_SESSION['showAdmins'];
     }
