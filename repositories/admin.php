@@ -126,6 +126,27 @@ function getUsersByName($name)
     }
 }
 
+function getUserByAdmin()
+{
+    try {
+        $query = 'SELECT * FROM users WHERE admin = 1';
+
+        $PDOStatement = $GLOBALS['pdo']->prepare($query);
+        $PDOStatement->execute();
+
+        $users = [];
+
+        while ($user = $PDOStatement->fetch(PDO::FETCH_ASSOC)) {
+            $users[] = $user;
+        }
+
+        return $users;
+    } catch (PDOException $e) {
+        echo 'Error: ' . $e->getMessage();
+        return false;
+    }
+}
+
 function getById($id)
 {
     try {
