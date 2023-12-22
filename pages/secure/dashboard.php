@@ -1,7 +1,7 @@
 <?php
     require_once __DIR__ . '../../../middlewares/middleware-user.php';
     @require_once __DIR__ . '/../../validations/session.php';
-    @require_once __DIR__ . '/../../repositories/expense.php';
+    @require_once __DIR__ . '/../../repositories/user-dash.php';
     $user = user();
 
     $expensesCount = getExpensesCountById($user['id']);
@@ -78,7 +78,7 @@
                     <?php
             $displayAmount = isset($sumExpensesAmount) && $sumExpensesAmount !== '' ? $sumExpensesAmount : '0';
             ?>
-                    <h6 class="card-title">Amount spent: <?php echo $displayAmount; ?>€</h6>
+                    <h6 class="card-title">Expense's Amount: <?php echo $displayAmount; ?>€</h6>
                 </div>
             </div>
         </div>

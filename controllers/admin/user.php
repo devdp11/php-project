@@ -1,5 +1,6 @@
 <?php
 
+require_once __DIR__ . '/../../repositories/admin.php';
 require_once __DIR__ . '/../../repositories/user.php';
 require_once __DIR__ . '/../../validations/admin/validate-user.php';
 require_once __DIR__ . '/../../validations/admin/validate-update.php';

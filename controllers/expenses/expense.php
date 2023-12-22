@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../../repositories/expense.php';
 require_once __DIR__ . '/../../repositories/user.php';
+require_once __DIR__ . '/../../repositories/shared-expense.php';
 @require_once __DIR__ . '/../../validations/session.php';
 @require_once __DIR__ . '/../../validations/expenses/validate-expense.php';
 
