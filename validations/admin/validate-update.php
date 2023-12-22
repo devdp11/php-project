@@ -14,7 +14,7 @@ function validatedUpdate($req)
         $errors['last_name'] = 'The Last Name field cannot be empty and must be between 3 and 255 characters';
     }
 
-    if (!empty($req['email'])) {
+    /* if (!empty($req['email'])) {
         $user = user();
         $existingUser = getByEmail($req['email']);
 
@@ -27,7 +27,7 @@ function validatedUpdate($req)
 
     if (!filter_var($req['email'], FILTER_VALIDATE_EMAIL)) {
         $errors['email'] = 'The Email field must have a valid email format, for example: name@example.com.';
-    }
+    } */
 
     if (!empty($req['birthdate'])) {
         $currentDate = new DateTime();

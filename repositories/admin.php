@@ -51,7 +51,7 @@ function updateAdminUser($userId, $userData)
         $sqlUpdate = "UPDATE users SET
             first_name = :first_name,
             last_name = :last_name,
-            email = :email,
+            /* email = :email, */
             country = :country,
             birthdate = :birthdate,
             admin = :admin,
@@ -73,7 +73,7 @@ function updateAdminUser($userId, $userData)
         $params = [
             ':first_name' => $userData['first_name'],
             ':last_name' => $userData['last_name'],
-            ':email' => $userData['email'],
+            /* ':email' => $userData['email'], */
             ':country' => $userData['country'],
             ':birthdate' => $userData['birthdate'],
             ':admin' => $userData['admin'],

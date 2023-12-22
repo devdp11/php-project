@@ -149,7 +149,7 @@
                                 <label>Email</label>
                                 <input autocomplete="off" type="email" class="form-control" id="email" name="email"
                                     aria-describedby="emailHelp" placeholder="Enter email"
-                                    value="<?= isset($user['email']) ? $user['email'] : '' ?>">
+                                    value="<?= isset($user['email']) ? $user['email'] : '' ?>" readonly>
                             </div>
                             <div class="form-group mt-3">
                                 <label>Birth Date</label>
