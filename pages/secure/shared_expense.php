@@ -4,6 +4,14 @@ require_once __DIR__ . '/../../repositories/expense.php';
 require_once __DIR__ . '/../../repositories/shared-expense.php';
 @require_once __DIR__ . '/../../validations/session.php';
 $user = user();
+
+$filterSharerName = isset($_POST['$filterSharerName']) ? $_POST['$filterSharerName'] : '';
+
+    if (!empty($filterSharerName)) {
+        $expenses = getSharedExpensesBySharer($filterSharerName);
+    } else {
+        $expenses = getAllSharedExpensesById($user['id']);
+    }
 ?>
 
 <?php include __DIR__ . '/sidebar.php'; ?>
@@ -38,9 +46,17 @@ $user = user();
         }
         ?>
     </section>
+
+    <div class="col-12 col-md-9 my-2">
+        <form id="searchForm" class="d-flex" method="post" action="">
+            <div class="form-group me-2 flex-grow-1">
+                <input type="text" class="form-control" id="$filterSharerName" name="$filterSharerName"
+                    placeholder="Search by sharer name" value="">
+            </div>
+        </form>
+    </div>
     
     <div class="row row-cols-1 row-cols-md-3 g-3">
-        <?php $expenses = getAllSharedExpensesById($user['id']); ?>
         <div class="d-flex justify-content-center w-100">
             <?php if (empty($expenses)) : ?>
                 <strong><p class="mt-3" style="color: red">No shared expenses found.</p></strong>

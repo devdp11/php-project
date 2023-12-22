@@ -74,6 +74,32 @@ function getAllSharedExpensesById($userId)
     }
 }
 
+function getSharedExpensesBySharer($name)
+{
+    try {
+        $query = 'SELECT se.*, u.first_name AS sharer_first_name, u.last_name AS sharer_last_name, ';
+        $query .= 'expenses.*, categories.description AS category_description, methods.description AS payment_description ';
+        $query .= 'FROM shared_expenses se ';
+        $query .= 'JOIN users u ON se.sharer_user_id = u.id ';
+        $query .= 'JOIN expenses ON se.expense_id = expenses.expense_id ';
+        $query .= 'LEFT JOIN categories ON expenses.category_id = categories.id ';
+        $query .= 'LEFT JOIN methods ON expenses.payment_id = methods.id ';
+        $query .= 'WHERE u.first_name LIKE :name OR u.last_name LIKE :name';
+
+        $PDOStatement = $GLOBALS['pdo']->prepare($query);
+        $nameParam = "%$name%";
+        $PDOStatement->bindParam(':name', $nameParam, PDO::PARAM_STR);
+        $PDOStatement->execute();
+
+        $result = $PDOStatement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    } catch (PDOException $e) {
+        echo 'Error: ' . $e->getMessage();
+        return [];
+    }
+}
+
 function removeSharedExpense($expenseId, $UserId)
 {
     try {
