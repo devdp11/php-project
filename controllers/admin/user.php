@@ -25,31 +25,6 @@ if (isset($_POST['user'])) {
     }
 }
 
-/* if (isset($_GET['user'])) {
-    if ($_GET['user'] == 'update') {
-        $user = getById($_GET['id']);
-        $user['action'] = 'update';
-        $params = '?' . http_build_query($user);
-        header('location: /php-project/pages/secure/admin/user.php' . $params);
-    }
-
-    if ($_GET['user'] == 'delete') {
-        $user = getById($_GET['id']);
-        if ($user['administrator']) {
-            $_SESSION['errors'] = ['This user cannot be deleted!'];
-            header('location: /php-project/pages/secure/admin/');
-            return false;
-        }
-
-        $success = delete_user($user);
-
-        if ($success) {
-            $_SESSION['success'] = 'User deleted successfully!';
-            header('location: /php-project/pages/secure/admin/');
-        }
-    }
-} */
-
 function create($postData)
 {
     $validationResult = validatedUser($postData);
