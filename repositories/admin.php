@@ -66,6 +66,10 @@ function updateAdminUser($userId, $userData)
 
         $PDOStatement = $GLOBALS['pdo']->prepare($sqlUpdate);
 
+        if (empty($userData['birthdate'])) {
+            $userData['birthdate'] = null;
+        }
+
         $params = [
             ':first_name' => $userData['first_name'],
             ':last_name' => $userData['last_name'],
