@@ -106,7 +106,7 @@ function getAll()
 function getUsersByName($name)
 {
     try {
-        $query = 'SELECT * FROM users WHERE first_name LIKE :name OR last_name LIKE :name';
+        $query = 'SELECT * FROM users WHERE deleted_at IS NULL AND (first_name LIKE :name OR last_name LIKE :name)';
         $nameParam = "%{$name}%";
 
         $PDOStatement = $GLOBALS['pdo']->prepare($query);
@@ -129,7 +129,7 @@ function getUsersByName($name)
 function getUserByAdmin()
 {
     try {
-        $query = 'SELECT * FROM users WHERE admin = 1';
+        $query = 'SELECT * FROM users WHERE admin = 1 AND deleted_at IS NULL';
 
         $PDOStatement = $GLOBALS['pdo']->prepare($query);
         $PDOStatement->execute();
