@@ -218,14 +218,14 @@ if ($orderAmount == 'asc') {
                     <div class="col">
                         <div class="justify-content-end align-items-center mt-2 mx-2">
                             <button type="button" class='btn btn-danger btn-sm float-end m-1' data-bs-toggle="modal"
-                                data-bs-target="#delete-expense<?= $expense['expense_id']; ?>"><i
-                                    class="fas fa-trash-alt"></i></button>
-                            <button type="button" class='btn btn-blueviolet btn-sm float-end m-1' data-bs-toggle="modal"
-                                data-bs-target="#share-expense<?= $expense['expense_id']; ?>"><i
-                                    class="fas fa-share"></i></button>
-                            <button type="button" class='btn btn-blueviolet btn-sm float-end m-1' data-bs-toggle="modal"
-                                data-bs-target="#edit-expense<?= $expense['expense_id']; ?>"><i
-                                    class="fas fa-pencil-alt"></i></button>
+                                data-bs-target="#delete-expense<?= $expense['expense_id']; ?>"><i class="fas fa-trash-alt"></i></button>
+
+                            <?php if ($expense['payed'] != 1) { ?>
+                                <button type="button" class='btn btn-blueviolet btn-sm float-end m-1' data-bs-toggle="modal"
+                                    data-bs-target="#share-expense<?= $expense['expense_id']; ?>"><i class="fas fa-share"></i></button>
+                                <button type="button" class='btn btn-blueviolet btn-sm float-end m-1' data-bs-toggle="modal"
+                                    data-bs-target="#edit-expense<?= $expense['expense_id']; ?>"><i class="fas fa-pencil-alt"></i></button>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>
