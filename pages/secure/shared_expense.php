@@ -47,7 +47,7 @@ $filterSharerName = isset($_POST['$filterSharerName']) ? $_POST['$filterSharerNa
         ?>
     </section>
 
-    <div class="col-12 col-md-9 my-2">
+    <div class="col-12 col-md-12 my-2">
         <form id="searchForm" class="d-flex" method="post" action="">
             <div class="form-group me-2 flex-grow-1">
                 <input type="text" class="form-control" id="$filterSharerName" name="$filterSharerName"

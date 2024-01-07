@@ -60,32 +60,29 @@
     </section>
 
     <div class="row mb-3">
-        <div class="col-12 col-md-2 mb-2">
-            <button class="btn btn-blueviolet mb-4" data-bs-toggle="modal" data-bs-target="#add-user">
-                Add User
+        <div class="col-12 col-md-1 my-2 mb-2">
+            <button class="btn btn-blueviolet" data-bs-toggle="modal" data-bs-target="#add-expense">
+                <span class="fa fa-plus"></span>
             </button>
         </div>
-        <div class="w-100"></div>
-        <div class="row mb-3">
-            <div class="col col-md-10 mb-2">
-                <form id="searchForm" class="d-flex" method="post" action="">
-                    <div class="form-group me-2 flex-grow-1">
-                        <input type="text" class="form-control" id="filterUserName" name="filterUserName"
-                            placeholder="Search by Name" value="<?php echo $filterUserName; ?>">
-                    </div>
-                </form>
-            </div>
-            <div class="col col-md-2 mb-2">
-                <form method="post" action="">
-                    <button id="adminButton" type="submit"
-                        class="btn <?php echo $_SESSION['showAdmins'] ? 'btn-blueviolet' : 'btn-blueviolet-reverse'; ?> mb-4"
-                        name="filterAdmin" value="true">
-                        <span
-                            class="fas <?php echo $_SESSION['showAdmins'] ? 'fa-users' : 'fa-user-shield'; ?> me-2 w-auto"></span>
-                        <?php echo $_SESSION['showAdmins'] ? 'Show All' : 'Show Admins'; ?>
-                    </button>
-                </form>
-            </div>
+        <div class="col col-md-9 my-2 mb-2">
+            <form id="searchForm" class="d-flex" method="post" action="">
+                <div class="form-group me-2 flex-grow-1">
+                    <input type="text" class="form-control" id="filterUserName" name="filterUserName"
+                        placeholder="Search by Name" value="<?php echo $filterUserName; ?>">
+                </div>
+            </form>
+        </div>
+        <div class="col col-md-2 my-2 mb-2">
+            <form method="post" action="">
+                <button id="adminButton" type="submit"
+                    class="btn <?php echo $_SESSION['showAdmins'] ? 'btn-blueviolet' : 'btn-blueviolet-reverse'; ?> mb-4"
+                    name="filterAdmin" value="true">
+                    <span
+                        class="fas <?php echo $_SESSION['showAdmins'] ? 'fa-users' : 'fa-user-shield'; ?> me-2 w-auto"></span>
+                    <?php echo $_SESSION['showAdmins'] ? 'Show All' : 'Show Admins'; ?>
+                </button>
+            </form>
         </div>
     </div>
 

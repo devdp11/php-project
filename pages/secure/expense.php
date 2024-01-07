@@ -85,13 +85,14 @@ if ($orderAmount == 'asc') {
     </section>
 
     <div class="row mb-3">
-        <div class="col-12 col-md-2 mb-2">
-            <button class="btn btn-blueviolet mb-2" data-bs-toggle="modal" data-bs-target="#add-expense">
-                Add Expense
+        <div class="col-12 col-md-1 my-2 mb-2">
+            <button class="btn btn-blueviolet" data-bs-toggle="modal" data-bs-target="#add-expense">
+                <span class="fa fa-plus"></span>
             </button>
         </div>
-        <div class="w-100"></div>
-        <div class="col-12 col-md-9 my-2">
+
+
+        <div class="col-12 col-md-10 my-2 mb-2">
             <form id="searchForm" class="d-flex" method="post" action="">
                 <div class="form-group me-2 flex-grow-1">
                     <input type="text" class="form-control" id="filterDescription" name="filterDescription"
@@ -99,7 +100,7 @@ if ($orderAmount == 'asc') {
                 </div>
             </form>
         </div>
-        <div class="col-12 col-md-1 my-2">
+        <div class="col-12 col-md-1 my-2 mb-2">
             <div class="dropdown">
                 <button class="btn btn btn-blueviolet-reverse dropdown-toggle" type="button" id="filterDropdownButton"
                     data-bs-toggle="dropdown" aria-expanded="false">
@@ -218,13 +219,16 @@ if ($orderAmount == 'asc') {
                     <div class="col">
                         <div class="justify-content-end align-items-center mt-2 mx-2">
                             <button type="button" class='btn btn-danger btn-sm float-end m-1' data-bs-toggle="modal"
-                                data-bs-target="#delete-expense<?= $expense['expense_id']; ?>"><i class="fas fa-trash-alt"></i></button>
+                                data-bs-target="#delete-expense<?= $expense['expense_id']; ?>"><i
+                                    class="fas fa-trash-alt"></i></button>
 
                             <?php if ($expense['payed'] != 1) { ?>
-                                <button type="button" class='btn btn-blueviolet btn-sm float-end m-1' data-bs-toggle="modal"
-                                    data-bs-target="#share-expense<?= $expense['expense_id']; ?>"><i class="fas fa-share"></i></button>
-                                <button type="button" class='btn btn-blueviolet btn-sm float-end m-1' data-bs-toggle="modal"
-                                    data-bs-target="#edit-expense<?= $expense['expense_id']; ?>"><i class="fas fa-pencil-alt"></i></button>
+                            <button type="button" class='btn btn-blueviolet btn-sm float-end m-1' data-bs-toggle="modal"
+                                data-bs-target="#share-expense<?= $expense['expense_id']; ?>"><i
+                                    class="fas fa-share"></i></button>
+                            <button type="button" class='btn btn-blueviolet btn-sm float-end m-1' data-bs-toggle="modal"
+                                data-bs-target="#edit-expense<?= $expense['expense_id']; ?>"><i
+                                    class="fas fa-pencil-alt"></i></button>
                             <?php } ?>
                         </div>
                     </div>
