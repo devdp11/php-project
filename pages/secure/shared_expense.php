@@ -139,26 +139,11 @@ $filterSharerName = isset($_POST['$filterSharerName']) ? $_POST['$filterSharerNa
         <?php endforeach; ?>
     </div>
 
-    <script>
-    function debounce(func, delay) {
-        let timeout;
-        return function() {
-            const context = this;
-            const args = arguments;
-            clearTimeout(timeout);
-            timeout = setTimeout(function() {
-                func.apply(context, args);
-            }, delay);
-        };
-    }
-
-    function submitFormOnType() {
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
         var form = document.getElementById("searchForm");
+        var inputElement = document.getElementById("$filterSharerName");
 
-        document.getElementById("$filterSharerName").addEventListener("input", debounce(function() {
-            form.submit();
-        }, 350));
-    }
-
-    document.addEventListener("DOMContentLoaded", submitFormOnType);
-    </script>
+        setupDebouncer(inputElement, form);
+    });
+</script>

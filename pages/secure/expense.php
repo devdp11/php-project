@@ -490,36 +490,19 @@ if ($orderAmount == 'asc') {
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const payedCheckbox = document.getElementById('payed');
-    const paymentBox = document.getElementById('paymentBox');
+    document.addEventListener('DOMContentLoaded', function() {
+        const payedCheckbox = document.getElementById('payed');
+        const paymentBox = document.getElementById('paymentBox');
 
-    paymentBox.style.display = payedCheckbox.checked ? 'block' : 'none';
+        paymentBox.style.display = payedCheckbox.checked ? 'block' : 'none';
 
-    payedCheckbox.addEventListener('change', function() {
-        paymentBox.style.display = this.checked ? 'block' : 'none';
+        payedCheckbox.addEventListener('change', function() {
+            paymentBox.style.display = this.checked ? 'block' : 'none';
+        });
+
+        var form = document.getElementById("searchForm");
+        var inputElement = document.getElementById("filterDescription");
+
+        setupDebouncer(inputElement, form);
     });
-});
-
-function debounce(func, delay) {
-    let timeout;
-    return function() {
-        const context = this;
-        const args = arguments;
-        clearTimeout(timeout);
-        timeout = setTimeout(function() {
-            func.apply(context, args);
-        }, delay);
-    };
-}
-
-function submitFormOnType() {
-    var form = document.getElementById("searchForm");
-
-    document.getElementById("filterDescription").addEventListener("input", debounce(function() {
-        form.submit();
-    }, 350));
-}
-
-document.addEventListener("DOMContentLoaded", submitFormOnType);
 </script>

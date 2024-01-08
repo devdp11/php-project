@@ -278,34 +278,19 @@
         </div>
     </div>
 
-    <script>
-    function debounce(func, delay) {
-        let timeout;
-        return function() {
-            const context = this;
-            const args = arguments;
-            clearTimeout(timeout);
-            timeout = setTimeout(function() {
-                func.apply(context, args);
-            }, delay);
-        };
-    }
-
-    function submitFormOnType() {
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
         var form = document.getElementById("searchForm");
+        var inputElement = document.getElementById("filterUserName");
 
-        document.getElementById("filterUserName").addEventListener("input", debounce(function() {
-            form.submit();
-        }, 350));
-    }
+        setupDebouncer(inputElement, form);
+    });
 
-    document.addEventListener("DOMContentLoaded", submitFormOnType);
-
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener('DOMContentLoaded', function() {
         var adminButton = document.getElementById("adminButton");
 
         adminButton.addEventListener("click", function() {
             document.getElementById("searchForm").submit();
         });
     });
-    </script>
+</script>
