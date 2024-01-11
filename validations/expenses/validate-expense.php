@@ -16,11 +16,6 @@ function isExpenseValid($req)
         $errors['note'] = 'The Note field cannot exceed 255 characters.';
     }
 
-    $currentDate = date('Y-m-d');
-    if (empty($req['date']) || strtotime($req['date']) === false || $req['date'] < $currentDate) {
-        $errors['date'] = 'The Date field must be a valid date and cannot be in the past.';
-    }
-
     if (!empty($errors)) {
         return ['invalid' => $errors];
     }
