@@ -61,7 +61,7 @@
 
     <div class="row mb-3">
         <div class="col-12 col-md-1 my-2 mb-2">
-            <button class="btn btn-blueviolet" data-bs-toggle="modal" data-bs-target="#add-expense">
+            <button class="btn btn-blueviolet" data-bs-toggle="modal" data-bs-target="#add-user">
                 <span class="fa fa-plus"></span>
             </button>
         </div>
